@@ -1,45 +1,37 @@
-package com.init.Game99_AndroidLibrary.screeens;
+package com.init.Game99_AndroidLibrary;
 
 import java.util.List;
 
 import android.util.Log;
 
-import com.init.Game99_AndroidLibrary.assets.Assets;
 import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Input.TouchEvent;
 import com.init.framework.Screen;
 
-public class MainMenuScreen extends Screen {
-	private float count=0;
-	private int countINT;
-	private float sin;
+public class ScreenB_MainMenu extends Screen {
 	private int clearScreen;
 	private boolean clearScreenBool;
 	private int gameWidth = game.getGraphics().getWidth();
 	private int gameHeight = game.getGraphics().getHeight();
 	private boolean[] blocksColour = {true,false,true,false};
 	private int blockWidth = gameWidth/4;
+	private float runTime;
+	private Objects_Animation birdAnimation;
 
-	public MainMenuScreen(Game game) {
+	public ScreenB_MainMenu(Game game) {
 		super(game);
-		// TODO Auto-generated constructor stub
-		Log.i("NNGame", "MainMenuScreen");
+		
+		Log.i("NNGame", "ScreenB_MainMenu");
+		runTime = 0;
+		birdAnimation = Assets.birdAnimation;
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		// TODO Auto-generated method stub
+		runTime += deltaTime;
 		Log.i("MainMenuScreen", "update");
-		count+=0.1;
-		if (count > 3){
-			count=0;
-		}
-		countINT= (int) count;
-		sin += 0.1;
-		if (sin>Math.PI){
-			sin = 0;
-		}
 
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
@@ -65,8 +57,8 @@ public class MainMenuScreen extends Screen {
 		
 		if (clearScreenBool){
 			clearScreen+=10;
-			if (clearScreen > game.getGraphics().getHeight()){
-				game.setScreen(new LoadingScreenTwo(game));
+			if (clearScreen > gameHeight){
+				game.setScreen(new ScreenC_LoadingScreen(game));
 			}
 		}
 	}
@@ -94,19 +86,24 @@ public class MainMenuScreen extends Screen {
 
 	@Override
 	public void paint(float deltaTime) {
-		// TODO Auto-generated method stub
-		Graphics g = game.getGraphics();
-		g.drawImage(Assets.menu, 0, 0);
-		//		g.drawRect((game.getGraphics().getWidth()/2)-(width/2), (game.getGraphics().getHeight()/2)-(height/2), width, height, -16777216);
-		g.drawImage(Assets.birdAnimation.get(countINT)
-				, (gameWidth/2)-(Assets.birdAnimation.get(countINT).getWidth()/2) 
-				, (int)((game.getGraphics().getHeight()/2)-(Assets.birdAnimation.get(countINT).getHeight()/2)+(Math.sin(sin)*10)) );
 		
+		Graphics g = game.getGraphics();
+		
+		// Draw background Image
+		g.drawImage(Assets.menu, 0, 0);
+		
+		// Draw BirdAnimation
+		g.drawImage(birdAnimation.getFrame(runTime/10), 
+				((gameWidth/2)-(birdAnimation.getWidth()/2)), 
+				(int) ((gameHeight/2)-(birdAnimation.getHeight()/2)+(3*(Math.sin(runTime/10)))) );
+		
+		// Draw bottom blocks
 		g.drawRect(0, gameHeight-blockWidth , blockWidth, blockWidth+5, getColour(blocksColour[0]));
 		g.drawRect(blockWidth, gameHeight-blockWidth , blockWidth, blockWidth+5, getColour(blocksColour[1]));
 		g.drawRect(blockWidth*2, gameHeight-blockWidth , blockWidth, blockWidth+5, getColour(blocksColour[2]));
 		g.drawRect(blockWidth*3, gameHeight-blockWidth , blockWidth+5, blockWidth+5, getColour(blocksColour[3]));
 		
+		// Draw white background for blocks
 		g.drawRect(0, 0, gameWidth, clearScreen, -16711681);
 	}
 	

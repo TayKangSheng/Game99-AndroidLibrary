@@ -1,4 +1,4 @@
-package com.init.Game99_AndroidLibrary.screeens;
+package com.init.Game99_AndroidLibrary;
 
 import android.graphics.Paint;
 import android.util.Log;
@@ -7,13 +7,13 @@ import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
 
-public class LoadingScreenTwo extends Screen {
+public class ScreenC_LoadingScreen extends Screen {
 	Paint loading = new Paint();
 	String[] loadingString = {"loading","loading.","loading..","loading..."};
 	String loadingCurrent;
 	float count;
 
-	public LoadingScreenTwo(Game game) {
+	public ScreenC_LoadingScreen(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
 		Log.i("NNGame", "MainMenuScreen");
@@ -50,7 +50,7 @@ public class LoadingScreenTwo extends Screen {
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-        game.setScreen(new LoadingScreen(game));
+        game.setScreen(new ScreenA_Initialisation(game));
 	}
 
 	@Override
