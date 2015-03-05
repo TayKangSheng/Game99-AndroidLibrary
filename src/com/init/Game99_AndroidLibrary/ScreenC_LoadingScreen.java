@@ -9,9 +9,7 @@ import com.init.framework.Screen;
 
 public class ScreenC_LoadingScreen extends Screen {
 	Paint loading = new Paint();
-	String[] loadingString = {"loading","loading.","loading..","loading..."};
 	String loadingCurrent;
-	float count;
 
 	public ScreenC_LoadingScreen(Game game) {
 		super(game);
@@ -23,11 +21,8 @@ public class ScreenC_LoadingScreen extends Screen {
 	@Override
 	public void update(float deltaTime) {
 		// TODO Auto-generated method stub
-		count+=0.02;
-		loadingCurrent = loadingString[(int)count];
-		if (count>loadingString.length-1+0.29){
-			count=0;
-		}
+		Assets.runTime += deltaTime;
+		loadingCurrent = Assets.loadingStringAnimation.getStringFrame(Assets.runTime/20);
 	}
 
 	@Override

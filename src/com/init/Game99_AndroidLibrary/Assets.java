@@ -5,11 +5,13 @@ import com.init.framework.Sound;
 
 public class Assets {
 	
+	public static float runTime;
 	public static Image menu;
 	public static Sound click;
 	public static Objects_Animation birdAnimation;
 	public static Image bird1;
 	public static Image bird2;
 	public static Image bird3;
+	public static Objects_Animation loadingStringAnimation;
 	
 }

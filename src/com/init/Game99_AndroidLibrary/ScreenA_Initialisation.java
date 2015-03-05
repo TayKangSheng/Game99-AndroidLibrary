@@ -26,6 +26,8 @@ public class ScreenA_Initialisation extends Screen {
 	public void update(float deltaTime) {
 		
 		// Initialization of ALL game assets.
+		Assets.runTime=0;
+		
 		Graphics g = game.getGraphics();
 		Assets.menu = g.newImage("menu.png", ImageFormat.RGB565);
 		Assets.bird1 = g.newImage("Bird1.png", ImageFormat.RGB565);
@@ -37,7 +39,10 @@ public class ScreenA_Initialisation extends Screen {
 		birdAnimationImages.add(Assets.bird2);
 		birdAnimationImages.add(Assets.bird3);
 		
+		String[] loadingStrings = {"loading","loading.","loading..","loading..."};
+		
 		Assets.birdAnimation = new Objects_Animation(birdAnimationImages);
+		Assets.loadingStringAnimation = new Objects_Animation( loadingStrings );
 		
 		// Set GameScreen to ScreenB_MainMenu.
         game.setScreen(new ScreenB_MainMenu(game));
