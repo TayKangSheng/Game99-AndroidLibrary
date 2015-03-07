@@ -15,7 +15,7 @@ public class ScreenA_Initialisation extends Screen {
 
 	public ScreenA_Initialisation(Game game) {
 		super(game);
-		Log.i("NNGame", "A_Initialisation_screen");
+		Log.i("ScreenA_Initialisation", "A_Initialisation_screen");
 	}
 
 	/**
@@ -24,6 +24,7 @@ public class ScreenA_Initialisation extends Screen {
 	 */
 	@Override
 	public void update(float deltaTime) {
+		Log.i("ScreenA_Initialisation", "update");
 		
 		// Initialization of ALL game assets.
 		Assets.runTime=0;
@@ -33,6 +34,8 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.bird1 = g.newImage("Bird1.png", ImageFormat.RGB565);
 		Assets.bird2 = g.newImage("Bird2.png", ImageFormat.RGB565);
 		Assets.bird3 = g.newImage("Bird3.png", ImageFormat.RGB565);
+//		Assets.gridButtonMyPlanet = g.newImage("gameButtonMyPlanet.png", ImageFormat.RGB565);
+//		Assets.gridButtonNotMyPlanet = g.newImage("gameButtonNotMyPlanet.png", ImageFormat.RGB565);
 		
 		ArrayList<Image> birdAnimationImages = new ArrayList<Image>();
 		birdAnimationImages.add(Assets.bird1);
@@ -50,7 +53,7 @@ public class ScreenA_Initialisation extends Screen {
 
 	@Override
 	public void paint(float deltaTime) {
-		// TODO Auto-generated method stub
+		Log.i("ScreenA_Initialisation", "paint");
 		
 	}
 

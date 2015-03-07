@@ -14,20 +14,25 @@ public class ScreenC_LoadingScreen extends Screen {
 	public ScreenC_LoadingScreen(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
-		Log.i("NNGame", "MainMenuScreen");
+		Log.i("ScreenC_LoadingScreen", "ScreenC_LoadingScreen");
 
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		// TODO Auto-generated method stub
+		Log.i("ScreenC_LoadingScreen", "update");
+		
 		Assets.runTime += deltaTime;
 		loadingCurrent = Assets.loadingStringAnimation.getStringFrame(Assets.runTime/20);
+		
+		game.setScreen(new ScreenD_GameScreen(game));
 	}
 
 	@Override
 	public void paint(float deltaTime) {
-		// TODO Auto-generated method stub
+		Log.i("ScreenC_LoadingScreen", "paint");
+		
 		Graphics g = game.getGraphics();
 		g.clearScreen(-12303292);
 		loading.setColor(-16711936);

@@ -20,16 +20,15 @@ public class ScreenB_MainMenu extends Screen {
 
 	public ScreenB_MainMenu(Game game) {
 		super(game);
-		
-		Log.i("NNGame", "ScreenB_MainMenu");
+		Log.i("ScreenB_MainMenu", "ScreenB_MainMenu");
 		birdAnimation = Assets.birdAnimation;
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		// TODO Auto-generated method stub
+		Log.i("ScreenB_MainMenu", "update");
+
 		Assets.runTime += deltaTime;
-		Log.i("MainMenuScreen", "update");
 
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
@@ -54,7 +53,7 @@ public class ScreenB_MainMenu extends Screen {
 		}
 		
 		if (clearScreenBool){
-			clearScreen+=10;
+			clearScreen+=20;
 			if (clearScreen > gameHeight){
 				game.setScreen(new ScreenC_LoadingScreen(game));
 			}
@@ -84,6 +83,7 @@ public class ScreenB_MainMenu extends Screen {
 
 	@Override
 	public void paint(float deltaTime) {
+		Log.i("ScreenB_MainMenu", "paint");
 		
 		Graphics g = game.getGraphics();
 		

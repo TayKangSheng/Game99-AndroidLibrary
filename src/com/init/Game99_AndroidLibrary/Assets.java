@@ -12,6 +12,14 @@ public class Assets {
 	public static Image bird1;
 	public static Image bird2;
 	public static Image bird3;
+	public static Image gridButtonMyPlanet;
+	public static Image gridButtonNotMyPlanet;
 	public static Objects_Animation loadingStringAnimation;
-	
+	public static boolean[] interGalaticaMapVector = 
+		{false, true, true, false, false, true, true,
+		false, false, true, true, false, false, true,
+		true, false, false, true, true, false, false,
+		true, true, false, true, false, true, false,
+		true, false, true, false, false, true, false};
+	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
 }
