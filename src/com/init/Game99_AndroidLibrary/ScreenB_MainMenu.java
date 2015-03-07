@@ -16,22 +16,19 @@ public class ScreenB_MainMenu extends Screen {
 	private int gameHeight = game.getGraphics().getHeight();
 	private boolean[] blocksColour = {true,false,true,false};
 	private int blockWidth = gameWidth/4;
-	private float runTime;
 	private Objects_Animation birdAnimation;
 
 	public ScreenB_MainMenu(Game game) {
 		super(game);
-		
-		Log.i("NNGame", "ScreenB_MainMenu");
-		runTime = 0;
+		Log.i("ScreenB_MainMenu", "ScreenB_MainMenu");
 		birdAnimation = Assets.birdAnimation;
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		// TODO Auto-generated method stub
-		runTime += deltaTime;
-		Log.i("MainMenuScreen", "update");
+		Log.i("ScreenB_MainMenu", "update");
+
+		Assets.runTime += deltaTime;
 
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
@@ -56,7 +53,7 @@ public class ScreenB_MainMenu extends Screen {
 		}
 		
 		if (clearScreenBool){
-			clearScreen+=10;
+			clearScreen+=20;
 			if (clearScreen > gameHeight){
 				game.setScreen(new ScreenC_LoadingScreen(game));
 			}
@@ -86,6 +83,7 @@ public class ScreenB_MainMenu extends Screen {
 
 	@Override
 	public void paint(float deltaTime) {
+		Log.i("ScreenB_MainMenu", "paint");
 		
 		Graphics g = game.getGraphics();
 		
@@ -93,9 +91,9 @@ public class ScreenB_MainMenu extends Screen {
 		g.drawImage(Assets.menu, 0, 0);
 		
 		// Draw BirdAnimation
-		g.drawImage(birdAnimation.getFrame(runTime/10), 
-				((gameWidth/2)-(birdAnimation.getWidth()/2)), 
-				(int) ((gameHeight/2)-(birdAnimation.getHeight()/2)+(3*(Math.sin(runTime/10)))) );
+		g.drawImage(birdAnimation.getImageFrame(Assets.runTime/14), 
+				(int) ((Assets.runTime*3)%(gameWidth+birdAnimation.getWidth()))-birdAnimation.getWidth(), 
+				(int) ((gameHeight/2)-(birdAnimation.getHeight()/2)+(10*(Math.sin(Assets.runTime/15)))) );
 		
 		// Draw bottom blocks
 		g.drawRect(0, gameHeight-blockWidth , blockWidth, blockWidth+5, getColour(blocksColour[0]));
