@@ -34,8 +34,8 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.bird1 = g.newImage("Bird1.png", ImageFormat.RGB565);
 		Assets.bird2 = g.newImage("Bird2.png", ImageFormat.RGB565);
 		Assets.bird3 = g.newImage("Bird3.png", ImageFormat.RGB565);
-//		Assets.gridButtonMyPlanet = g.newImage("gameButtonMyPlanet.png", ImageFormat.RGB565);
-//		Assets.gridButtonNotMyPlanet = g.newImage("gameButtonNotMyPlanet.png", ImageFormat.RGB565);
+		Assets.gridButtonMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565);
+		Assets.gridButtonNotMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565);
 		
 		ArrayList<Image> birdAnimationImages = new ArrayList<Image>();
 		birdAnimationImages.add(Assets.bird1);

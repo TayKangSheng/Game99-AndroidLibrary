@@ -25,13 +25,14 @@ public class Objects_GridButton {
 	public void setColor(boolean color){
 		if (color == true){
 			this.color = Color.BLUE;
-//			this.currentDisplay = Assets.gridButtonMyPlanet;
+			this.currentDisplay = Assets.gridButtonMyPlanet;
 			randomInt = String.valueOf(rand.nextInt(10));
 			
 		}
 		else{
 			this.color = Color.RED;
-//			this.currentDisplay = Assets.gridButtonNotMyPlanet;
+			this.currentDisplay = Assets.gridButtonNotMyPlanet;
+			randomInt = null;
 		}
 	}
 	

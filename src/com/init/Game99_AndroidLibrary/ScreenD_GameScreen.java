@@ -73,12 +73,12 @@ public class ScreenD_GameScreen extends Screen{
 		painter.setTextSize(100);
 		for (int i=0 ; i<gameGrid.size() ; i++){
 			Objects_GridButton temp = gameGrid.get(i);
-			g.drawRect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight(), temp.getColor());
-			if (gameGrid.get(i).getRandomInt()!=null){
-				g.drawString(gameGrid.get(i).getRandomInt(),temp.getX()+40, temp.getY()+90 ,painter);
+			g.drawImage(temp.getImage(), temp.getX(), temp.getY());
+//			g.drawRect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight(), temp.getColor());
+			if (temp.getRandomInt()!=null){
+				g.drawString(temp.getRandomInt(),temp.getX()+40, temp.getY()+90 ,painter);
 			}
 		}
-		
 	}
 
 	@Override
