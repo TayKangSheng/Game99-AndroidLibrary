@@ -11,10 +11,10 @@ public class Objects_GridButton {
 	private int color; // we can change this to an image when we have the graphics up
 	private Image currentDisplay; // Your image or not your image.
 	private int xCoor, yCoor; // x and y coordinate of the top left corner
-	private int randomInt; // Integer displayed of the button
+	private String randomInt; // Integer displayed of the button
 	private int buttonWidth = 130; // change this width to graphic's width
 	private int buttonHeight = 130; // change this height to graphic's height
-	private Random rand = new Random();
+	private static Random rand = new Random(); // Shared Random Number Generator
 	
 	Objects_GridButton(int x, int y, boolean Color){
 		xCoor = x;
@@ -25,18 +25,15 @@ public class Objects_GridButton {
 	public void setColor(boolean color){
 		if (color == true){
 			this.color = Color.BLUE;
-//			this.currentDisplay = Assets.gridButtonMyPlanet;
-			randomInt = rand.nextInt(10);
+			this.currentDisplay = Assets.gridButtonMyPlanet;
+			randomInt = String.valueOf(rand.nextInt(10));
 			
 		}
 		else{
 			this.color = Color.RED;
-//			this.currentDisplay = Assets.gridButtonNotMyPlanet;
+			this.currentDisplay = Assets.gridButtonNotMyPlanet;
+			randomInt = null;
 		}
-	}
-	
-	public void setRandomInt( int number){
-		this.randomInt = number;
 	}
 	
 	public Image getImage(){
@@ -55,7 +52,7 @@ public class Objects_GridButton {
 		return yCoor;
 	}
 	
-	public int getRandomInt(){
+	public String getRandomInt(){
 		return randomInt;
 	}
 	
