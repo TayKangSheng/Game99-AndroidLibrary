@@ -89,7 +89,7 @@ public class ScreenB_MainMenu extends Screen {
 		
 		// Draw background Image
 		g.drawImage(Assets.space, 0, 0);
-		
+		g.drawImage(Assets.start, 0, 0);
 		// Draw BirdAnimation
 		g.drawImage(birdAnimation.getImageFrame(Assets.runTime/14), 
 				(int) ((Assets.runTime*3)%(gameWidth+birdAnimation.getWidth()))-birdAnimation.getWidth(), 

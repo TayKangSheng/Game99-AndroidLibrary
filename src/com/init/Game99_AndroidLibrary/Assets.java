@@ -11,6 +11,7 @@ public class Assets {
 	public static Sound click;
 	public static Objects_Animation birdAnimation;
 	public static Image space;
+	public static Image start;
 	public static Image bird1;
 	public static Image bird2;
 	public static Image bird3;
