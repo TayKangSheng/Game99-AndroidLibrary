@@ -5,6 +5,7 @@ import com.init.framework.Sound;
 
 public class Assets {
 	
+	public static boolean running;
 	public static float runTime;
 	public static Image menu;
 	public static Sound click;
