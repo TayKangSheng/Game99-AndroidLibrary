@@ -4,8 +4,8 @@ import android.graphics.Color;
 
 public class Objects_Timer {
 
-	int color = Color.BLACK;
-	int textSize = 140;
+	int color = Color.WHITE;
+	int textSize = 100;
 	float countDown = 3000;
 
 	public String getValue(float runTime){
