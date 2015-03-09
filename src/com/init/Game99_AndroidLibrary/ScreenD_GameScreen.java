@@ -47,8 +47,12 @@ public class ScreenD_GameScreen extends Screen{
 		// receive data
 
 		// check clock
-		if (!Assets.running){
-			// END GAME
+		if (Integer.valueOf(clock.getValue(runTime))<=0){
+	        game.setScreen(new ScreenE_Results(game));
+		}
+		// check health
+		if (health==0){
+	        game.setScreen(new ScreenE_Results(game));
 		}
 
 		// click
