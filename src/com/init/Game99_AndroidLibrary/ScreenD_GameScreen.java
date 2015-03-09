@@ -48,7 +48,15 @@ public class ScreenD_GameScreen extends Screen{
 
 		// check clock
 		if (Integer.valueOf(clock.getValue(runTime))<=0){
+
 			game.setScreen(new ScreenE_Results(game));
+		}
+
+	        game.setScreen(new ScreenE_Results(game));
+		}
+		// check health
+		if (health==0){
+	        game.setScreen(new ScreenE_Results(game));
 		}
 
 
@@ -71,6 +79,7 @@ public class ScreenD_GameScreen extends Screen{
 
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
+
 		if (health>0){
 			int len = touchEvents.size();
 			for (int i = 0; i < len; i++) {
@@ -85,6 +94,19 @@ public class ScreenD_GameScreen extends Screen{
 							} else{
 								health-=1;
 							}
+
+		int len = touchEvents.size();
+		for (int i = 0; i < len; i++) {
+			TouchEvent event = touchEvents.get(i);
+			if (event.type == TouchEvent.TOUCH_UP) {
+				for (Objects_GridButton j : gameGrid){
+					if (inBounds(event, j.getX(), j.getY(), 130, 130)){
+						if (j.getRandomInt()==null){
+//							j.setImage(true);
+						} else if (Integer.valueOf(j.getRandomInt())==smallestNo){
+							j.setImage(false);
+						} else{
+							health-=1;
 						}
 					}
 				}
