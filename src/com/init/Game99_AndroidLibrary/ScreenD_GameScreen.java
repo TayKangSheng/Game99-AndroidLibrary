@@ -13,7 +13,7 @@ import com.init.framework.Screen;
 public class ScreenD_GameScreen extends Screen{
 
 	private int gameWidth = game.getGraphics().getWidth();
-	Paint paintClock = new Paint();
+	Paint painter = new Paint();
 	float runTime = 0;
 	boolean running = true;
 	ArrayList<Objects_GridButton> gameGrid = new ArrayList<Objects_GridButton>();
@@ -57,9 +57,9 @@ public class ScreenD_GameScreen extends Screen{
 		// Magenta background for power ups
 		g.drawRect(5, 1065, gameWidth-10, 210, Color.MAGENTA);
 		// Paint timer
-		paintClock.setColor(clock.getColor());
-		paintClock.setTextSize(clock.getTextSize());
-		g.drawString(clock.getValue(runTime), (gameWidth/2)-80, 120, paintClock);
+		painter.setColor(clock.getColor());
+		painter.setTextSize(clock.getTextSize());
+		g.drawString(clock.getValue(runTime), (gameWidth/2)-80, 120, painter);
 		// Paint health
 		for (int i=0 ; i<health ; i++){
 			g.drawRect(50+(i*50), 50, 50, 50, Color.BLACK);
@@ -69,10 +69,16 @@ public class ScreenD_GameScreen extends Screen{
 			g.drawRect(90+(i*210), 1070, 200, 200, Color.GRAY);
 		}
 		// Draw Grids
+		painter.setColor(Color.BLACK);
+		painter.setTextSize(100);
 		for (int i=0 ; i<gameGrid.size() ; i++){
 			Objects_GridButton temp = gameGrid.get(i);
 			g.drawRect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight(), temp.getColor());
+			if (gameGrid.get(i).getRandomInt()!=null){
+				g.drawString(gameGrid.get(i).getRandomInt(),temp.getX()+40, temp.getY()+90 ,painter);
+			}
 		}
+		
 	}
 
 	@Override
