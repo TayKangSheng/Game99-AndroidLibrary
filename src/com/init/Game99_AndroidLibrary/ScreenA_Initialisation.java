@@ -30,6 +30,7 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.runTime=0;
 		
 		Graphics g = game.getGraphics();
+		Assets.start = g.newImage("startbutton.png", ImageFormat.RGB565);
 		Assets.space = g.newImage("space3.png", ImageFormat.RGB565);
 		Assets.menu = g.newImage("menu.png", ImageFormat.RGB565);
 		Assets.bird1 = g.newImage("Bird1.png", ImageFormat.RGB565);
