@@ -48,6 +48,7 @@ public class ScreenD_GameScreen extends Screen{
 
 		// check clock
 		if (Integer.valueOf(clock.getValue(runTime))<=0){
+<<<<<<< HEAD
 	        game.setScreen(new ScreenE_Results(game));
 		}
 		// check health
@@ -55,6 +56,12 @@ public class ScreenD_GameScreen extends Screen{
 	        game.setScreen(new ScreenE_Results(game));
 		}
 
+=======
+			game.setScreen(new ScreenE_Results(game));
+		}
+
+
+>>>>>>> KANG1
 		// click
 		//		1. Sort list of values
 		//		2. Check whether the click is valid.
@@ -74,6 +81,7 @@ public class ScreenD_GameScreen extends Screen{
 
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
+<<<<<<< HEAD
 		int len = touchEvents.size();
 		for (int i = 0; i < len; i++) {
 			TouchEvent event = touchEvents.get(i);
@@ -86,6 +94,22 @@ public class ScreenD_GameScreen extends Screen{
 							j.setImage(false);
 						} else{
 							health-=1;
+=======
+		if (health>0){
+			int len = touchEvents.size();
+			for (int i = 0; i < len; i++) {
+				TouchEvent event = touchEvents.get(i);
+				if (event.type == TouchEvent.TOUCH_UP) {
+					for (Objects_GridButton j : gameGrid){
+						if (inBounds(event, j.getX(), j.getY(), 130, 130)){
+							if (j.getRandomInt()==null){
+								//							j.setImage(true);
+							} else if (Integer.valueOf(j.getRandomInt())==smallestNo){
+								j.setImage(false);
+							} else{
+								health-=1;
+							}
+>>>>>>> KANG1
 						}
 					}
 				}
@@ -114,6 +138,11 @@ public class ScreenD_GameScreen extends Screen{
 		// Paint health
 		for (int i=0 ; i<health ; i++){
 			g.drawRect(50+(i*50), 50, 50, 50, Color.BLACK);
+		}
+		if (health==0){
+			painter.setColor(Color.BLACK);
+			painter.setTextSize(50);
+			g.drawString("DEAD", 50, 50, painter);
 		}
 		// Paint Power ups
 		for (int i=0 ; i<3 ; i++){

@@ -22,5 +22,5 @@ public class Assets {
 		true, false, false, true, true, false, false,
 		true, true, false, true, false, true, false,
 		true, false, true, false, false, true, false};
-	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
+//	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
 }
