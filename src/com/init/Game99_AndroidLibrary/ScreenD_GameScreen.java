@@ -77,7 +77,7 @@ public class ScreenD_GameScreen extends Screen{
 				for (Objects_GridButton j : gameGrid){
 					if (inBounds(event, j.getX(), j.getY(), 130, 130)){
 						if (j.getRandomInt()==null){
-							;
+//							j.setImage(true);
 						} else if (Integer.valueOf(j.getRandomInt())==smallestNo){
 							j.setImage(false);
 						} else{
@@ -87,7 +87,6 @@ public class ScreenD_GameScreen extends Screen{
 				}
 			}
 		}
-
 
 		// send data
 
@@ -150,25 +149,21 @@ public class ScreenD_GameScreen extends Screen{
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void backButton() {
 		// TODO Auto-generated method stub
-
 	}
 
 }
