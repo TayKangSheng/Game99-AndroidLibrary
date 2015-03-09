@@ -8,6 +8,10 @@ import com.init.framework.Screen;
 
 public class ScreenE_Results extends Screen{
 
+	
+	/// This is the results screen
+	
+	
 	public ScreenE_Results(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
