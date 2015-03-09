@@ -35,7 +35,7 @@ public class ScreenC_LoadingScreen extends Screen {
 		
 		Graphics g = game.getGraphics();
 		g.clearScreen(-12303292);
-		loading.setColor(-16711936);
+		loading.setColor(2899536);
 		loading.setTextSize(150);
 		g.drawString(loadingCurrent, game.getGraphics().getWidth()/6, game.getGraphics().getHeight()/2, loading);
 

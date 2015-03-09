@@ -46,9 +46,10 @@ public class ScreenD_GameScreen extends Screen{
 		runTime += deltaTime;
 		// receive data
 
-		// check clock
+		// check clock, //temporarily go to main screen for testing
 		if (Integer.valueOf(clock.getValue(runTime))<=0){
-			game.setScreen(new ScreenE_Results(game));
+			game.setScreen(new ScreenB_MainMenu(game));
+			//game.setScreen(new ScreenE_Results(game));
 		}
 
 
@@ -76,6 +77,7 @@ public class ScreenD_GameScreen extends Screen{
 			for (int i = 0; i < len; i++) {
 				TouchEvent event = touchEvents.get(i);
 				if (event.type == TouchEvent.TOUCH_UP) {
+					System.out.println(event.x+", "+event.y);
 					for (Objects_GridButton j : gameGrid){
 						if (inBounds(event, j.getX(), j.getY(), 130, 130)){
 							if (j.getRandomInt()==null){
@@ -101,18 +103,19 @@ public class ScreenD_GameScreen extends Screen{
 
 		Graphics g = game.getGraphics();
 		// White Background for the entire screen
-		g.clearScreen(Color.WHITE);
-		// Yellow Background for health and timer
-		g.drawRect(5, 5, gameWidth-10, 140, Color.YELLOW);
+		g.clearScreen(Color.parseColor("#2c3e50"));
+		// Gray Background for health and timer
+		g.drawRect(5, 5, gameWidth-10, 140, Color.parseColor("#2c3e50"));
 		// Magenta background for power ups
-		g.drawRect(5, 1065, gameWidth-10, 210, Color.MAGENTA);
+		g.drawRect(5, 1065, gameWidth-10, 210, Color.parseColor("#2c3e50"));
 		// Paint timer
 		painter.setColor(clock.getColor());
 		painter.setTextSize(clock.getTextSize());
-		g.drawString(clock.getValue(runTime), (gameWidth/2)-80, 120, painter);
+		g.drawString(clock.getValue(runTime), 669, 120, painter);
+		
 		// Paint health
 		for (int i=0 ; i<health ; i++){
-			g.drawRect(50+(i*50), 50, 50, 50, Color.BLACK);
+			g.drawRect(50+(i*50), 50, 50, 50, Color.parseColor("#2ecc71"));
 		}
 		if (health==0){
 			painter.setColor(Color.BLACK);
@@ -121,11 +124,12 @@ public class ScreenD_GameScreen extends Screen{
 		}
 		// Paint Power ups
 		for (int i=0 ; i<3 ; i++){
-			g.drawRect(90+(i*210), 1070, 200, 200, Color.GRAY);
+			g.drawRect(90+(i*210), 1070, 100, 100, Color.parseColor("#e67e22"));
 		}
 		// Draw Grids
-		painter.setColor(Color.BLACK);
-		painter.setTextSize(100);
+		painter.setColor(Color.WHITE);
+		painter.setTextSize(80);
+		painter.setTextAlign(Paint.Align.CENTER);
 		for (int i=0 ; i<gameGrid.size() ; i++){
 			Objects_GridButton temp = gameGrid.get(i);
 			g.drawImage(temp.getImage(), temp.getX(), temp.getY());
