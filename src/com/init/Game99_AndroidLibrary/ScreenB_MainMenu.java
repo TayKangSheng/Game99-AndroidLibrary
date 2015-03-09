@@ -88,7 +88,7 @@ public class ScreenB_MainMenu extends Screen {
 		Graphics g = game.getGraphics();
 		
 		// Draw background Image
-		g.drawImage(Assets.menu, 0, 0);
+		g.drawImage(Assets.space, 0, 0);
 		
 		// Draw BirdAnimation
 		g.drawImage(birdAnimation.getImageFrame(Assets.runTime/14), 
