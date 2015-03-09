@@ -5,6 +5,7 @@ import com.init.framework.Sound;
 
 public class Assets {
 	
+	public static boolean running;
 	public static float runTime;
 	public static Image menu;
 	public static Sound click;
@@ -21,5 +22,5 @@ public class Assets {
 		true, false, false, true, true, false, false,
 		true, true, false, true, false, true, false,
 		true, false, true, false, false, true, false};
-	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
+//	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
 }
