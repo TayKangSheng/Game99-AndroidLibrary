@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.init.Game99_AndroidLibrary"
+    package="com.init.Game99"
     android:versionCode="1"
     android:versionName="1.0" >
 
