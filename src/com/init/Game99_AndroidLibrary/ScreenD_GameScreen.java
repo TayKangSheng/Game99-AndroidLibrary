@@ -1,6 +1,7 @@
 package com.init.Game99_AndroidLibrary;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,6 +10,7 @@ import android.util.Log;
 import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
+import com.init.framework.Input.TouchEvent;
 
 public class ScreenD_GameScreen extends Screen{
 
@@ -18,12 +20,12 @@ public class ScreenD_GameScreen extends Screen{
 	boolean running = true;
 	ArrayList<Objects_GridButton> gameGrid = new ArrayList<Objects_GridButton>();
 	Objects_Timer clock;
-	int health;
+	static int health;
 
 	public ScreenD_GameScreen(Game game) {
 		super(game);
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
-		
+
 		// Initialization of the Game Grid, Game Buttons and Timer, Health bar.
 		for (int i=0 ; i<35; i++){
 			Objects_GridButton temp = new Objects_GridButton(75+(i%5)*130, 150+((int)(i/5))*130, Assets.interGalaticaMapVector[i]);
@@ -33,6 +35,8 @@ public class ScreenD_GameScreen extends Screen{
 		clock = new Objects_Timer();
 		// Initialization of health
 		health = 5;
+		// Initialization of Game
+		Assets.running = true;
 
 	}
 
@@ -41,8 +45,55 @@ public class ScreenD_GameScreen extends Screen{
 		Log.i("ScreenD_GameScreen", "update");
 		runTime += deltaTime;
 		// receive data
+
 		// check clock
+		if (Integer.valueOf(clock.getValue(runTime))<=0){
+	        game.setScreen(new ScreenE_Results(game));
+		}
+		// check health
+		if (health==0){
+	        game.setScreen(new ScreenE_Results(game));
+		}
+
+		// click
+		//		1. Sort list of values
+		//		2. Check whether the click is valid.
+		//			2a. If it is, change image, send coordinates
+		//			2b. If it is not, health-1
+
+		// Find smallest Number
+		int smallestNo = 10;
+		Log.i("ScreenD_GameScreen", "TRACKER");
+		for (Objects_GridButton i : gameGrid){
+			if (i.getRandomInt()!=null){
+				if (Integer.valueOf(i.getRandomInt()) < smallestNo){
+					smallestNo = Integer.valueOf(i.getRandomInt());
+				}
+			}
+		}
+
+		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
+
+		int len = touchEvents.size();
+		for (int i = 0; i < len; i++) {
+			TouchEvent event = touchEvents.get(i);
+			if (event.type == TouchEvent.TOUCH_UP) {
+				for (Objects_GridButton j : gameGrid){
+					if (inBounds(event, j.getX(), j.getY(), 130, 130)){
+						if (j.getRandomInt()==null){
+//							j.setImage(true);
+						} else if (Integer.valueOf(j.getRandomInt())==smallestNo){
+							j.setImage(false);
+						} else{
+							health-=1;
+						}
+					}
+				}
+			}
+		}
+
 		// send data
+
 	}
 
 	@Override
@@ -74,35 +125,49 @@ public class ScreenD_GameScreen extends Screen{
 		for (int i=0 ; i<gameGrid.size() ; i++){
 			Objects_GridButton temp = gameGrid.get(i);
 			g.drawImage(temp.getImage(), temp.getX(), temp.getY());
-//			g.drawRect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight(), temp.getColor());
+			//			g.drawRect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight(), temp.getColor());
 			if (temp.getRandomInt()!=null){
 				g.drawString(temp.getRandomInt(),temp.getX()+40, temp.getY()+90 ,painter);
 			}
 		}
 	}
 
+	/**
+	 * 
+	 * @param event = touch event
+	 * @param x = top left hand x coordinate
+	 * @param y = top right hand y coordinate
+	 * @param width = width of button
+	 * @param height = height of button
+	 * @return true = inBounds, false = outBounds.
+	 */
+	public boolean inBounds(TouchEvent event, int x, int y, int width,
+			int height) {
+		if (event.x > x && event.x < x + width - 1 && event.y > y
+				&& event.y < y + height - 1)
+			return true;
+		else
+			return false;
+	}
+
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void backButton() {
 		// TODO Auto-generated method stub
-
 	}
 
 }

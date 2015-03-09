@@ -45,7 +45,7 @@ public class ScreenA_Initialisation extends Screen {
 		String[] loadingStrings = {"loading","loading.","loading..","loading..."};
 		
 		Assets.birdAnimation = new Objects_Animation(birdAnimationImages);
-		Assets.loadingStringAnimation = new Objects_Animation( loadingStrings );
+		Assets.loadingStringAnimation = new Objects_Animation(loadingStrings);
 		
 		// Set GameScreen to ScreenB_MainMenu.
         game.setScreen(new ScreenB_MainMenu(game));
