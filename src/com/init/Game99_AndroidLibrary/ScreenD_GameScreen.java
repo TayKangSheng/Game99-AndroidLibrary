@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.Log;
 
 import com.init.framework.Game;
@@ -48,7 +49,7 @@ public class ScreenD_GameScreen extends Screen{
 
 		// check clock, //temporarily go to main screen for testing
 		if (Integer.valueOf(clock.getValue(runTime))<=0){
-			game.setScreen(new ScreenB_MainMenu(game));
+			game.setScreen(new ScreenE_Results(game, gameGrid));
 			//game.setScreen(new ScreenE_Results(game));
 		}
 
@@ -61,7 +62,7 @@ public class ScreenD_GameScreen extends Screen{
 
 		// Find smallest Number
 		int smallestNo = 10;
-		Log.i("ScreenD_GameScreen", "TRACKER");
+
 		for (Objects_GridButton i : gameGrid){
 			if (i.getRandomInt()!=null){
 				if (Integer.valueOf(i.getRandomInt()) < smallestNo){
@@ -80,12 +81,16 @@ public class ScreenD_GameScreen extends Screen{
 					System.out.println(event.x+", "+event.y);
 					for (Objects_GridButton j : gameGrid){
 						if (inBounds(event, j.getX(), j.getY(), 130, 130)){
-							if (j.getRandomInt()==null){
-								//							j.setImage(true);
-							} else if (Integer.valueOf(j.getRandomInt())==smallestNo){
-								j.setImage(false);
-							} else{
-								health-=1;
+							if (j.getClickable() == true){
+								if (!j.getType().equals("normal")){
+									j.setImage(false);
+								} else{
+									if (Integer.valueOf(j.getRandomInt())==smallestNo){
+										j.setImage(false);
+									} else{
+										health--;
+									}
+								}
 							}
 						}
 					}
@@ -112,7 +117,7 @@ public class ScreenD_GameScreen extends Screen{
 		painter.setColor(clock.getColor());
 		painter.setTextSize(clock.getTextSize());
 		g.drawString(clock.getValue(runTime), 669, 120, painter);
-		
+
 		// Paint health
 		for (int i=0 ; i<health ; i++){
 			g.drawRect(50+(i*50), 50, 50, 50, Color.parseColor("#2ecc71"));
@@ -126,16 +131,21 @@ public class ScreenD_GameScreen extends Screen{
 		for (int i=0 ; i<3 ; i++){
 			g.drawRect(90+(i*210), 1070, 100, 100, Color.parseColor("#e67e22"));
 		}
+
+		Log.i("ScreenD_GameScreen", "TRACKER");
 		// Draw Grids
 		painter.setColor(Color.WHITE);
 		painter.setTextSize(80);
 		painter.setTextAlign(Paint.Align.CENTER);
-		for (int i=0 ; i<gameGrid.size() ; i++){
-			Objects_GridButton temp = gameGrid.get(i);
-			g.drawImage(temp.getImage(), temp.getX(), temp.getY());
-			//			g.drawRect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight(), temp.getColor());
-			if (temp.getRandomInt()!=null){
-				g.drawString(temp.getRandomInt(),temp.getX()+40, temp.getY()+90 ,painter);
+		for (Objects_GridButton i : gameGrid){
+			g.drawImage(i.getImage(), i.getX(), i.getY());
+			if (i.getClickable()){
+				if (i.getType().equals("N")){
+					g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter);
+				} else{
+					painter.setTypeface(Typeface.SERIF);
+					g.drawString(i.getType(), i.getX()+60, i.getY()+90 ,painter);
+				}
 			}
 		}
 	}
