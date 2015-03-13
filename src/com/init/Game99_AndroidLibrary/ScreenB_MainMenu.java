@@ -3,6 +3,7 @@ package com.init.Game99_AndroidLibrary;
 import java.util.List;
 
 import android.R;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,8 @@ public class ScreenB_MainMenu extends Screen {
 	private int gameHeight = game.getGraphics().getHeight();
 	private boolean[] blocksColour = {true,false,true,false};
 	private int blockWidth = gameWidth/4;
+	private List<TouchEvent> touchEvents;
+	private Paint paint = new Paint();
 	//private Objects_Animation birdAnimation;
 
 	public ScreenB_MainMenu(Game game) {
@@ -30,24 +33,18 @@ public class ScreenB_MainMenu extends Screen {
 	@Override
 	public void update(float deltaTime) {
 		Log.i("ScreenB_MainMenu", "update");
-
 		Assets.runTime += deltaTime;
-
-		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-		
-		int len = touchEvents.size();
-		for (int i = 0; i < len; i++) {
-			TouchEvent event = touchEvents.get(i);
+		touchEvents = game.getInput().getTouchEvents();
+		for (TouchEvent event: touchEvents) {
 			if (event.type == TouchEvent.TOUCH_UP) {
-				System.out.println(event.x + ", " +event.y);
+				//System.out.println(event.x + ", " +event.y);
 				if(inBounds(event,120,1045,551,127)) {
 					Assets.socketIO.getSocket().emit("ready", "");
 				}
-				}
 			}
+		}
 		if(Assets.ready) game.setScreen(new ScreenD_GameScreen(game));
 		//game.setScreen(new ScreenC_LoadingScreen(game));
-		
 	}
 	
 
@@ -87,7 +84,9 @@ public class ScreenB_MainMenu extends Screen {
 	
     public boolean inBounds(TouchEvent event, int x, int y, int width,
             int height) {
-        if (event.x > x && event.x < x + width - 1 && event.y > y
+        if (event.x > x 
+        		&& event.x < x + width - 1 
+        		&& event.y > y
                 && event.y < y + height - 1)
             return true;
         else
@@ -103,19 +102,8 @@ public class ScreenB_MainMenu extends Screen {
 		// Draw background Image
 		g.drawImage(Assets.space, 0, 0);
 		g.drawImage(Assets.start, 120, 1050);
-		// Draw BirdAnimation
-//		g.drawImage(birdAnimation.getImageFrame(Assets.runTime/14), 
-//				(int) ((Assets.runTime*3)%(gameWidth+birdAnimation.getWidth()))-birdAnimation.getWidth(), 
-//				(int) ((gameHeight/2)-(birdAnimation.getHeight()/2)+(10*(Math.sin(Assets.runTime/15)))) );
+		g.drawString(Assets.msg, 50,50,paint);
 		
-		// Draw bottom blocks
-//		g.drawRect(0, gameHeight-blockWidth , blockWidth, blockWidth+5, getColour(blocksColour[0]));
-//		g.drawRect(blockWidth, gameHeight-blockWidth , blockWidth, blockWidth+5, getColour(blocksColour[1]));
-//		g.drawRect(blockWidth*2, gameHeight-blockWidth , blockWidth, blockWidth+5, getColour(blocksColour[2]));
-//		g.drawRect(blockWidth*3, gameHeight-blockWidth , blockWidth+5, blockWidth+5, getColour(blocksColour[3]));
-		
-		// Draw white background for blocks
-//		g.drawRect(0, 0, gameWidth, clearScreen, -16711681);
 	}
 	
 	public int getColour(boolean x){

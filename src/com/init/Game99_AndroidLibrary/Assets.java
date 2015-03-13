@@ -21,11 +21,16 @@ public class Assets {
 	public static Objects_Animation loadingStringAnimation;
 	public static SocketIO socketIO;
 	public static boolean ready = false;
-	public static boolean[] interGalaticaMapVector = 
-		{false, true, true, false, false, true, true,
+	public static String msg = "";
+	public static int otherPlayerPress = -1;
+	public static int id;
+	
+	public static boolean gameover = false;
+	public static boolean[] interGalaticaMapVector = null;
+		/*{false, true, true, false, false, true, true,
 		false, false, true, true, false, false, true,
 		true, false, false, true, true, false, false,
 		true, true, false, true, false, true, false,
-		true, false, true, false, false, true, false};
+		true, false, true, false, false, true, false};*/
 //	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
 }

@@ -23,17 +23,18 @@ public class Objects_GridButton {
 	}
 
 	public void setImage(boolean color){
+		//color==true: grid changes to other's color: number would appear.
 		if (color){
 			clickable = true;
 			this.currentDisplay = Assets.gridButtonNotMyPlanet;
 			if (count == 5){
 				buttonType = "42";
 				randomInt = null;
-				count = 0;
+				//count = 0;
 			} else{
 				buttonType = "N";
-				randomInt = String.valueOf(rand.nextInt(10));
-				count++;
+				randomInt = rand.nextInt(10)+"";
+				//count++;
 			}
 		}else {
 			clickable = false;
