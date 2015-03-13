@@ -1,5 +1,6 @@
 package com.init.Game99_AndroidLibrary;
 
+import com.github.nkzawa.socketio.client.Socket;
 import com.init.framework.Image;
 import com.init.framework.Sound;
 
@@ -18,6 +19,8 @@ public class Assets {
 	public static Image gridButtonMyPlanet;
 	public static Image gridButtonNotMyPlanet;
 	public static Objects_Animation loadingStringAnimation;
+	public static SocketIO socketIO;
+	public static boolean ready = false;
 	public static boolean[] interGalaticaMapVector = 
 		{false, true, true, false, false, true, true,
 		false, false, true, true, false, false, true,

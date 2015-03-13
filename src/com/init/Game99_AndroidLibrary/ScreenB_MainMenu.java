@@ -34,18 +34,22 @@ public class ScreenB_MainMenu extends Screen {
 		Assets.runTime += deltaTime;
 
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-
+		
 		int len = touchEvents.size();
 		for (int i = 0; i < len; i++) {
 			TouchEvent event = touchEvents.get(i);
 			if (event.type == TouchEvent.TOUCH_UP) {
 				System.out.println(event.x + ", " +event.y);
 				if(inBounds(event,120,1045,551,127)) {
-						game.setScreen(new ScreenC_LoadingScreen(game));
-					}
+					Assets.socketIO.getSocket().emit("ready", "");
+				}
 				}
 			}
-		}
+		if(Assets.ready) game.setScreen(new ScreenD_GameScreen(game));
+		//game.setScreen(new ScreenC_LoadingScreen(game));
+		
+	}
+	
 
 //				if (inBounds(event, 0, gameHeight-blockWidth , blockWidth, blockWidth+5 ) ){
 //					blocksColour[0]=!blocksColour[0];
