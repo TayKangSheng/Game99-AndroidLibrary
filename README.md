@@ -2,7 +2,9 @@
 
 This android game is build by a group of 4.<br>
 To our fellow earth beings we might appear to be building this for a university CS course called Elements of Software Construction, 
-but under the cover we are answering <p>`The Ultimate Question of Life, the Universe and Everything.`</p>
+but under the cover we are <p>`answering the ultimate question of life, the universe and everything.`</p>
+
+which is easy and fun and even relaxing. The hard part is asking the right questions.
 
 <strong>Things to note:</strong><br>
 the game will only work with wi-fi connections (unless you are a hyper-intelligent, pan-dimentional being
