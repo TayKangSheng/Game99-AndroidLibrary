@@ -14,7 +14,7 @@ public class Objects_GridButtonGenerator {
 		
 	}
 
-	public Interface_Button getButton(boolean bool){
+	public Objects_GridButton getButton(boolean bool){
 		// bool == click-able
 		// if click-able
 		//		if count == 5, Button42

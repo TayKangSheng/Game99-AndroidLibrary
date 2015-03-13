@@ -9,5 +9,9 @@
 	<classpathentry exported="true" kind="lib" path="/Users/zikhan/Downloads/socket.io-client-0.3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/zikhan/Downloads/engine.io-client-0.3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/zikhan/Downloads/json-20090211.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/USER/Documents/GitHub/Game99-AndroidLibrary/engine.io-client-0.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/USER/Documents/GitHub/Game99-AndroidLibrary/Java-WebSocket-1.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/USER/Documents/GitHub/Game99-AndroidLibrary/json-20090211.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/USER/Documents/GitHub/Game99-AndroidLibrary/socket.io-client-0.3.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

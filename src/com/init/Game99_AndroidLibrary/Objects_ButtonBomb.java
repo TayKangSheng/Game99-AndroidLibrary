@@ -1,30 +1,37 @@
 package com.init.Game99_AndroidLibrary;
 
-import java.util.Random;
-
 import com.init.framework.Image;
 
-public class Objects_ButtonNormalClickable implements Interface_Button{
-	private static Random rand = new Random(); // Shared Random Number Generator
+public class Objects_ButtonBomb implements Interface_Button{
 
 	@Override
 	public boolean getClickable() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public String getButtonType() {
-		return "NC";
+		// TODO Auto-generated method stub
+		return "B";
 	}
 
 	@Override
 	public String getRandomInt() {
-		return String.valueOf(rand.nextInt(10));
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Image getImageDisplay() {
+		// TODO Auto-generated method stub
 		return Assets.gridButtonNotMyPlanet;
+	}
+
+	@Override
+	public String getContentDisplay() {
+		// TODO Auto-generated method stub
+		return "B";
 	}
 
 	@Override
@@ -33,9 +40,4 @@ public class Objects_ButtonNormalClickable implements Interface_Button{
 		
 	}
 
-	@Override
-	public String getContentDisplay() {
-		return String.valueOf(rand.nextInt(10));
-	}
-	
 }
