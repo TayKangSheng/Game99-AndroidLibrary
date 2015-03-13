@@ -23,6 +23,7 @@ public class ScreenD_GameScreen extends Screen{
 	private int health;
 	private int smallestNo = 10;
 	
+	private Objects_ButtonHandler buttonHandler;
 	private ArrayList<Objects_GridButton> gameGrid = new ArrayList<Objects_GridButton>();
 	private List<TouchEvent> touchEvents;
 	 
@@ -45,6 +46,9 @@ public class ScreenD_GameScreen extends Screen{
 		health = 5;
 		// Initialization of Game
 		Assets.running = true;
+		
+		buttonHandler =  new Objects_ButtonHandler(gameGrid);
+		
 	}
 
 	/* (non-Javadoc)
@@ -68,7 +72,8 @@ public class ScreenD_GameScreen extends Screen{
 		}
 		// receive data and change color
 		if(Assets.otherPlayerPress>=0){
-			change(Assets.otherPlayerPress);
+//			change(Assets.otherPlayerPress);
+			buttonHandler.onClick(Assets.otherPlayerPress, buttonType, newButtonType);
 			Assets.otherPlayerPress = -1;
 		}
 		// Find smallest Number
@@ -90,28 +95,29 @@ public class ScreenD_GameScreen extends Screen{
 						buttontemp1 = gameGrid.get(index);
 						//grid-button
 						if (inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130))
-							click(buttontemp1, index);
+							buttonHandler.onClick(index);
+//							click(buttontemp1, index);
 					}
 				}
 			}
 		}
 	}
 	
-	public void click(Objects_GridButton button_click, int index){
-		if(button_click.getClickable()){
-			if (Integer.valueOf(button_click.getRandomInt()) == smallestNo){
-				//clicking is successful;
-				button_click.setImage(false);
-				Assets.socketIO.getSocket().emit("button", index);
-			} 
-			else{
-				health--;
-			}
-		}
-		else{
-			health--;
-		}
-	}
+//	public void click(Objects_GridButton button_click, int index){
+//		if(button_click.getClickable()){
+//			if (Integer.valueOf(button_click.getRandomInt()) == smallestNo){
+//				//clicking is successful;
+//				button_click.setImage(false);
+//				Assets.socketIO.getSocket().emit("button", index);
+//			} 
+//			else{
+//				health--;
+//			}
+//		}
+//		else{
+//			health--;
+//		}
+//	}
 	
 	public void change(int index){
 		gameGrid.get(index).setImage(true);
