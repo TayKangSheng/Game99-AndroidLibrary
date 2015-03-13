@@ -5,5 +5,9 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="lib" path="/Users/zikhan/Downloads/Java-WebSocket-1.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/zikhan/Downloads/socket.io-client-0.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/zikhan/Downloads/engine.io-client-0.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/zikhan/Downloads/json-20090211.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
