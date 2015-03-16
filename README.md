@@ -19,3 +19,6 @@ try:<br>
 Don't panic<br>
 and oh,<br>
 <em>bring a towel.</em>
+
+<em>Player's comment:</em>
+This Game has exceeded my expectations. --Wen Xian Ng
