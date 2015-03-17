@@ -13,15 +13,10 @@ public class Objects_ButtonHandler {
 		grid = gameGrid;
 	}
 	
-	/**
-	 * 
-	 * @param index of the user's click
-	 * 
-	 */
-	public void onClick(int index){
+	public void Click(int index){
 		String buttonType = grid.get(index).getType();
 		if (buttonType.equals("NC")){
-			grid.get(index).setButton("NN");
+			grid.get(index).setNormalNotClickable();
 		}
 		else if (buttonType.equals("B")){
 			// Set surrounding to NN
@@ -90,6 +85,9 @@ public class Objects_ButtonHandler {
 			}
 		} else if (buttonType.equals("42")){
 			grid.get(index).setButton("NN");
+		}
+		else{
+			//Assets.health--;
 		}
 	}
 	

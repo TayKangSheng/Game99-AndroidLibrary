@@ -71,7 +71,6 @@ public class SocketIO {
 			@Override
 			public void call(Object... args) {
 				Assets.gameover = true;
-				
 			}        
 		});
 		socket.on("grid", new Emitter.Listener() {

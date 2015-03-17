@@ -43,9 +43,9 @@ public class ScreenE_Results extends Screen{
 		painter.setColor(Color.BLACK);
 		painter.setTextSize(300);
 		if(this.reason.equals("life"))
-			g.drawString("No Life",50 , gameHeight/2, painter);
-		else if(this.reason.equals("quit"))
-			g.drawString("Quitted",50 , gameHeight/2, painter);
+			g.drawString("Life",50 , gameHeight/2, painter);
+		else if(this.reason.equals("other"))
+			g.drawString("Win",50 , gameHeight/2, painter);
 		else if (scoreCount > opponentScoreCount){
 			g.drawString("WIN", 50 , gameHeight/2, painter);
 		} else{

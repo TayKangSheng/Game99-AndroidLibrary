@@ -10,6 +10,7 @@ public class Assets {
 	public static float runTime;
 	public static Image menu;
 	public static Sound click;
+	public static int health = 10;
 	//public static Objects_Animation birdAnimation;
 	public static Image space;
 	public static Image start;

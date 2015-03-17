@@ -36,7 +36,7 @@ public class Objects_GridButton{
 		}
 	}
 	
-	private void setNormalClickable(){
+	public void setNormalClickable(){
 		buttonType = "NC";
 		clickable = true;
 		randomInt = rand.nextInt(10);
@@ -44,7 +44,7 @@ public class Objects_GridButton{
 		contentDisplay = String.valueOf(randomInt);
 	}
 	
-	private void setNormalNotClickable(){
+	public void setNormalNotClickable(){
 		buttonType = "NN";
 		clickable = false;
 		randomInt = -1;
@@ -75,7 +75,9 @@ public class Objects_GridButton{
 	public String getType() {
 		return buttonType;
 	}
-	
+	public int getInt(){
+		return randomInt;
+	}
 	public String getRandomInt() {
 		return String.valueOf(randomInt);
 	}
