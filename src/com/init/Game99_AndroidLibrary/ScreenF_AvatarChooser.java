@@ -46,6 +46,7 @@ public class ScreenF_AvatarChooser extends Screen {
 							avatarsChosen.add(i.toString());
 						}
 					}
+<<<<<<< HEAD
 
 					if (inBounds(event, startButton.getX(), startButton.getY(), startButton.getWidth(), startButton.getHeight())){
 					}
@@ -56,6 +57,13 @@ public class ScreenF_AvatarChooser extends Screen {
 		if (ready){
 //			game.setScreen();
 		}
+=======
+					
+					if (inBounds(event, startButton.getX(), startButton.getY(), startButton.getWidth(), startButton.getHeight())){
+				}
+			}
+		}
+>>>>>>> origin/17-03-2015-kang
 
 
 	}
