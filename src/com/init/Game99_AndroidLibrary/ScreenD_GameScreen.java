@@ -26,14 +26,12 @@ public class ScreenD_GameScreen extends Screen{
 	private Objects_ButtonHandler buttonHandler;
 	private ArrayList<Objects_GridButton> gameGrid = new ArrayList<Objects_GridButton>();
 	private List<TouchEvent> touchEvents;
-	 
 	private Objects_GridButton buttontemp1;
-
+	private Objects_GridButton buttontemp0;
 	
 	public ScreenD_GameScreen(Game game) {
 		super(game);
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
-		Objects_GridButton buttontemp0;
 		// Initialization of the Game Grid, Game Buttons and Timer, Health bar.
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(75+(i%5)*130, 
@@ -43,12 +41,10 @@ public class ScreenD_GameScreen extends Screen{
 		// Initialization of clock
 		clock = new Objects_Timer();
 		// Initialization of health
-		health = 5;
+		health = 10;
 		// Initialization of Game
 		Assets.running = true;
-		
 		buttonHandler =  new Objects_ButtonHandler(gameGrid);
-		
 	}
 
 	/* (non-Javadoc)
@@ -64,16 +60,20 @@ public class ScreenD_GameScreen extends Screen{
 		Log.i("ScreenD_GameScreen", "update");
 		runTime += deltaTime;
 		// check clock
-		if(health==0 || Assets.gameover) {
-			game.setScreen(new ScreenE_Results(game, gameGrid)); 
+		if(health==0) {
+			game.setScreen(new ScreenE_Results(game, gameGrid, "life")); 
 		}
+		if(Assets.gameover)
+			game.setScreen(new ScreenE_Results(game, gameGrid, "quit"));
+		
 		if (Integer.valueOf(clock.getValue(runTime))<=0){
-			game.setScreen(new ScreenE_Results(game, gameGrid));
+			game.setScreen(new ScreenE_Results(game, gameGrid, "time"));
 		}
 		// receive data and change color
 		if(Assets.otherPlayerPress>=0){
-//			change(Assets.otherPlayerPress);
-			buttonHandler.onClick(Assets.otherPlayerPress, buttonType, newButtonType);
+			change(Assets.otherPlayerPress);
+			//buttonHandler.onClick(Assets.otherPlayerPress);
+			//buttonHandler.onClick(Assets.otherPlayerPress, buttonType, newButtonType);
 			Assets.otherPlayerPress = -1;
 		}
 		// Find smallest Number
@@ -96,7 +96,7 @@ public class ScreenD_GameScreen extends Screen{
 						//grid-button
 						if (inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130))
 							buttonHandler.onClick(index);
-//							click(buttontemp1, index);
+							Assets.socketIO.getSocket().emit("button", index);
 					}
 				}
 			}
@@ -119,11 +119,8 @@ public class ScreenD_GameScreen extends Screen{
 //		}
 //	}
 	
-	public void change(int index){
-		gameGrid.get(index).setImage(true);
-	
-		//if(!button.getClickable()){
-		//}
+    public void change(int index){
+		gameGrid.get(index).setButton("NC");
 	}
 	@Override
 	public void paint(float deltaTime) {
@@ -159,9 +156,9 @@ public class ScreenD_GameScreen extends Screen{
 		painter.setTextSize(80);
 		painter.setTextAlign(Paint.Align.CENTER);
 		for (Objects_GridButton i : gameGrid){
-			g.drawImage(i.getImage(), i.getX(), i.getY());
+			g.drawImage(i.getImageDisplay(), i.getX(), i.getY());
 			if (i.getClickable()){
-				if (i.getType().equals("N")){
+				if (i.getType().equals("NC")){
 					g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter);
 				} else{
 					//painter.setTypeface(Typeface.SERIF);

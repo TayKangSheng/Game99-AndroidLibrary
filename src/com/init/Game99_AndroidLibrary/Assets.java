@@ -10,7 +10,7 @@ public class Assets {
 	public static float runTime;
 	public static Image menu;
 	public static Sound click;
-	public static Objects_Animation birdAnimation;
+	//public static Objects_Animation birdAnimation;
 	public static Image space;
 	public static Image start;
 	public static Image bird1;
@@ -18,7 +18,7 @@ public class Assets {
 	public static Image bird3;
 	public static Image gridButtonMyPlanet;
 	public static Image gridButtonNotMyPlanet;
-	public static Objects_Animation loadingStringAnimation;
+	//public static Objects_Animation loadingStringAnimation;
 	public static SocketIO socketIO;
 	public static boolean ready = false;
 	public static String msg = "";

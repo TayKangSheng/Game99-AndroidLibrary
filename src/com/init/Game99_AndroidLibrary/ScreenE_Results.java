@@ -15,16 +15,16 @@ public class ScreenE_Results extends Screen{
 	Paint painter = new Paint();
 	int scoreCount = 0;
 	int opponentScoreCount = 0;
-	
+	String reason;
 	/// This is the results screen
-	public ScreenE_Results(Game game, ArrayList<Objects_GridButton> list) {
+	public ScreenE_Results(Game game, ArrayList<Objects_GridButton> list
+			,String reason) {
 		super(game);
-		for ( Objects_GridButton i : list){
-			if (i.getClickable() == true){
-				opponentScoreCount++;
-			} else{
-				scoreCount++;
-			}
+		this.reason = reason;
+		if(reason.equals("life")) return;
+		for (Objects_GridButton i : list){
+			if (i.getClickable()) opponentScoreCount++;
+			else  scoreCount++;
 		}
 	}
 
@@ -42,7 +42,11 @@ public class ScreenE_Results extends Screen{
 		
 		painter.setColor(Color.BLACK);
 		painter.setTextSize(300);
-		if (scoreCount > opponentScoreCount){
+		if(this.reason.equals("life"))
+			g.drawString("No Life",50 , gameHeight/2, painter);
+		else if(this.reason.equals("quit"))
+			g.drawString("Quitted",50 , gameHeight/2, painter);
+		else if (scoreCount > opponentScoreCount){
 			g.drawString("WIN", 50 , gameHeight/2, painter);
 		} else{
 			g.drawString("LOSE", 50 , gameHeight/2, painter);
