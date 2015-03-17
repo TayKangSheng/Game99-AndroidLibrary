@@ -1,5 +1,6 @@
 package com.init.Game99_AndroidLibrary;
 
+import com.github.nkzawa.socketio.client.Socket;
 import com.init.framework.Image;
 import com.init.framework.Sound;
 
@@ -18,11 +19,18 @@ public class Assets {
 	public static Image gridButtonMyPlanet;
 	public static Image gridButtonNotMyPlanet;
 	public static Objects_Animation loadingStringAnimation;
-	public static boolean[] interGalaticaMapVector = 
-		{false, true, true, false, false, true, true,
+	public static SocketIO socketIO;
+	public static boolean ready = false;
+	public static String msg = "";
+	public static int otherPlayerPress = -1;
+	public static int id;
+	
+	public static boolean gameover = false;
+	public static boolean[] interGalaticaMapVector = null;
+		/*{false, true, true, false, false, true, true,
 		false, false, true, true, false, false, true,
 		true, false, false, true, true, false, false,
 		true, true, false, true, false, true, false,
-		true, false, true, false, false, true, false};
+		true, false, true, false, false, true, false};*/
 //	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
 }

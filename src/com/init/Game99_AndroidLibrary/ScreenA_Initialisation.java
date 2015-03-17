@@ -1,17 +1,14 @@
 package com.init.Game99_AndroidLibrary;
 
 import java.util.ArrayList;
-
 import android.util.Log;
-
 import com.init.framework.Game;
 import com.init.framework.Graphics;
-import com.init.framework.Image;
 import com.init.framework.Screen;
+import com.init.framework.Image;
 import com.init.framework.Graphics.ImageFormat;
 
 public class ScreenA_Initialisation extends Screen {
-	
 
 	public ScreenA_Initialisation(Game game) {
 		super(game);
@@ -19,7 +16,7 @@ public class ScreenA_Initialisation extends Screen {
 	}
 
 	/**
-	 *  Initialize all assets in game here.
+	 *  Initialize all assets in Assets.game here.
 	 *  After all assets are initialized, screen is set to main menu. 
 	 */
 	@Override
@@ -36,6 +33,7 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.bird1 = g.newImage("Bird1.png", ImageFormat.RGB565);
 		Assets.bird2 = g.newImage("Bird2.png", ImageFormat.RGB565);
 		Assets.bird3 = g.newImage("Bird3.png", ImageFormat.RGB565);
+		Assets.socketIO = new SocketIO();
 		Assets.gridButtonMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565);
 		Assets.gridButtonNotMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565);
 		
@@ -56,7 +54,6 @@ public class ScreenA_Initialisation extends Screen {
 	@Override
 	public void paint(float deltaTime) {
 		Log.i("ScreenA_Initialisation", "paint");
-		
 	}
 
 	@Override
