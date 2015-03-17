@@ -41,9 +41,9 @@ public class ScreenE_Results extends Screen{
 		g.clearScreen(Color.LTGRAY);
 		
 		painter.setColor(Color.BLACK);
-		painter.setTextSize(300);
+		painter.setTextSize(100);
 		if(this.reason.equals("life"))
-			g.drawString("Life",50 , gameHeight/2, painter);
+			g.drawString("Lost too many lives",50 , gameHeight/2, painter);
 		else if(this.reason.equals("other"))
 			g.drawString("Win",50 , gameHeight/2, painter);
 		else if (scoreCount > opponentScoreCount){
