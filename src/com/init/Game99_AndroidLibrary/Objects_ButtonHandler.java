@@ -6,23 +6,19 @@ import java.util.Random;
 public class Objects_ButtonHandler {
 	
 	ArrayList<Objects_GridButton> grid;
-	Objects_GridButtonGenerator buttonGenerator = new Objects_GridButtonGenerator();
+	//Objects_GridButtonGenerator buttonGenerator = new Objects_GridButtonGenerator();
 	static Random rand = new Random();
 	
 	public Objects_ButtonHandler(ArrayList<Objects_GridButton> gameGrid){
 		grid = gameGrid;
 	}
 	
-	/**
-	 * 
-	 * @param index of the user's click
-	 * 
-	 */
-	public void onClick(int index){
-		String buttonType = grid.get(index).getButtonType();
+	public void Click(int index){
+		String buttonType = grid.get(index).getType();
 		if (buttonType.equals("NC")){
-			grid.get(index).setButton("NN");
-		} else if (buttonType.equals("B")){
+			grid.get(index).setNormalNotClickable();
+		}
+		else if (buttonType.equals("B")){
 			// Set surrounding to NN
 			if ( (int)(index/5)==0 ){
 				if (index == 0){
@@ -90,6 +86,9 @@ public class Objects_ButtonHandler {
 		} else if (buttonType.equals("42")){
 			grid.get(index).setButton("NN");
 		}
+		else{
+			//Assets.health--;
+		}
 	}
 	
 	/**
@@ -100,9 +99,9 @@ public class Objects_ButtonHandler {
 	 * 
 	 */
 	public void onClick(int index, String buttonType, String newButtonType){
-		if (buttonType.equals("NC")){
-			grid.get(index).setButton(newButtonType);
-		} else if (buttonType.equals("B")){
+		if (buttonType.equals("NN")){
+			grid.get(index).setButton("NC");
+		} /*else if (buttonType.equals("B")){
 			// Set surrounding to NN
 			if ( (int)(index/5)==0 ){
 				if (index == 0){
@@ -188,7 +187,7 @@ public class Objects_ButtonHandler {
 			
 		} else if (buttonType.equals("42")){
 			grid.get(index).setButton("NC");
-		}
+		}*/
 	}
 }
 
