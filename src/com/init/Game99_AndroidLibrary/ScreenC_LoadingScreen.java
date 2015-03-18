@@ -24,7 +24,7 @@ public class ScreenC_LoadingScreen extends Screen {
 		Log.i("ScreenC_LoadingScreen", "update");
 		
 		Assets.runTime += deltaTime;
-		loadingCurrent = Assets.loadingStringAnimation.getStringFrame(Assets.runTime/20);
+		//loadingCurrent = Assets.loadingStringAnimation.getStringFrame(Assets.runTime/20);
 		
 		game.setScreen(new ScreenD_GameScreen(game));
 	}

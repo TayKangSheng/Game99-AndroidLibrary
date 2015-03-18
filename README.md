@@ -19,3 +19,7 @@ try:<br>
 Don't panic<br>
 and oh,<br>
 <em>bring a towel.</em>
+
+<em>Player's comment:</em><br>
+This game has exceeded my expectations. --Wen Xian Ng<br>
+This is a fun game. --Ong Yong Siang

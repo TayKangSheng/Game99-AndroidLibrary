@@ -45,6 +45,34 @@ public class SocketIO {
 				// socket.disconnect(); // why is there a disconnect here?
 			}        
 		});
+		socket.on("ready", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				JSONObject data = (JSONObject) args[0];
+				try {
+					Assets.id = data.getInt("id");
+					Assets.msg = data.getString("msg");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				
+				// socket.disconnect(); // why is there a disconnect here?
+			}        
+		});
+		socket.on("button", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				Assets.otherPlayerPress = (Integer) args[0];
+				// socket.disconnect(); // why is there a disconnect here?
+			}        
+		});
+		socket.on("gameover", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				Assets.gameover = true;
+			}        
+		});
 		socket.on("grid", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
@@ -52,10 +80,16 @@ public class SocketIO {
 				Log.d("socketio", "socket event connect error");
 				//there is a grid!
 				JSONObject data = (JSONObject) args[0];
-				boolean[] tmp = new boolean[35];
 				try {
+					boolean[] tmp = new boolean[35];
 					JSONArray array = data.getJSONArray("grid");
-					for(int i=0;i<array.length();i++) tmp[i]=array.getBoolean(i);
+					if(Assets.id==0){
+						for(int i=0;i<35;i++) 
+							tmp[i] = array.getBoolean(i);
+					} else{
+						for(int i=0;i<35;i++) 
+							tmp[i] = !array.getBoolean(i);
+					}
 					Assets.interGalaticaMapVector = tmp;
 					Assets.ready = true;
 				} catch (JSONException e) {
