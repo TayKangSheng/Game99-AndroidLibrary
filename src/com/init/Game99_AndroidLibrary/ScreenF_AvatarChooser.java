@@ -25,9 +25,9 @@ public class ScreenF_AvatarChooser extends Screen {
 		super(game);
 		// TODO Auto-generated constructor stub
 		startButton = new Objects_StartButton(gameWidth, gameHeight, Assets.StartButtonPressed, Assets.start);
-		avatarList.add(new Objects_GeneralAvatar("Avatar1", 30, 30, Assets.Avatar1);
-		avatarList.add(new Objects_GeneralAvatar("Avatar2", 30, 130, Assets.Avatar2);
-		avatarList.add(new Objects_GeneralAvatar("Avatar3", 30, 230, Assets.Avatar3);
+		avatarList.add(new Objects_GeneralAvatar("Avatar1", 30, 30, Assets.Avatar1));
+		avatarList.add(new Objects_GeneralAvatar("Avatar2", 30, 130, Assets.Avatar2));
+		avatarList.add(new Objects_GeneralAvatar("Avatar3", 30, 230, Assets.Avatar3));
 
 	}
 
@@ -46,7 +46,7 @@ public class ScreenF_AvatarChooser extends Screen {
 							avatarsChosen.add(i.toString());
 						}
 					}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 					if (inBounds(event, startButton.getX(), startButton.getY(), startButton.getWidth(), startButton.getHeight())){
 					}
@@ -57,6 +57,7 @@ public class ScreenF_AvatarChooser extends Screen {
 		if (ready){
 //			game.setScreen();
 		}
+		/*
 =======
 					
 					if (inBounds(event, startButton.getX(), startButton.getY(), startButton.getWidth(), startButton.getHeight())){
@@ -64,7 +65,7 @@ public class ScreenF_AvatarChooser extends Screen {
 			}
 		}
 >>>>>>> origin/17-03-2015-kang
-
+*/
 
 	}
 

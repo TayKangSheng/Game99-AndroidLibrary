@@ -14,6 +14,11 @@ public class Assets {
 	//public static Objects_Animation birdAnimation;
 	public static Image space;
 	public static Image start;
+	public static Image Avatar1;
+	public static Image Avatar2;
+	public static Image Avatar3;
+	public static Image StartButtonPressed;
+	
 	public static Image bird1;
 	public static Image bird2;
 	public static Image bird3;
@@ -28,10 +33,4 @@ public class Assets {
 	
 	public static boolean gameover = false;
 	public static boolean[] interGalaticaMapVector = null;
-		/*{false, true, true, false, false, true, true,
-		false, false, true, true, false, false, true,
-		true, false, false, true, true, false, false,
-		true, true, false, true, false, true, false,
-		true, false, true, false, false, true, false};*/
-//	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
 }

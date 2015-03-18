@@ -51,7 +51,6 @@ public class SocketIO {
 				JSONObject data = (JSONObject) args[0];
 				try {
 					Assets.id = data.getInt("id");
-					Assets.msg = data.getString("msg");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
