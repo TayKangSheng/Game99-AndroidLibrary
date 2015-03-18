@@ -1,6 +1,7 @@
 package com.init.Game99_AndroidLibrary;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,7 @@ import android.graphics.Paint;
 import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
+import com.init.framework.Input.TouchEvent;
 
 public class ScreenE_Results extends Screen{
 	
@@ -16,6 +18,7 @@ public class ScreenE_Results extends Screen{
 	int scoreCount = 0;
 	int opponentScoreCount = 0;
 	String reason;
+	private List<TouchEvent> touchEvents;
 	/// This is the results screen
 	public ScreenE_Results(Game game, ArrayList<Objects_GridButton> list
 			,String reason) {
@@ -26,6 +29,18 @@ public class ScreenE_Results extends Screen{
 			if (i.getClickable()) opponentScoreCount++;
 			else  scoreCount++;
 		}
+		touchEvents = game.getInput().getTouchEvents();
+		for (TouchEvent event: touchEvents) {
+			if (event.type == TouchEvent.TOUCH_UP) {
+				//System.out.println(event.x + ", " +event.y);
+				if(inBounds(event,120,1045,551,127)) {
+					Assets.socketIO.getSocket().emit("ready");
+					game.setScreen(new ScreenB_MainMenu(game));
+					//Assets.socketIO.getSocket().emit("ready", "");
+				}
+			}
+		}
+
 	}
 
 	@Override
@@ -40,8 +55,10 @@ public class ScreenE_Results extends Screen{
 		Graphics g = game.getGraphics();
 		g.clearScreen(Color.LTGRAY);
 		
-		painter.setColor(Color.BLACK);
+		painter.setColor(Color.WHITE);
 		painter.setTextSize(300);
+		g.drawImage(Assets.space, 0, 0);
+		g.drawImage(Assets.start, 120, 1050);
 		if(this.reason.equals("life"))
 			g.drawString("Life",50 , gameHeight/2, painter);
 		else if(this.reason.equals("other"))
@@ -58,7 +75,16 @@ public class ScreenE_Results extends Screen{
 		// TODO Auto-generated method stub
 
 	}
-
+	public boolean inBounds(TouchEvent event, int x, int y, int width,
+            int height) {
+        if (event.x > x 
+        		&& event.x < x + width - 1 
+        		&& event.y > y
+                && event.y < y + height - 1)
+            return true;
+        else
+            return false;
+    }
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
