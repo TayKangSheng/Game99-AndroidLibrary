@@ -22,4 +22,5 @@ and oh,<br>
 
 <em>Player's comment:</em><br>
 This game has exceeded my expectations. --Wen Xian Ng<br>
-This is a fun game. --Ong Yong Siang
+This is a fun game. --Ong Yong Siang<br>
+Short, catchy and easy to play. --Jia Han Tan
