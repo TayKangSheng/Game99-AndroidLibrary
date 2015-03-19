@@ -9,72 +9,94 @@ import android.graphics.Paint;
 import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
+import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
 
 public class ScreenE_Results extends Screen{
 	
 	private int gameHeight = game.getGraphics().getHeight();
-	Paint painter = new Paint();
-	int scoreCount = 0;
-	int opponentScoreCount = 0;
-	String reason;
+	private int gameWidth = game.getGraphics().getWidth();
+	private Paint painter = new Paint();
+	private Graphics g;
+	private int scoreCount = 0, opponentScoreCount = 0;
+	private String reason;
 	private List<TouchEvent> touchEvents;
-	/// This is the results screen
-	public ScreenE_Results(Game game, ArrayList<Objects_GridButton> list
-			,String reason) {
+	
+	public ScreenE_Results(Game game, ArrayList<Objects_GridButton> list, String reason) {
 		super(game);
+		nullifyE();
+		g = game.getGraphics();
+		
+		painter.setColor(Color.WHITE);
+		painter.setTextSize(100);
+		painter.setTextAlign(Paint.Align.CENTER);
+		
 		this.reason = reason;
 		if(reason.equals("life")) return;
 		for (Objects_GridButton i : list){
 			if (i.getClickable()) opponentScoreCount++;
 			else  scoreCount++;
 		}
+		Assets.loadingscreen = g.newImage("starrynight.png", ImageFormat.RGB565, false);
+	}
+	private void nullifyE(){
+		
+		Assets.gridButtonMyPlanet = null;
+		Assets.gridButtonNotMyPlanet = null;
+		System.gc();
+	}
+	@Override
+	public void update(float deltaTime) {
 		touchEvents = game.getInput().getTouchEvents();
 		for (TouchEvent event: touchEvents) {
 			if (event.type == TouchEvent.TOUCH_UP) {
-				//System.out.println(event.x + ", " +event.y);
 				if(inBounds(event,120,1045,551,127)) {
-					Assets.socketIO.getSocket().emit("ready");
+					Assets.socketIO.getSocket().emit("joined");
+					nullify();
 					game.setScreen(new ScreenB_MainMenu(game));
-					//Assets.socketIO.getSocket().emit("ready", "");
 				}
 			}
 		}
-
 	}
-
-	@Override
-	public void update(float deltaTime) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	@Override
 	public void paint(float deltaTime) {
-		// TODO Auto-generated method stub
-		Graphics g = game.getGraphics();
 		g.clearScreen(Color.LTGRAY);
-		
-		painter.setColor(Color.WHITE);
-		painter.setTextSize(300);
-		g.drawImage(Assets.space, 0, 0);
+		g.drawImage(Assets.loadingscreen, 0, 0);
 		g.drawImage(Assets.start, 120, 1050);
+
 		if(this.reason.equals("life"))
-			g.drawString("Life",50 , gameHeight/2, painter);
+			g.drawString("No lives",gameWidth/2 , gameHeight/2, painter);
 		else if(this.reason.equals("other"))
-			g.drawString("Win",50 , gameHeight/2, painter);
+			g.drawString("Won", gameWidth/2, gameHeight/2, painter);
 		else if (scoreCount > opponentScoreCount){
-			g.drawString("WIN", 50 , gameHeight/2, painter);
+			g.drawString("Won", gameWidth/2, gameHeight/2, painter);
 		} else{
-			g.drawString("LOSE", 50 , gameHeight/2, painter);
+			g.drawString("Lost",gameWidth/2, gameHeight/2, painter);
 		}
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void backButton() {
+		// TODO Auto-generated method stub
 
 	}
+	
 	public boolean inBounds(TouchEvent event, int x, int y, int width,
             int height) {
         if (event.x > x 
@@ -85,22 +107,13 @@ public class ScreenE_Results extends Screen{
         else
             return false;
     }
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
 
+	public static void nullify(){
+		Assets.health = 10;
+		Assets.running = true;
+		Assets.gameover = false;
+		Assets.ready = false;
+		Assets.Imready = false;
+		Assets.runTime = 0;
 	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void backButton() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

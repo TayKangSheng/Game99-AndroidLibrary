@@ -11,6 +11,7 @@ import android.util.Log;
 import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
+import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
 
 public class ScreenD_GameScreen extends Screen{
@@ -18,9 +19,10 @@ public class ScreenD_GameScreen extends Screen{
 	private int gameWidth = game.getGraphics().getWidth();
 	private Graphics g = game.getGraphics();
 	private Paint painter = new Paint();
-	private float runTime = 0;
+	private float GamerunTime = 0;
 	private Objects_Timer clock;
 	private int smallestNo = 10;
+	
 	
 	private Objects_ButtonHandler buttonHandler;
 	private ArrayList<Objects_GridButton> gameGrid = new ArrayList<Objects_GridButton>();
@@ -31,16 +33,21 @@ public class ScreenD_GameScreen extends Screen{
 	public ScreenD_GameScreen(Game game) {
 		super(game);
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
-		// Initialization of the Game Grid, Game Buttons and Timer, Health bar.
+		
+		nullify();
+		if(Assets.gridButtonMyPlanet==null){
+			Assets.gridButtonMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565, false);
+			Assets.gridButtonNotMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565, false);
+		}
+		Assets.running = true;
+		Assets.health = 10;
+		clock = new Objects_Timer();
+		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(75+(i%5)*130, 
 					150+((int)(i/5))*130, Assets.interGalaticaMapVector[i]);
 			gameGrid.add(buttontemp0);
 		}
-		// Initialization of clock
-		clock = new Objects_Timer();
-		// Initialization of Game
-		Assets.running = true;
 		buttonHandler =  new Objects_ButtonHandler(gameGrid);
 	}
 
@@ -58,7 +65,8 @@ public class ScreenD_GameScreen extends Screen{
 	@Override
 	public void update(float deltaTime) {
 		Log.i("ScreenD_GameScreen", "update");
-		runTime += deltaTime;
+		nullify();
+		GamerunTime += deltaTime;
 		// check clock
 		if(Assets.health==0) {
 			Assets.socketIO.getSocket().emit("gameover");
@@ -67,12 +75,12 @@ public class ScreenD_GameScreen extends Screen{
 		if(Assets.gameover){ //other side lost/quit
 			game.setScreen(new ScreenE_Results(game, gameGrid, "other"));
 		}
-		if (Integer.valueOf(clock.getValue(runTime))<=0){
+		if (Integer.valueOf(clock.getValue(GamerunTime))<=0){
 			game.setScreen(new ScreenE_Results(game, gameGrid, "time"));
 		}
 		// receive data and change color
 		if(Assets.otherPlayerPress>=0){
-			change(Assets.otherPlayerPress);
+			gameGrid.get(Assets.otherPlayerPress).setNormalClickable();
 			Assets.otherPlayerPress = -1;
 		}
 		// Find smallest Number
@@ -86,40 +94,20 @@ public class ScreenD_GameScreen extends Screen{
 		}
 		//getting touch information and perform player operation
 		touchEvents = game.getInput().getTouchEvents();
-		//if (Assets.health > 0){
-			for (TouchEvent event: touchEvents) {
-				if (event.type == TouchEvent.TOUCH_UP) {
-					for (int index=0;index<35;index++){
-						buttontemp1 = gameGrid.get(index);
-						//grid-button
-						if (inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
-							click(buttontemp1, index);
-					}
-				}
+		for (TouchEvent event: touchEvents) {
+			if (event.type == TouchEvent.TOUCH_UP) {
+				for (int index=0;index<35;index++){
+					buttontemp1 = gameGrid.get(index);
+					//grid-button
+					if (utils.inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
+						buttonHandler.Click(index, smallestNo);
+						//click(buttontemp1, index);
 				}
 			}
-		
-		//}
+			}
+		}
 	}
-	public void click(Objects_GridButton button_click, int index){
-	            if(button_click.getClickable()){
-                     if (Integer.valueOf(button_click.getRandomInt()) == smallestNo){
-	                             //clicking is successful;
-	                             button_click.setNormalNotClickable();
-	                             Assets.socketIO.getSocket().emit("button", index);
-	                     } 
-	                     else{
-	                             Assets.health--;
-	                     }
-	             }
-	             else{
-		                     Assets.health--;
-		             }
-		     }
-
-    private void change(int index){
-		gameGrid.get(index).setNormalClickable();
-	}
+	
 	@Override
 	public void paint(float deltaTime) {
 		Log.i("ScreenD_GameScreen", "paint");
@@ -136,7 +124,7 @@ public class ScreenD_GameScreen extends Screen{
 		// Paint timer
 		painter.setColor(clock.getColor());
 		painter.setTextSize(clock.getTextSize());
-		g.drawString(clock.getValue(runTime), 669, 120, painter);
+		g.drawString(clock.getValue(GamerunTime), 669, 120, painter);
 
 		// Paint health
 		for (int i=0 ; i<Assets.health ; i++){
@@ -162,24 +150,6 @@ public class ScreenD_GameScreen extends Screen{
 		}
 	}
 
-	/**
-	 * 
-	 * @param event = touch event
-	 * @param x = top left hand x coordinate
-	 * @param y = top right hand y coordinate
-	 * @param width = width of button
-	 * @param height = height of button
-	 * @return true = inBounds, false = outBounds.
-	 */
-	private boolean inBounds(TouchEvent event, int x, int y, int width,
-			int height) {
-		if (event.x > x && event.x < x + width - 1 && event.y > y
-				&& event.y < y + height - 1)
-			return true;
-		else
-			return false;
-	}
-
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
@@ -198,6 +168,18 @@ public class ScreenD_GameScreen extends Screen{
 	@Override
 	public void backButton() {
 		// TODO Auto-generated method stub
+	}
+	private void nullify(){
+		Assets.planet0 = null;
+		Assets.planet1 = null;
+		Assets.planet2 = null;
+		Assets.planet3 = null;
+		Assets.planet4 = null;
+		Assets.planet5 = null;
+		Assets.planet6 = null;
+		Assets.planet7 = null;
+		Assets.planet8 = null;
+		System.gc();
 	}
 
 }

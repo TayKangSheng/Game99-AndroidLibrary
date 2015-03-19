@@ -1,6 +1,8 @@
 package com.init.Game99_AndroidLibrary;
 
 import java.util.ArrayList;
+
+import android.R;
 import android.util.Log;
 import com.init.framework.Game;
 import com.init.framework.Graphics;
@@ -22,32 +24,53 @@ public class ScreenA_Initialisation extends Screen {
 	@Override
 	public void update(float deltaTime) {
 		Log.i("ScreenA_Initialisation", "update");
-		
-		// Initialization of ALL game assets.
+		//runtime and socketio;
 		Assets.runTime=0;
-		
-		Graphics g = game.getGraphics();
-		Assets.start = g.newImage("startbutton.png", ImageFormat.RGB565);
-		Assets.space = g.newImage("space6.png", ImageFormat.RGB565);
-		Assets.menu = g.newImage("menu.png", ImageFormat.RGB565);
-		Assets.bird1 = g.newImage("Bird1.png", ImageFormat.RGB565);
-		Assets.bird2 = g.newImage("Bird2.png", ImageFormat.RGB565);
-		Assets.bird3 = g.newImage("Bird3.png", ImageFormat.RGB565);
 		Assets.socketIO = new SocketIO();
-		Assets.gridButtonMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565);
-		Assets.gridButtonNotMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565);
+		//loads images;
+		Graphics g = game.getGraphics();
+		Assets.gridButtonMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565, false);
+		Assets.gridButtonNotMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565, false);
+	
+		Assets.loadingscreen = g.newImage("starrynight.png", ImageFormat.RGB565, false);
+		Assets.start = g.newImage("startbutton.png", ImageFormat.RGB565, false);
+		Assets.space = g.newImage("space6.png", ImageFormat.RGB565, false);
+		Assets.avatar_page = g.newImage("avatars.png", ImageFormat.RGB565, false);
+		Assets.planet0 = g.newImage("planet1_0.png", ImageFormat.RGB565, false);
+		Assets.planet1 = g.newImage("planet1_1.png", ImageFormat.RGB565, false);
+		Assets.planet2 = g.newImage("planet1_2.png", ImageFormat.RGB565, false);
+		Assets.planet3 = g.newImage("planet1_3.png", ImageFormat.RGB565, false);
+		Assets.planet4 = g.newImage("planet1_4.png", ImageFormat.RGB565, false);
+		Assets.planet5 = g.newImage("planet1_5.png", ImageFormat.RGB565, false);
+		Assets.planet6 = g.newImage("planet1_6.png", ImageFormat.RGB565, false);
+		Assets.planet7 = g.newImage("planet1_7.png", ImageFormat.RGB565, false);
+		Assets.planet8 = g.newImage("planet1_8.png", ImageFormat.RGB565, false);
+
+		//Assets.backgroundanimearth0 = g.newImage("backgroundanimearth1-0.png", ImageFormat.RGB565, false);
+		/*Assets.backgroundanimearth1 = g.newImage("backgroundanimearth1-1.png", ImageFormat.RGB565, false);
+		Assets.backgroundanimearth2 = g.newImage("backgroundanimearth1-2.png", ImageFormat.RGB565, false);
+		//Assets.backgroundanimearth3 = g.newImage("backgroundanimearth1-3.png", ImageFormat.RGB565, false);
+		Assets.backgroundanimearth4 = g.newImage("backgroundanimearth1-4.png", ImageFormat.RGB565, false);
+		Assets.backgroundanimearth5 = g.newImage("backgroundanimearth1-5.png", ImageFormat.RGB565, false);
+		Assets.backgroundanimearth6 = g.newImage("backgroundanimearth1-6.png", ImageFormat.RGB565, false);
+		//Assets.backgroundanimearth7 = g.newImage("backgroundanimearth1-7.png", ImageFormat.RGB565, false);
+		Assets.backgroundanimearth8 = g.newImage("backgroundanimearth1-8.png", ImageFormat.RGB565, false);
+		Assets.backgroundanimearth9 = g.newImage("backgroundanimearth1-9.png", ImageFormat.RGB565, false);
 		
-		ArrayList<Image> birdAnimationImages = new ArrayList<Image>();
-		birdAnimationImages.add(Assets.bird1);
-		birdAnimationImages.add(Assets.bird2);
-		birdAnimationImages.add(Assets.bird3);
+		//initialize animations
+		ArrayList<Image> movingEarthImages = new ArrayList<Image>();
+		movingEarthImages.add(Assets.backgroundanimearth0);
+		movingEarthImages.add(Assets.backgroundanimearth1);
+		movingEarthImages.add(Assets.backgroundanimearth2);
+		movingEarthImages.add(Assets.backgroundanimearth3);
+		movingEarthImages.add(Assets.backgroundanimearth4);
+		movingEarthImages.add(Assets.backgroundanimearth5);
+		movingEarthImages.add(Assets.backgroundanimearth6);
+		movingEarthImages.add(Assets.backgroundanimearth7);
+		movingEarthImages.add(Assets.backgroundanimearth8);
+		Assets.movingEarth = new Objects_Animation(movingEarthImages); */
 		
-		String[] loadingStrings = {"loading","loading.","loading..","loading..."};
-		
-		//Assets.birdAnimation = new Objects_Animation(birdAnimationImages);
-		//Assets.loadingStringAnimation = new Objects_Animation(loadingStrings);
-		
-		// Set GameScreen to ScreenB_MainMenu.
+		//let's go to the next screen;
         game.setScreen(new ScreenB_MainMenu(game));
 	}
 
