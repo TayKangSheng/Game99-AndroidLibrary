@@ -3,8 +3,10 @@ package com.init.Game99_AndroidLibrary;
 import com.init.framework.Image;
 
 public class Objects_GeneralAvatar {
-	private int xCoor;
-	private int yCoor;
+	private float xCoor;
+	private float yCoor;
+	private int imageWidth;
+	private int imageHeight;
 	private String name;
 	private Image avatarImage;
 	
@@ -13,14 +15,16 @@ public class Objects_GeneralAvatar {
 		this.yCoor = y;
 		this.avatarImage = image;
 		this.name = name;
+		this.imageHeight = image.getHeight();
+		this.imageWidth = image.getWidth();
 	}
 	
 	public int getX(){
-		return xCoor;
+		return (int) xCoor;
 	}
 	
 	public int getY(){
-		return yCoor;
+		return (int) yCoor;
 	}
 	
 	public String toString(){
@@ -32,11 +36,19 @@ public class Objects_GeneralAvatar {
 	}
 	
 	public int getWidth(){
-		return avatarImage.getWidth();
+		return imageWidth;
 	}
 	
 	public int getHeight(){
-		return avatarImage.getHeight();
+		return imageHeight;
+	}
+	
+	public void addX(float add){
+		xCoor += add;
+	}
+	
+	public void addY(float add){
+		yCoor += add;
 	}
 	
 }

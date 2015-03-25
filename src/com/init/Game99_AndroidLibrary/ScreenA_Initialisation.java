@@ -35,16 +35,16 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.loadingscreen = g.newImage("starrynight.png", ImageFormat.RGB565, false);
 		Assets.start = g.newImage("startbutton.png", ImageFormat.RGB565, false);
 		Assets.space = g.newImage("space6.png", ImageFormat.RGB565, false);
-		Assets.avatar_page = g.newImage("avatars.png", ImageFormat.RGB565, false);
-		Assets.planet0 = g.newImage("planet1_0.png", ImageFormat.RGB565, false);
-		Assets.planet1 = g.newImage("planet1_1.png", ImageFormat.RGB565, false);
-		Assets.planet2 = g.newImage("planet1_2.png", ImageFormat.RGB565, false);
-		Assets.planet3 = g.newImage("planet1_3.png", ImageFormat.RGB565, false);
-		Assets.planet4 = g.newImage("planet1_4.png", ImageFormat.RGB565, false);
-		Assets.planet5 = g.newImage("planet1_5.png", ImageFormat.RGB565, false);
-		Assets.planet6 = g.newImage("planet1_6.png", ImageFormat.RGB565, false);
-		Assets.planet7 = g.newImage("planet1_7.png", ImageFormat.RGB565, false);
-		Assets.planet8 = g.newImage("planet1_8.png", ImageFormat.RGB565, false);
+		Assets.avatar_page = g.newImage("avatar_page.png", ImageFormat.RGB565, false);
+		Assets.planet0 = g.newImage("blueplanet.png", ImageFormat.RGB565, false);
+		Assets.planet1 = g.newImage("cheese.png", ImageFormat.RGB565, false);
+		Assets.planet2 = g.newImage("cyanstripesplanet.png", ImageFormat.RGB565, false);
+		Assets.planet3 = g.newImage("earth.png", ImageFormat.RGB565, false);
+		Assets.planet4 = g.newImage("jupiter.png", ImageFormat.RGB565, false);
+		Assets.planet5 = g.newImage("moon.png", ImageFormat.RGB565, false);
+		Assets.planet6 = g.newImage("saturn.png", ImageFormat.RGB565, false);
+		Assets.planet7 = g.newImage("sun.png", ImageFormat.RGB565, false);
+		Assets.planet8 = g.newImage("watermelon.png", ImageFormat.RGB565, false);
 
 		//Assets.backgroundanimearth0 = g.newImage("backgroundanimearth1-0.png", ImageFormat.RGB565, false);
 		/*Assets.backgroundanimearth1 = g.newImage("backgroundanimearth1-1.png", ImageFormat.RGB565, false);
