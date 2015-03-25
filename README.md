@@ -16,10 +16,9 @@ try:<br>
 1. adding the <code>*.jar</code> files to your android library.<br>
 2. adding <code>\<uses-permission android:name="android.permission.INTERNET"\></code> to your <code>AndroidManifest.xml</code>.
 
-Don't panic<br>
-and oh,<br>
-<em>bring a towel.</em>
+So long and thanks for the fish!
 
-<em>Player's comment:</em><br>
+<em>Players' comments:</em><br>
 This game has exceeded my expectations. --Wen Xian Ng<br>
-This is a fun game. --Ong Yong Siang
+This is a fun game. --Ong Yong Siang<br>
+Short, catchy and easy to play. --Jia Han Tan

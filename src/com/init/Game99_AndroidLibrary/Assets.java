@@ -1,37 +1,33 @@
 package com.init.Game99_AndroidLibrary;
-
-import com.github.nkzawa.socketio.client.Socket;
 import com.init.framework.Image;
-import com.init.framework.Sound;
 
 public class Assets {
-	
-	public static boolean running;
+	/*game properties*/
+	public static boolean running, ready = false, gameover = false, Imready = false;
 	public static float runTime;
-	public static Image menu;
-	public static Sound click;
-	public static int health = 10;
-	//public static Objects_Animation birdAnimation;
-	public static Image space;
-	public static Image start;
-	public static Image bird1;
-	public static Image bird2;
-	public static Image bird3;
-	public static Image gridButtonMyPlanet;
-	public static Image gridButtonNotMyPlanet;
-	//public static Objects_Animation loadingStringAnimation;
 	public static SocketIO socketIO;
-	public static boolean ready = false;
-	public static String msg = "";
-	public static int otherPlayerPress = -1;
-	public static int id;
-	
-	public static boolean gameover = false;
+	public static int otherPlayerPress = -1, id, health;
 	public static boolean[] interGalaticaMapVector = null;
-		/*{false, true, true, false, false, true, true,
-		false, false, true, true, false, false, true,
-		true, false, false, true, true, false, false,
-		true, true, false, true, false, true, false,
-		true, false, true, false, false, true, false};*/
-//	public static Objects_GridButton[] interGalacticaMap = new Objects_GridButton[35];
+	//public static Sound click;
+	
+	/*game images*/
+	public static Image space, //space background with 42
+		start, //start button 
+		//startButtonPressed, 
+		loadingscreen,
+		avatar_page;
+	
+	//for mainmenu animation;
+	public static Image backgroundanimearth0, backgroundanimearth1, backgroundanimearth2, 
+	backgroundanimearth3, backgroundanimearth4, backgroundanimearth5, backgroundanimearth6, 
+	backgroundanimearth7, backgroundanimearth8, backgroundanimearth9;
+	
+	//planet avatars
+	public static Image planet1, planet2, planet3, planet4, planet5, planet6, planet7,
+	planet8, planet0;
+	//game dots
+	public static Image gridButtonMyPlanet, gridButtonNotMyPlanet;
+	
+	/*game animations*/
+	public static Objects_Animation movingEarth;
 }

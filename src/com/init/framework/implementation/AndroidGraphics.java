@@ -33,7 +33,7 @@ public class AndroidGraphics implements Graphics {
     }
 
     @Override
-    public Image newImage(String fileName, ImageFormat format) {
+    public Image newImage(String fileName, ImageFormat format, boolean small) {
         Config config = null;
         if (format == ImageFormat.RGB565)
             config = Config.RGB_565;
@@ -43,6 +43,7 @@ public class AndroidGraphics implements Graphics {
             config = Config.ARGB_8888;
 
         Options options = new Options();
+        if(small) options.inSampleSize = 2;
         options.inPreferredConfig = config;
         
         

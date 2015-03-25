@@ -20,12 +20,9 @@ public class ScreenC_LoadingScreen extends Screen {
 
 	@Override
 	public void update(float deltaTime) {
-		// TODO Auto-generated method stub
 		Log.i("ScreenC_LoadingScreen", "update");
-		
 		Assets.runTime += deltaTime;
 		//loadingCurrent = Assets.loadingStringAnimation.getStringFrame(Assets.runTime/20);
-		
 		game.setScreen(new ScreenD_GameScreen(game));
 	}
 
