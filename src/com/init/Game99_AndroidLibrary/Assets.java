@@ -13,6 +13,9 @@ public class Assets {
 	/*game images*/
 	public static Image space, //space background with 42
 		start, //start button 
+		readyButton1,readyButton2,readyButton3,readyButton4,readyButton5,readyButton6,
+		waitingButton1,waitingButton2,waitingButton3,waitingButton4,
+		chooseplanet,
 		//startButtonPressed, 
 		loadingscreen,
 		avatar_page;
@@ -29,5 +32,5 @@ public class Assets {
 	public static Image gridButtonMyPlanet, gridButtonNotMyPlanet;
 	
 	/*game animations*/
-	public static Objects_Animation movingEarth;
+	public static Objects_Animation movingEarth, blinkingReadyButton, blinkingWaitingButton;
 }

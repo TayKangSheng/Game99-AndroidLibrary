@@ -7,7 +7,7 @@ import com.init.framework.Image;
 public class Objects_Animation {
 	private ArrayList<Image> Images = new ArrayList<Image>();
 	private String[] Strings;
-	private int width, height;
+	private int width, height, xCoor, yCoor;
 	
 	/**
 	 *  This class aims to automates LOOP_Animation
@@ -16,10 +16,13 @@ public class Objects_Animation {
 	/*public Objects_Animation(String format){
 		this.format = format;
 	}*/
-	public Objects_Animation (ArrayList<Image> animationList){
+	public Objects_Animation (ArrayList<Image> animationList, int x, int y){
 		Images = animationList;
 		width = animationList.get(0).getWidth();
 		height = animationList.get(0).getHeight();
+		xCoor = x;
+		yCoor = y;
+		
 	}
 	
 	public Objects_Animation (String[] animationString){
@@ -55,6 +58,14 @@ public class Objects_Animation {
 	public int getHeight(){
 		
 		return height;
+	}
+	
+	public int getX(){
+		return xCoor;
+	}
+	
+	public int getY(){
+		return yCoor;
 	}
 	
 }
