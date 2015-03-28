@@ -66,7 +66,7 @@ public class ScreenJ_AvatarChooser extends Screen {
 				// Detect avatar chosen :)
 				for (Objects_GeneralAvatar i : avatarList){
 					if (utils.inBounds(event, i.getX(), i.getY(), i.getWidth(), i.getHeight())){
-						Assets.gridButtonMyPlanet = i.getImage();
+						Assets.gridButtonMyPlanet = Assets.cheese130;//i.getImage();
 						chosen = true;
 					}
 				}

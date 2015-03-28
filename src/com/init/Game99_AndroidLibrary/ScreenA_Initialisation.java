@@ -56,6 +56,7 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.planet6 = g.newImage("saturn.png", ImageFormat.RGB565, false);
 		Assets.planet7 = g.newImage("sun.png", ImageFormat.RGB565, false);
 		Assets.planet8 = g.newImage("watermelon.png", ImageFormat.RGB565, false);
+		Assets.cheese130 = g.newImage("cheese130px.png", ImageFormat.RGB565, false);
 		
 		ArrayList<Image> blinkingReady = new ArrayList<Image>();
 		blinkingReady.add(Assets.readyButton1);

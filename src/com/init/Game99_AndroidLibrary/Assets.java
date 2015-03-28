@@ -18,7 +18,9 @@ public class Assets {
 		chooseplanet,
 		//startButtonPressed, 
 		loadingscreen,
-		avatar_page;
+		avatar_page,
+		cheese130
+		;
 	
 	//for mainmenu animation;
 	public static Image backgroundanimearth0, backgroundanimearth1, backgroundanimearth2, 
