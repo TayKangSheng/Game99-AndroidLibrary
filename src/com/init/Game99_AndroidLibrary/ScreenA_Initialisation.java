@@ -34,6 +34,17 @@ public class ScreenA_Initialisation extends Screen {
 	
 		Assets.loadingscreen = g.newImage("starrynight.png", ImageFormat.RGB565, false);
 		Assets.start = g.newImage("startbutton.png", ImageFormat.RGB565, false);
+		Assets.readyButton1 = g.newImage("readybutton1.png", ImageFormat.RGB565, false);
+		Assets.readyButton2 = g.newImage("readybutton2.png", ImageFormat.RGB565, false);
+		Assets.readyButton3 = g.newImage("readybutton3.png", ImageFormat.RGB565, false);
+		Assets.readyButton4 = g.newImage("readybutton4.png", ImageFormat.RGB565, false);
+		Assets.readyButton5 = g.newImage("readybutton5.png", ImageFormat.RGB565, false);
+		Assets.readyButton6 = g.newImage("readybutton6.png", ImageFormat.RGB565, false);
+		Assets.waitingButton1 = g.newImage("waitingbutton1.png", ImageFormat.RGB565, false);
+		Assets.waitingButton2 = g.newImage("waitingbutton2.png", ImageFormat.RGB565, false);
+		Assets.waitingButton3 = g.newImage("waitingbutton3.png", ImageFormat.RGB565, false);
+		Assets.waitingButton4 = g.newImage("waitingbutton4.png", ImageFormat.RGB565, false);
+		Assets.chooseplanet = g.newImage("chooseplanetbutton.png", ImageFormat.RGB565, false);
 		Assets.space = g.newImage("space6.png", ImageFormat.RGB565, false);
 		Assets.avatar_page = g.newImage("avatar_page.png", ImageFormat.RGB565, false);
 		Assets.planet0 = g.newImage("blueplanet.png", ImageFormat.RGB565, false);
@@ -45,9 +56,36 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.planet6 = g.newImage("saturn.png", ImageFormat.RGB565, false);
 		Assets.planet7 = g.newImage("sun.png", ImageFormat.RGB565, false);
 		Assets.planet8 = g.newImage("watermelon.png", ImageFormat.RGB565, false);
+		Assets.cheese130 = g.newImage("cheese130px.png", ImageFormat.RGB565, false);
+		
+		ArrayList<Image> blinkingReady = new ArrayList<Image>();
+		blinkingReady.add(Assets.readyButton1);
+		blinkingReady.add(Assets.readyButton2);
+		blinkingReady.add(Assets.readyButton3);
+		blinkingReady.add(Assets.readyButton4);
+		blinkingReady.add(Assets.readyButton5);
+		blinkingReady.add(Assets.readyButton6);
+		blinkingReady.add(Assets.readyButton5);
+		blinkingReady.add(Assets.readyButton4);
+		blinkingReady.add(Assets.readyButton3);
+		blinkingReady.add(Assets.readyButton2);
+		blinkingReady.add(Assets.readyButton1);
+		blinkingReady.add(Assets.readyButton1);
+		Assets.blinkingReadyButton = new Objects_Animation(blinkingReady, 100, 1100);
+		
+		ArrayList<Image> blinkingWaiting = new ArrayList<Image>();
+		blinkingWaiting.add(Assets.waitingButton1);
+		blinkingWaiting.add(Assets.waitingButton1);
+		blinkingWaiting.add(Assets.waitingButton2);
+		blinkingWaiting.add(Assets.waitingButton2);
+		blinkingWaiting.add(Assets.waitingButton3);
+		blinkingWaiting.add(Assets.waitingButton3);
+		blinkingWaiting.add(Assets.waitingButton4);
+		blinkingWaiting.add(Assets.waitingButton4);
+		Assets.blinkingWaitingButton = new Objects_Animation(blinkingWaiting, 100, 1100);
 
-		//Assets.backgroundanimearth0 = g.newImage("backgroundanimearth1-0.png", ImageFormat.RGB565, false);
-		/*Assets.backgroundanimearth1 = g.newImage("backgroundanimearth1-1.png", ImageFormat.RGB565, false);
+		/*Assets.backgroundanimearth0 = g.newImage("backgroundanimearth1-0.png", ImageFormat.RGB565, false);
+		Assets.backgroundanimearth1 = g.newImage("backgroundanimearth1-1.png", ImageFormat.RGB565, false);
 		Assets.backgroundanimearth2 = g.newImage("backgroundanimearth1-2.png", ImageFormat.RGB565, false);
 		//Assets.backgroundanimearth3 = g.newImage("backgroundanimearth1-3.png", ImageFormat.RGB565, false);
 		Assets.backgroundanimearth4 = g.newImage("backgroundanimearth1-4.png", ImageFormat.RGB565, false);

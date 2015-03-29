@@ -22,6 +22,7 @@ public class ScreenJ_AvatarChooser extends Screen {
 	private ArrayList<Objects_GeneralAvatar> avatarList = new ArrayList<Objects_GeneralAvatar>();
 	private int gameWidth = game.getGraphics().getWidth();
 	private float runTime;
+	private boolean chosen = false;
 	
 	public ScreenJ_AvatarChooser(Game game) {
 		super(game);
@@ -51,12 +52,9 @@ public class ScreenJ_AvatarChooser extends Screen {
 	@Override
 	public void update(float deltaTime) {
 		this.runTime += deltaTime;
-//		int bounce = (int) (3*Math.sin(runTime/20));
 		for (int i=0 ; i<avatarList.size() ; i++){
 			if (i%2 == 0)
 				avatarList.get(i).addY((float)(Math.cos((runTime/30)+(i*(Math.PI/7.0)/3.0) )/2.5));
-//			else if (i%3 == 0)
-//				avatarList.get(i).addY((float)(Math.sin((runTime/30)+(i*(Math.PI/9.0)) )/2.0) + (float)(Math.cos((runTime/30)+(i*(Math.PI/9.0)) )/2.0));
 			else
 				avatarList.get(i).addY((float)(Math.sin((runTime/30)+(i*(Math.PI/7.0)/3.0) )/2.5));
 		}
@@ -68,12 +66,14 @@ public class ScreenJ_AvatarChooser extends Screen {
 				// Detect avatar chosen :)
 				for (Objects_GeneralAvatar i : avatarList){
 					if (utils.inBounds(event, i.getX(), i.getY(), i.getWidth(), i.getHeight())){
-						avatarChosen = i.toString();
+						Assets.gridButtonMyPlanet = Assets.cheese130;//i.getImage();
+						chosen = true;
 					}
 				}
 				
 				// starting the game :) 
-				if(utils.inBounds(event, 120,1045, 551, 127)){
+				if(utils.inBounds(event, Assets.blinkingReadyButton.getX(), Assets.blinkingReadyButton.getY(), 
+						Assets.blinkingReadyButton.getWidth(), Assets.blinkingReadyButton.getHeight()) && chosen){
 					Assets.socketIO.getSocket().emit("ready", "");
 					Assets.Imready = true;
 				}
@@ -92,8 +92,14 @@ public class ScreenJ_AvatarChooser extends Screen {
 		g.clearScreen(-12303292);
 		g.drawImage(Assets.avatar_page, 0,0);
 		//g.drawImage(Assets.start, 120, 1050);
-		if(!Assets.ready && Assets.Imready) 
-			g.drawString("Waiting for another player...", 200, 80, painter);
+		if(!chosen) {
+			g.drawImage(Assets.chooseplanet, 100, 1100);
+		} else if(!Assets.ready && Assets.Imready && chosen){
+			g.drawImage(Assets.blinkingWaitingButton.getImageFrame(runTime/30), Assets.blinkingWaitingButton.getX(), Assets.blinkingWaitingButton.getY());
+		}else{
+			g.drawImage(Assets.blinkingReadyButton.getImageFrame(runTime/12), Assets.blinkingReadyButton.getX(), Assets.blinkingReadyButton.getY());
+		}
+//			g.drawString("Waiting for another player...", 200, 80, painter);
 		
 		// Use for loop to draw all avatars.
 		for (Objects_GeneralAvatar i: avatarList){
