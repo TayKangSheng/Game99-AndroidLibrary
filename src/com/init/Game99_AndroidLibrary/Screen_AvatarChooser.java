@@ -14,7 +14,7 @@ import com.init.framework.Graphics;
 import com.init.framework.Screen;
 import com.init.framework.Input.TouchEvent;
 
-public class ScreenJ_AvatarChooser extends Screen {
+public class Screen_AvatarChooser extends Screen {
 	
 	private String avatarChosen;
 	private List<TouchEvent> touchEvents;
@@ -24,7 +24,7 @@ public class ScreenJ_AvatarChooser extends Screen {
 	private float runTime;
 	private boolean chosen = false;
 	
-	public ScreenJ_AvatarChooser(Game game) {
+	public Screen_AvatarChooser(Game game) {
 		super(game);
 		painter = new Paint();
 		painter.setColor(Color.WHITE);
@@ -79,7 +79,7 @@ public class ScreenJ_AvatarChooser extends Screen {
 				}
 			}
 		} 
-		if(Assets.ready)game.setScreen(new ScreenD_GameScreen(game));
+		if(Assets.ready)game.setScreen(new Screen_Game(game));
 		
 		Log.i("Screen_LoadingScreenJ", "update");
 		Assets.runTime += deltaTime;

@@ -3,10 +3,12 @@ import com.init.framework.Image;
 
 public class Assets {
 	/*game properties*/
-	public static boolean running, ready = false, gameover = false, Imready = false;
+	public static boolean running, ready = false, gameover = false, Imready = false
+			 , otherQuit = false;
 	public static float runTime;
 	public static SocketIO socketIO;
-	public static int otherPlayerPress = -1, id, health;
+	public static int otherPlayerPress = -1, id, health
+			, OTHER = 1, TIME=2, WON = 3, LOST = 0 ;
 	public static boolean[] interGalaticaMapVector = null;
 	//public static Sound click;
 	
