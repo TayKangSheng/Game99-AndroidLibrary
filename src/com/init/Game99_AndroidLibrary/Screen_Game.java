@@ -14,7 +14,7 @@ import com.init.framework.Screen;
 import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
 
-public class ScreenD_GameScreen extends Screen{
+public class Screen_Game extends Screen{
 
 	private int gameWidth = game.getGraphics().getWidth();
 	private Graphics g = game.getGraphics();
@@ -30,7 +30,7 @@ public class ScreenD_GameScreen extends Screen{
 	private Objects_GridButton buttontemp1;
 	private Objects_GridButton buttontemp0;
 	
-	public ScreenD_GameScreen(Game game) {
+	public Screen_Game(Game game) {
 		super(game);
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
 		
@@ -70,13 +70,13 @@ public class ScreenD_GameScreen extends Screen{
 		// check clock
 		if(Assets.health==0) {
 			Assets.socketIO.getSocket().emit("gameover");
-			game.setScreen(new ScreenE_Results(game, gameGrid, "life")); 
+			game.setScreen(new Screen_Result(game, gameGrid, "life")); 
 		}
 		if(Assets.gameover){ //other side lost/quit
-			game.setScreen(new ScreenE_Results(game, gameGrid, "other"));
+			game.setScreen(new Screen_Result(game, gameGrid, "other"));
 		}
 		if (Integer.valueOf(clock.getValue(GamerunTime))<=0){
-			game.setScreen(new ScreenE_Results(game, gameGrid, "time"));
+			game.setScreen(new Screen_Result(game, gameGrid, "time"));
 		}
 		// receive data and change color
 		if(Assets.otherPlayerPress>=0){

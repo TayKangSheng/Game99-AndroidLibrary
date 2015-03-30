@@ -11,6 +11,6 @@ public class NNGame extends AndroidGame {
 	public Screen getInitScreen() {
 		// TODO Auto-generated method stub
 		Log.i("Game99-AndroidLibrary", "A_Initialisation_screen");
-		return new ScreenA_Initialisation(this);
+		return new Screen_Initialize(this);
 	}
 }

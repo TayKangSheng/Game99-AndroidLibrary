@@ -14,14 +14,14 @@ import com.init.framework.Graphics;
 import com.init.framework.Screen;
 import com.init.framework.Input.TouchEvent;
 
-public class ScreenJ_AvatarChooser extends Screen {
+public class Screen_AvatarChooser extends Screen {
 	
 	private Image avatarChosen;
 	private List<TouchEvent> touchEvents;
 	private Paint painter;
 	private ArrayList<Objects_GeneralAvatar> avatarList = new ArrayList<Objects_GeneralAvatar>();
 	
-	public ScreenJ_AvatarChooser(Game game) {
+	public Screen_AvatarChooser(Game game) {
 		super(game);
 		painter = new Paint();
 		painter.setColor(Color.WHITE);
@@ -52,7 +52,7 @@ public class ScreenJ_AvatarChooser extends Screen {
 				}
 			}
 		} 
-		if(Assets.ready)game.setScreen(new ScreenD_GameScreen(game));
+		if(Assets.ready)game.setScreen(new Screen_Game(game));
 		
 /*		touchEvents = game.getInput().getTouchEvents();
 		if (avatarsChosen.size()<3){

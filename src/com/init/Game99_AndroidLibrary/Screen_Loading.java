@@ -7,11 +7,11 @@ import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
 
-public class ScreenC_LoadingScreen extends Screen {
+public class Screen_Loading extends Screen {
 	Paint loading = new Paint();
 	String loadingCurrent;
 
-	public ScreenC_LoadingScreen(Game game) {
+	public Screen_Loading(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
 		Log.i("ScreenC_LoadingScreen", "ScreenC_LoadingScreen");
@@ -23,7 +23,7 @@ public class ScreenC_LoadingScreen extends Screen {
 		Log.i("ScreenC_LoadingScreen", "update");
 		Assets.runTime += deltaTime;
 		//loadingCurrent = Assets.loadingStringAnimation.getStringFrame(Assets.runTime/20);
-		game.setScreen(new ScreenD_GameScreen(game));
+		game.setScreen(new Screen_Game(game));
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class ScreenC_LoadingScreen extends Screen {
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-        game.setScreen(new ScreenA_Initialisation(game));
+        game.setScreen(new Screen_Initialize(game));
 	}
 
 	@Override
