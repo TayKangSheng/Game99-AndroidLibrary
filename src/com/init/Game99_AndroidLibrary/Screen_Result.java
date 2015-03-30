@@ -16,13 +16,16 @@ public class Screen_Result extends Screen{
 	
 	private int gameHeight = game.getGraphics().getHeight();
 	private int gameWidth = game.getGraphics().getWidth();
-	private Paint painter = new Paint();
+	private Paint painter = new Paint()
+			, painter1 = new Paint()
+			, painter2 = new Paint();
+	private boolean won = false, lost = false, draw = false;
 	private Graphics g;
-	private int scoreCount = 0, opponentScoreCount = 0;
-	private String reason;
+	private int scoreCount = 0, opponentScoreCount = 0
+			, reason;
 	private List<TouchEvent> touchEvents;
 	
-	public Screen_Result(Game game, ArrayList<Objects_GridButton> list, String reason) {
+	public Screen_Result(Game game, ArrayList<Objects_GridButton> list, int reason) {
 		super(game);
 		nullifyE();
 		g = game.getGraphics();
@@ -32,15 +35,18 @@ public class Screen_Result extends Screen{
 		painter.setTextAlign(Paint.Align.CENTER);
 		
 		this.reason = reason;
-		if(reason.equals("life")) return;
+		if(this.reason==Assets.WON || this.reason==Assets.LOST) return;
 		for (Objects_GridButton i : list){
 			if (i.getClickable()) opponentScoreCount++;
 			else  scoreCount++;
 		}
+		if(scoreCount>opponentScoreCount){ this.won = true;
+		}else if(scoreCount==opponentScoreCount){ this.draw = true;
+		}else this.lost = true;
+		
 		Assets.loadingscreen = g.newImage("starrynight.png", ImageFormat.RGB565, false);
 	}
 	private void nullifyE(){
-		
 		Assets.gridButtonMyPlanet = null;
 		Assets.gridButtonNotMyPlanet = null;
 		System.gc();
@@ -52,7 +58,7 @@ public class Screen_Result extends Screen{
 			if (event.type == TouchEvent.TOUCH_UP) {
 				if(inBounds(event,120,1045,551,127)) {
 					Assets.socketIO.getSocket().emit("joined");
-					nullify();
+					restoreGame();
 					game.setScreen(new Screen_First(game));
 				}
 			}
@@ -61,19 +67,25 @@ public class Screen_Result extends Screen{
 	
 	@Override
 	public void paint(float deltaTime) {
+		String msg = "";
 		g.clearScreen(Color.LTGRAY);
 		g.drawImage(Assets.loadingscreen, 0, 0);
 		g.drawImage(Assets.start, 120, 1050);
 
-		if(this.reason.equals("life"))
-			g.drawString("No lives",gameWidth/2 , gameHeight/2, painter);
-		else if(this.reason.equals("other"))
-			g.drawString("Won", gameWidth/2, gameHeight/2, painter);
-		else if (scoreCount > opponentScoreCount){
-			g.drawString("Won", gameWidth/2, gameHeight/2, painter);
-		} else{
-			g.drawString("Lost",gameWidth/2, gameHeight/2, painter);
+		if(this.reason==Assets.WON) msg = "won!";
+		else if(this.reason==Assets.LOST) msg = "lost";
+		else if(this.reason==Assets.OTHER){
+			msg = "Other player quit.";
+			if(this.won) msg +=" but you won";
+			else if(this.lost) msg+=" and you lost";
+			else msg += " and it's a draw";
+		} 
+		else if(this.reason==Assets.TIME){
+			if(this.won) msg ="you won";
+			else if(this.lost) msg ="you lost";
+			else msg += "we have a draw";
 		}
+		g.drawString(msg, gameWidth/2 , gameHeight/2, painter);
 	}
 
 	@Override
@@ -108,7 +120,7 @@ public class Screen_Result extends Screen{
             return false;
     }
 
-	public static void nullify(){
+	public static void restoreGame(){
 		Assets.health = 10;
 		Assets.running = true;
 		Assets.gameover = false;

@@ -22,7 +22,7 @@ public class Screen_Game extends Screen{
 	private float GamerunTime = 0;
 	private Objects_Timer clock;
 	private int smallestNo = 10;
-	
+	private boolean wholeWon = true, wholeLost = true;
 	
 	private Objects_ButtonHandler buttonHandler;
 	private ArrayList<Objects_GridButton> gameGrid = new ArrayList<Objects_GridButton>();
@@ -68,15 +68,13 @@ public class Screen_Game extends Screen{
 		nullify();
 		GamerunTime += deltaTime;
 		// check clock
-		if(Assets.health==0) {
+		/*if(Assets.health==0) {
 			Assets.socketIO.getSocket().emit("gameover");
 			game.setScreen(new Screen_Result(game, gameGrid, "life")); 
-		}
-		if(Assets.gameover){ //other side lost/quit
-			game.setScreen(new Screen_Result(game, gameGrid, "other"));
-		}
+		}*/
+		if(Assets.otherQuit) game.setScreen(new Screen_Result(game, gameGrid, Assets.OTHER));
 		if (Integer.valueOf(clock.getValue(GamerunTime))<=0){
-			game.setScreen(new Screen_Result(game, gameGrid, "time"));
+			game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
 		}
 		// receive data and change color
 		if(Assets.otherPlayerPress>=0){
@@ -85,12 +83,22 @@ public class Screen_Game extends Screen{
 		}
 		// Find smallest Number
 		smallestNo = 10;
+		wholeWon = true;
 		for (Objects_GridButton i : gameGrid){
 			if (i.getInt()>=0){
+				wholeWon = false;
 				if (i.getInt() < smallestNo){
 					smallestNo = i.getInt();
 				}
-			}
+			}else{ wholeLost = false;}
+		}
+		if(wholeWon) {
+			//Assets.socketIO.getSocket().emit("gameover", "won");
+			game.setScreen(new Screen_Result(game, gameGrid, Assets.WON));
+		}
+		else if(wholeLost){
+			//Assets.socketIO.getSocket().emit("gameover", "lost"); 
+			game.setScreen(new Screen_Result(game, gameGrid, Assets.LOST));
 		}
 		//getting touch information and perform player operation
 		touchEvents = game.getInput().getTouchEvents();
@@ -148,6 +156,7 @@ public class Screen_Game extends Screen{
 				}
 			}
 		}
+		
 	}
 
 	@Override
