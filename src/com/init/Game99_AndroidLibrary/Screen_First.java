@@ -34,7 +34,6 @@ public class Screen_First extends Screen {
 		Assets.planet6 = g.newImage("saturn.png", ImageFormat.RGB565, false);
 		Assets.planet7 = g.newImage("sun.png", ImageFormat.RGB565, false);
 		Assets.planet8 = g.newImage("watermelon.png", ImageFormat.RGB565, false);
-		Assets.cheese130 = g.newImage("cheese130px.png", ImageFormat.RGB565, false);
 		//earthAnimation = Assets.movingEarth;
 	}
 
@@ -47,7 +46,7 @@ public class Screen_First extends Screen {
 		for (TouchEvent event: touchEvents) {
 			if (event.type == TouchEvent.TOUCH_UP) {
 				System.out.println(event.x + ", " +event.y);
-				if(utils.inBounds(event,120,1045,551,127)) {
+				if(utils.inBounds(event,150,1045,300,127)) {
 					game.setScreen(new Screen_AvatarChooser(game));
 					//Assets.socketIO.getSocket().emit("ready", "");
 				}
@@ -69,7 +68,7 @@ public class Screen_First extends Screen {
 		
 		// Draw background Image
 		g.drawImage(Assets.space, 0, 0);
-		g.drawImage(Assets.start, 120, 1050);
+		//g.drawImage(Assets.start, 120, 1050);
 		//g.drawString(Assets.msg, 50,50,paint);
 		
 		//g.drawImage(earthAnimation.getImageFrame(Assets.runTime/20),0,0);

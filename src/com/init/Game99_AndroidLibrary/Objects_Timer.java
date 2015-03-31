@@ -6,7 +6,7 @@ public class Objects_Timer {
 
 	int color = Color.WHITE;
 	int textSize = 100;
-	float countDown = 3000;
+	float countDown = 10000;
 
 	public String getValue(float runTime){
 		if ((countDown-runTime)>0){

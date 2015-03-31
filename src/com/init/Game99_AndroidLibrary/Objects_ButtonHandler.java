@@ -15,7 +15,11 @@ public class Objects_ButtonHandler {
 		this.game = game;
 		v = (Vibrator) game.getSystemService(game.VIBRATOR_SERVICE);
 	}
-	
+	private int[][] round = {
+			{0,1,5,6},{0,-1,5,4},{0,1,-1,4,5,6},
+			{0,1,-4,-5},{0,-1,-5,-6},{0,1,-1,-4,-5,-6},
+			{0,1,-5,-4,5,6},{0,-1,-5,-6,5,4},{0,1,-1,4,-4,5-5,6,-6}
+	};
 	public void Click(int index, int small){
 		if (grid.get(index).getNormalClickable()){ 
 			if(grid.get(index).getInt() == small){
@@ -30,66 +34,64 @@ public class Objects_ButtonHandler {
 		else if (grid.get(index).getBomb()){
 			if ( (int)(index/5)==0 ){
 				if (index == 0){
-					grid.get(index)  .setNormalNotClickable();
-					grid.get(index+1).setNormalNotClickable();
-					grid.get(index+5).setNormalNotClickable();
-					grid.get(index+6).setNormalNotClickable();
+					int[] r = round[0];
+					for(int i=0;i<r.length;i++){
+						grid.get(index+r[i]).setNormalNotClickable();
+						Assets.socketIO.getSocket().emit("bombeffect", index, r);
+					}
 				} else if (index == 4){
-					grid.get(index)  .setNormalNotClickable();
-					grid.get(index-1).setNormalNotClickable();
-					grid.get(index+5).setNormalNotClickable();
-					grid.get(index+4).setNormalNotClickable();
+					int[] r = round[1];
+					for(int i=0;i<r.length;i++){
+						grid.get(index+r[i]).setNormalNotClickable();
+						Assets.socketIO.getSocket().emit("bombeffect", index, r);
+					}
 				} else{
-					grid.get(index)  .setNormalNotClickable();
-					grid.get(index+1).setNormalNotClickable();
-					grid.get(index-1).setNormalNotClickable();
-					grid.get(index+4).setNormalNotClickable();
-					grid.get(index+5).setNormalNotClickable();
-					grid.get(index+6).setNormalNotClickable();
+					int[] r = round[2];
+					for(int i=0;i<r.length;i++){
+						grid.get(index+r[i]).setNormalNotClickable();
+						Assets.socketIO.getSocket().emit("bombeffect", index, r);
+					}
 				}
 			} else if ( (int)(index/5)==7 ){
 				if (index == 30){
-					grid.get(index)  .setNormalNotClickable();
-					grid.get(index+1).setNormalNotClickable();
-					grid.get(index-4).setNormalNotClickable();
-					grid.get(index-5).setNormalNotClickable();
+					int[] r = round[3];
+					for(int i=0;i<r.length;i++){
+						grid.get(index+r[i]).setNormalNotClickable();
+						Assets.socketIO.getSocket().emit("bombeffect",index,  r);
+					}
 				} else if (index == 34){
-					grid.get(index)  .setNormalNotClickable();
-					grid.get(index-1).setNormalNotClickable();
-					grid.get(index-5).setNormalNotClickable();
-					grid.get(index-6).setNormalNotClickable();
+					int[] r = round[4];
+					for(int i=0;i<r.length;i++){
+						grid.get(index+r[i]).setNormalNotClickable();
+						Assets.socketIO.getSocket().emit("bombeffect",index,  r);
+					}
 				} else{
-					grid.get(index)  .setNormalNotClickable();
-					grid.get(index+1).setNormalNotClickable();
-					grid.get(index-1).setNormalNotClickable();
-					grid.get(index-4).setNormalNotClickable();
-					grid.get(index-5).setNormalNotClickable();
-					grid.get(index-6).setNormalNotClickable();
+					int[] r = round[5];
+					for(int i=0;i<r.length;i++){
+						grid.get(index+r[i]).setNormalNotClickable();
+						Assets.socketIO.getSocket().emit("bombeffect", index, r);
+					}
 				}			
 			} else if ( (index==5) || (index==10) || (index==15) || (index==20) || (index==25) ){
-				grid.get(index)  .setNormalNotClickable();
-				grid.get(index+1).setNormalNotClickable();
-				grid.get(index-5).setNormalNotClickable();
-				grid.get(index-4).setNormalNotClickable();
-				grid.get(index+5).setNormalNotClickable();
-				grid.get(index+6).setNormalNotClickable();
+				int[] r = round[6];
+				for(int i=0;i<r.length;i++){
+					grid.get(index+r[i]).setNormalNotClickable();
+					Assets.socketIO.getSocket().emit("bombeffect", index, r);
+				}
 			} else if ( (index==9) || (index==14) || (index==19) || (index==24) || (index==29) ){
-				grid.get(index)  .setNormalNotClickable();
-				grid.get(index-1).setNormalNotClickable();
-				grid.get(index-5).setNormalNotClickable();
-				grid.get(index-6).setNormalNotClickable();
-				grid.get(index+5).setNormalNotClickable();
-				grid.get(index+4).setNormalNotClickable();
+				int[] r = round[7];
+				for(int i=0;i<r.length;i++){
+					grid.get(index+r[i]).setNormalNotClickable();
+					Assets.socketIO.getSocket().emit("bombeffect", index, r);
+				}
 			} else{
-				grid.get(index)  .setNormalNotClickable();
-				grid.get(index-1).setNormalNotClickable();
-				grid.get(index+1).setNormalNotClickable();
-				grid.get(index-4).setNormalNotClickable();
-				grid.get(index-5).setNormalNotClickable();
-				grid.get(index-6).setNormalNotClickable();
-				grid.get(index+4).setNormalNotClickable();
-				grid.get(index+5).setNormalNotClickable();
-				grid.get(index+6).setNormalNotClickable();
+				int[] r = round[8];
+				for(int i=0;i<r.length;i++){
+					if(index+r[i]>=0 && index+r[i]<=34){
+					grid.get(index+r[i]).setNormalNotClickable();
+					Assets.socketIO.getSocket().emit("bombeffect", index, r);
+					}
+					}
 			}
 		} else if (grid.get(index).getSmallest()){
 			grid.get(index).setNormalNotClickable();

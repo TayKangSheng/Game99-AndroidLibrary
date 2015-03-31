@@ -45,7 +45,7 @@ public class Screen_Result extends Screen{
 		}else if(scoreCount==opponentScoreCount){ this.draw = true;
 		}else this.lost = true;
 		
-		Assets.loadingscreen = g.newImage("starrynight.png", ImageFormat.RGB565, false);
+		Assets.avatar_page = g.newImage("starrynight.png", ImageFormat.RGB565, false);
 	}
 	private void nullifyE(){
 		Assets.gridButtonMyPlanet = null;
@@ -60,7 +60,7 @@ public class Screen_Result extends Screen{
 				if(inBounds(event,120,1045,551,127)) {
 					Assets.socketIO.getSocket().emit("joined");
 					restoreGame();
-					game.setScreen(new Screen_First(game));
+					game.setScreen(new Screen_Initialize(game));
 				}
 			}
 		}
@@ -70,7 +70,7 @@ public class Screen_Result extends Screen{
 	public void paint(float deltaTime) {
 		String msg = "";
 		g.clearScreen(Color.LTGRAY);
-		g.drawImage(Assets.loadingscreen, 0, 0);
+		g.drawImage(Assets.avatar_page, 0, 0);
 		g.drawImage(Assets.start, 120, 1050);
 
 		if(this.reason==Assets.WON) msg = "won!";

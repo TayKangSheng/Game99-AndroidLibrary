@@ -4,12 +4,14 @@ import com.init.framework.Image;
 public class Assets {
 	/*game properties*/
 	public static boolean running, ready = false, gameover = false, Imready = false
-			 , otherQuit = false, freeze = false;
+			 , otherQuit = false, freeze = false, bombed = false;
 	public static float runTime;
 	public static SocketIO socketIO;
 	public static int otherPlayerPress = -1, id, health
-			, OTHER = 1, TIME=2, WON = 3, LOST = 0, GRIDSIZE=130;
+			, OTHER = 1, TIME=2, WON = 3, LOST = 0, GRIDSIZE=130
+			, bombLoc = -1, bombedLoc = -1;
 	public static boolean[] interGalaticaMapVector = null;
+	public static int[] bombs;
 	//public static Sound click;
 	
 	/*game images*/
@@ -18,10 +20,7 @@ public class Assets {
 		start, //start button 
 		readyButton,
 		waitingButton,
-		chooseplanet,
-		loadingscreen,
-		avatar_page,
-		cheese130
+		avatar_page
 		;
 	
 	//for mainmenu animation;

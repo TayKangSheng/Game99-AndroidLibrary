@@ -28,27 +28,20 @@ public class Objects_GridButton{
 		clickable = true; normalClickable = true;
 		randomInt = rand.nextInt(10);
 		ImageDisplay = Assets.gridButtonNotMyPlanet;
-		height = ImageDisplay.getHeight();
-		width = ImageDisplay.getWidth();
 		contentDisplay = String.valueOf(randomInt);
 	}
 	public void setNormalNotClickable(){
 		clickable = false; normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.gridButtonMyPlanet;
-		height = ImageDisplay.getHeight();
-		width = ImageDisplay.getWidth();
-		contentDisplay = "";	
 	}
-	private void setBomb(){
+	public void setBomb(){
+		bomb = true;
 		clickable = true; normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.bomb;
-		height = ImageDisplay.getHeight();
-		width = ImageDisplay.getWidth();
-		contentDisplay = "";
 	}
-	private void setSmallest(){
+	public void setSmallest(){
 		clickable = true; normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.smallest;

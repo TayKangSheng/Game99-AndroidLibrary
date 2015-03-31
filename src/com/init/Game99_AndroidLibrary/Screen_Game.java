@@ -88,11 +88,21 @@ public class Screen_Game extends Screen{
 			gameGrid.get(Assets.otherPlayerPress).setNormalClickable();
 			Assets.otherPlayerPress = -1;
 		}
+		if(Assets.bombed){
+			for(int i=0;i<Assets.bombs.length;i++){
+				gameGrid.get(Assets.bombedLoc + Assets.bombs[i]).setNormalClickable();
+			}
+			Assets.bombed = false;
+			Assets.bombs = null; Assets.bombedLoc = -1; 
+		}
 		if(Assets.freeze) return;
 		// Find smallest Number
 		smallestNo = 10;
 		wholeWon = true;
 		wholeLost = true;
+		if(Assets.bombLoc>=0){
+			gameGrid.get(Assets.bombLoc).setBomb();
+		}
 		for (Objects_GridButton i : gameGrid){
 			if (i.getInt()>=0){
 				wholeWon = false;
@@ -119,6 +129,10 @@ public class Screen_Game extends Screen{
 					if (utils.inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
 						buttonHandler.Click(index, smallestNo);
 						//click(buttontemp1, index);
+					if (utils.inBounds(event, 90, 1070, 100, 100)){
+						game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
+						Assets.socketIO.getSocket().emit("gameover");
+					}
 				}
 			}
 			}
@@ -139,12 +153,10 @@ public class Screen_Game extends Screen{
 		/*// Paint health
 		for (int i=0 ; i<Assets.health ; i++){
 			g.drawRect(50+(i*50), 50, 50, 50, Color.parseColor("#2ecc71"));
-		}
+		}*/
 		
 		// Paint Power ups
-		for (int i=0 ; i<3 ; i++){
-			g.drawRect(90+(i*210), 1070, 100, 100, Color.parseColor("#e67e22"));
-		} */
+		g.drawRect(90, 1070, 100, 100, Color.parseColor("#e67e22"));
 		
 		// Draw Grids
 		for (Objects_GridButton i : gameGrid){

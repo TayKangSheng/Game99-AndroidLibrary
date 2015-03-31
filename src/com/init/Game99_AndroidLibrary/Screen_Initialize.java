@@ -33,12 +33,10 @@ public class Screen_Initialize extends Screen {
 		
 		Assets.bomb = g.newImage("bomb.png", ImageFormat.RGB565, false);
 		Assets.smallest = g.newImage("bomb.png", ImageFormat.RGB565, false);
-		Assets.loadingscreen = g.newImage("starrynight.png", ImageFormat.RGB565, false);
 		Assets.start = g.newImage("startbutton.png", ImageFormat.RGB565, false);
 		Assets.readyButton = g.newImage("readybutton1.png", ImageFormat.RGB565, false);
 		Assets.waitingButton = g.newImage("waitingbutton1.png", ImageFormat.RGB565, false);
-		Assets.chooseplanet = g.newImage("chooseplanetbutton.png", ImageFormat.RGB565, false);
-		Assets.space = g.newImage("space6.png", ImageFormat.RGB565, false);
+		Assets.space = g.newImage("startpage2.png", ImageFormat.RGB565, false);
 		Assets.avatar_page = g.newImage("starrynight.png", ImageFormat.RGB565, false);
 		
 		

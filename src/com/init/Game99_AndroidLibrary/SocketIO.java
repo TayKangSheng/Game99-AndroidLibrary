@@ -85,6 +85,18 @@ public class SocketIO {
 				Assets.gameover = true;
 			}        
 		});
+		socket.on("bomb", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				if(args.length==1){
+					Assets.bombLoc = (Integer) args[0];
+				}else if(args.length==2){
+					Assets.bombed = true;
+					Assets.bombedLoc = (Integer) args[0];
+					Assets.bombs = (int[]) args[1];
+				}
+			}
+		});
 		
 		socket.on("grid", new Emitter.Listener() {
 			@Override

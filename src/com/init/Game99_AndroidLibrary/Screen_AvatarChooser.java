@@ -3,6 +3,7 @@ package com.init.Game99_AndroidLibrary;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
@@ -100,7 +101,7 @@ public class Screen_AvatarChooser extends Screen {
 		
 		//g.drawImage(Assets.start, 120, 1050);
 		if(!chosen) {
-			g.drawImage(Assets.chooseplanet, 100, 1100);
+			//g.drawImage(Assets.chooseplanet, 100, 1100);
 		} else if(!Assets.ready && Assets.Imready && chosen){
 			g.drawImage(Assets.waitingButton, 100, 1100);
 		}else{
@@ -119,6 +120,10 @@ public class Screen_AvatarChooser extends Screen {
 			if(!avatarList.get(i).getchosen())
 				avatarList.get(i).getImage().dispose();
 		}
+		/*Assets.readyButton = null;
+		Assets.waitingButton = null;
+		Assets.space = null;
+		Assets.avatar_page = null;*/
 		
 		System.gc();
 	}
