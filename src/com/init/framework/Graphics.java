@@ -8,7 +8,7 @@ public interface Graphics {
     }
 
     public Image newImage(String fileName, ImageFormat format, boolean small);
-
+    
     public void clearScreen(int color);
 
     public void drawLine(int x, int y, int x2, int y2, int color);
@@ -17,7 +17,10 @@ public interface Graphics {
 
     public void drawImage(Image image, int x, int y, int srcX, int srcY,
             int srcWidth, int srcHeight);
-
+    
+    public void drawImage(Image image, int x, int y, int srcX, int srcY,
+            int srcWidth, int srcHeight, Paint painter);
+    
     public void drawImage(Image Image, int x, int y);
 
     void drawString(String text, int x, int y, Paint paint);

@@ -10,11 +10,11 @@ import com.init.framework.Screen;
 import com.init.framework.Image;
 import com.init.framework.Graphics.ImageFormat;
 
-public class ScreenA_Initialisation extends Screen {
+public class Screen_Initialize extends Screen {
 
-	public ScreenA_Initialisation(Game game) {
+	public Screen_Initialize(Game game) {
 		super(game);
-		Log.i("ScreenA_Initialisation", "A_Initialisation_screen");
+		Log.i("Screen_Initialize", "A_Initialisation_screen");
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ScreenA_Initialisation extends Screen {
 		Assets.movingEarth = new Objects_Animation(movingEarthImages); */
 		
 		//let's go to the next screen;
-        game.setScreen(new ScreenB_MainMenu(game));
+        game.setScreen(new Screen_First(game));
 	}
 
 	@Override

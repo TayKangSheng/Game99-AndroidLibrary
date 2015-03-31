@@ -13,13 +13,13 @@ import com.init.framework.Graphics;
 import com.init.framework.Input.TouchEvent;
 import com.init.framework.Screen;
 
-public class ScreenB_MainMenu extends Screen {
+public class Screen_First extends Screen {
 	private List<TouchEvent> touchEvents;
 	//private Objects_Animation earthAnimation;
 
-	public ScreenB_MainMenu(Game game) {
+	public Screen_First(Game game) {
 		super(game);
-		Log.i("ScreenB_MainMenu", "ScreenB_MainMenu");
+		Log.i("Screen_First", "ScreenB_First");
 		//earthAnimation = Assets.movingEarth;
 	}
 
@@ -33,13 +33,13 @@ public class ScreenB_MainMenu extends Screen {
 			if (event.type == TouchEvent.TOUCH_UP) {
 				System.out.println(event.x + ", " +event.y);
 				if(utils.inBounds(event,120,1045,551,127)) {
-					game.setScreen(new ScreenJ_AvatarChooser(game));
+					game.setScreen(new Screen_AvatarChooser(game));
 					//Assets.socketIO.getSocket().emit("ready", "");
 				}
 			}
 		}
 		
-		if(Assets.ready) game.setScreen(new ScreenJ_AvatarChooser(game));
+		if(Assets.ready) game.setScreen(new Screen_AvatarChooser(game));
 		//game.setScreen(new ScreenC_LoadingScreen(game));
 	}
 

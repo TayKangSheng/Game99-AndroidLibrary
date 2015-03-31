@@ -70,8 +70,22 @@ public class SocketIO {
 			@Override
 			public void call(Object... args) {
 				Assets.gameover = true;
+				if(args.length>0){
+					String result = (String) args[0];
+					//if(result.equals("won")) //Assets.won = true;
+					//else if(result.equals("lost")) //Assets.lost = true;
+					if(result.equals("quit")) Assets.otherQuit = true;
+				}
 			}        
 		});
+		
+		socket.on("gameover", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				Assets.gameover = true;
+			}        
+		});
+		
 		socket.on("grid", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
