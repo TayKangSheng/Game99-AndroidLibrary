@@ -3,6 +3,7 @@ package com.init.Game99_AndroidLibrary;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Handler;
 
 import com.init.framework.Game;
 import com.init.framework.Graphics;
@@ -33,7 +34,13 @@ public class ScreenG_LoadingPage extends Screen {
 	public void update(float deltaTime) {
 		// TODO Auto-generated method stub
 		Assets.runTime += deltaTime;
-		game.setScreen(new Screen_Initialize(game));
+		
+		 Handler handler = new Handler(); 
+		    handler.postDelayed(new Runnable() { 
+		         public void run() { 
+		        	 game.setScreen(new Screen_game(game));   
+		         } 
+		    }, 2000); 
 		
 	}
 	@Override
