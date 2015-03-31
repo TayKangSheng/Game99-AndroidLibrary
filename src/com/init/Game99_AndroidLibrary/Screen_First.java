@@ -10,16 +10,31 @@ import android.widget.Button;
 
 import com.init.framework.Game;
 import com.init.framework.Graphics;
+import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
 import com.init.framework.Screen;
 
 public class Screen_First extends Screen {
 	private List<TouchEvent> touchEvents;
+	private Graphics g;
 	//private Objects_Animation earthAnimation;
-
-	public Screen_First(Game game) {
+	private NNGame game;
+	public Screen_First(NNGame game) {
 		super(game);
+		this.game = game;
+		g = game.getGraphics();
 		Log.i("Screen_First", "ScreenB_First");
+		
+		Assets.planet0 = g.newImage("blueplanet.png", ImageFormat.RGB565, false);
+		Assets.planet1 = g.newImage("cheese130px.png", ImageFormat.RGB565, false);
+		Assets.planet2 = g.newImage("cyanstripesplanet.png", ImageFormat.RGB565, false);
+		Assets.planet3 = g.newImage("earth.png", ImageFormat.RGB565, false);
+		Assets.planet4 = g.newImage("jupiter.png", ImageFormat.RGB565, false);
+		Assets.planet5 = g.newImage("moon.png", ImageFormat.RGB565, false);
+		Assets.planet6 = g.newImage("saturn.png", ImageFormat.RGB565, false);
+		Assets.planet7 = g.newImage("sun.png", ImageFormat.RGB565, false);
+		Assets.planet8 = g.newImage("watermelon.png", ImageFormat.RGB565, false);
+		Assets.cheese130 = g.newImage("cheese130px.png", ImageFormat.RGB565, false);
 		//earthAnimation = Assets.movingEarth;
 	}
 

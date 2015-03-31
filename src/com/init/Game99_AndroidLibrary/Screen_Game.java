@@ -15,40 +15,48 @@ import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
 
 public class Screen_Game extends Screen{
-
-	private int gameWidth = game.getGraphics().getWidth();
-	private Graphics g = game.getGraphics();
-	private Paint painter = new Paint();
+	private NNGame game;
+	private int gameWidth, smallestNo = 10;
+	private Graphics g;
+	private Paint painter = new Paint() //for the timer;
+		, painter1 = new Paint(), //for numbers on the grid;
+		painter2 = new Paint(),
+		painter3 = new Paint();
 	private float GamerunTime = 0;
 	private Objects_Timer clock;
-	private int smallestNo = 10;
 	private boolean wholeWon = true, wholeLost = true;
-	
 	private Objects_ButtonHandler buttonHandler;
-	private ArrayList<Objects_GridButton> gameGrid = new ArrayList<Objects_GridButton>();
+	private ArrayList<Objects_GridButton> gameGrid = 
+			new ArrayList<Objects_GridButton>();
 	private List<TouchEvent> touchEvents;
-	private Objects_GridButton buttontemp1;
-	private Objects_GridButton buttontemp0;
+	private Objects_GridButton buttontemp1, buttontemp0;
 	
-	public Screen_Game(Game game) {
+	public Screen_Game(NNGame game) {
 		super(game);
+		this.game = game;
+		g = game.getGraphics();
+		gameWidth = game.getGraphics().getWidth();
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
-		
-		nullify();
+		Assets.gridButtonNotMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565, false);
 		if(Assets.gridButtonMyPlanet==null){
-			Assets.gridButtonMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565, false);
-			Assets.gridButtonNotMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565, false);
+			Assets.gridButtonMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565, false);
 		}
 		Assets.running = true;
 		Assets.health = 10;
 		clock = new Objects_Timer();
+		painter.setColor(clock.getColor());
+		painter.setTextSize(clock.getTextSize());
+		
+		painter1.setColor(Color.WHITE);
+		painter1.setTextSize(80);
+		painter1.setTextAlign(Paint.Align.CENTER);
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(75+(i%5)*130, 
 					150+((int)(i/5))*130, Assets.interGalaticaMapVector[i]);
 			gameGrid.add(buttontemp0);
 		}
-		buttonHandler =  new Objects_ButtonHandler(gameGrid);
+		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
 	}
 
 	/* (non-Javadoc)
@@ -64,8 +72,7 @@ public class Screen_Game extends Screen{
 	 */
 	@Override
 	public void update(float deltaTime) {
-		Log.i("ScreenD_GameScreen", "update");
-		nullify();
+		//Log.i("ScreenD_GameScreen", "update");
 		GamerunTime += deltaTime;
 		// check clock
 		/*if(Assets.health==0) {
@@ -81,9 +88,11 @@ public class Screen_Game extends Screen{
 			gameGrid.get(Assets.otherPlayerPress).setNormalClickable();
 			Assets.otherPlayerPress = -1;
 		}
+		if(Assets.freeze) return;
 		// Find smallest Number
 		smallestNo = 10;
 		wholeWon = true;
+		wholeLost = true;
 		for (Objects_GridButton i : gameGrid){
 			if (i.getInt()>=0){
 				wholeWon = false;
@@ -118,41 +127,56 @@ public class Screen_Game extends Screen{
 	
 	@Override
 	public void paint(float deltaTime) {
-		Log.i("ScreenD_GameScreen", "paint");
-		
+		//Log.i("ScreenD_GameScreen", "paint");
 		// White Background for the entire screen
 		g.clearScreen(Color.parseColor("#2c3e50"));
-		
 		// Gray Background for health and timer
 		g.drawRect(5, 5, gameWidth-10, 140, Color.parseColor("#2c3e50"));
-		
 		// Magenta background for power ups
 		g.drawRect(5, 1065, gameWidth-10, 210, Color.parseColor("#2c3e50"));
-		
 		// Paint timer
-		painter.setColor(clock.getColor());
-		painter.setTextSize(clock.getTextSize());
 		g.drawString(clock.getValue(GamerunTime), 669, 120, painter);
-
-		// Paint health
+		/*// Paint health
 		for (int i=0 ; i<Assets.health ; i++){
 			g.drawRect(50+(i*50), 50, 50, 50, Color.parseColor("#2ecc71"));
 		}
+		
 		// Paint Power ups
 		for (int i=0 ; i<3 ; i++){
 			g.drawRect(90+(i*210), 1070, 100, 100, Color.parseColor("#e67e22"));
-		}
-		Log.i("ScreenD_GameScreen", "TRACKER");
+		} */
 		
 		// Draw Grids
-		painter.setColor(Color.WHITE);
-		painter.setTextSize(80);
-		painter.setTextAlign(Paint.Align.CENTER);
 		for (Objects_GridButton i : gameGrid){
-			g.drawImage(i.getImageDisplay(), i.getX(), i.getY());
+			if(i.getShake()){
+				i.updateFrame();
+				g.drawImage(i.getImageDisplay(),0,0,
+						i.getX()+i.getxchange(), i.getY()+i.getychange(), Assets.GRIDSIZE,
+						Assets.GRIDSIZE, painter2);
+			} else if(i.getShrink()){
+				i.updateFrame();
+				Log.i("shrink", i.getychange() +" "+i.getw()+" ");
+						
+				g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
+						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
+						i.getw(), i.geth(), painter2);
+			} else if(i.getPop()){
+				i.updateFrame();
+				
+				Log.i("pop", i.getychange() +" "+i.getw()+" ");
+				g.drawImage(i.getImageDisplay(), 0, 0, 
+						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
+						i.getw(), i.geth(), painter2);
+			}else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+					Assets.GRIDSIZE, painter2);
+			
 			if (i.getClickable()){
-				if (i.getType().equals("NC")){
-					g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter);
+				if (i.getNormalClickable()){
+					if(i.getShake()){
+						g.drawString(i.getRandomInt(), i.getX()+60+i.getxchange(), 
+								i.getY()+90+i.getychange() ,painter1);
+					}
+					else g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
 				}
 			}
 		}
@@ -177,18 +201,6 @@ public class Screen_Game extends Screen{
 	@Override
 	public void backButton() {
 		// TODO Auto-generated method stub
-	}
-	private void nullify(){
-		Assets.planet0 = null;
-		Assets.planet1 = null;
-		Assets.planet2 = null;
-		Assets.planet3 = null;
-		Assets.planet4 = null;
-		Assets.planet5 = null;
-		Assets.planet6 = null;
-		Assets.planet7 = null;
-		Assets.planet8 = null;
-		System.gc();
 	}
 
 }

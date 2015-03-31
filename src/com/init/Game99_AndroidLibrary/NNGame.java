@@ -5,7 +5,7 @@ import android.util.Log;
 import com.init.framework.Screen;
 import com.init.framework.implementation.AndroidGame;
 
-public class GameActivity extends AndroidGame {
+public class NNGame extends AndroidGame {
 
 	@Override
 	public Screen getInitScreen() {

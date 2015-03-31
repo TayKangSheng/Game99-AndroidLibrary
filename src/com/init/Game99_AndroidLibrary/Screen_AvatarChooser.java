@@ -15,17 +15,21 @@ import com.init.framework.Screen;
 import com.init.framework.Input.TouchEvent;
 
 public class Screen_AvatarChooser extends Screen {
-	
+	private NNGame game;
 	private String avatarChosen;
 	private List<TouchEvent> touchEvents;
 	private Paint painter;
-	private ArrayList<Objects_GeneralAvatar> avatarList = new ArrayList<Objects_GeneralAvatar>();
-	private int gameWidth = game.getGraphics().getWidth();
+	private ArrayList<Objects_GeneralAvatar> avatarList = 
+			new ArrayList<Objects_GeneralAvatar>();
+	private int gameWidth;
 	private float runTime;
 	private boolean chosen = false;
 	
-	public Screen_AvatarChooser(Game game) {
+	public Screen_AvatarChooser(NNGame game) {
 		super(game);
+		this.game = game;
+		gameWidth = game.getGraphics().getWidth();
+		
 		painter = new Paint();
 		painter.setColor(Color.WHITE);
 		painter.setTextAlign(Align.CENTER);
@@ -37,10 +41,8 @@ public class Screen_AvatarChooser extends Screen {
 		avatarList.add(new Objects_GeneralAvatar("Avatar1", 50+0*((gameWidth-100)/3), 	70, 	Assets.planet1));
 		avatarList.add(new Objects_GeneralAvatar("Avatar0", 50+2*((gameWidth-100)/3), 	70+500+50, Assets.planet0));
 		avatarList.add(new Objects_GeneralAvatar("Avatar6", 50+2*((gameWidth-100)/3), 	70+250+50, Assets.planet6));
-
 		avatarList.add(new Objects_GeneralAvatar("Avatar3", 50+2*((gameWidth-100)/3), 	70+50, 	Assets.planet3));
 		avatarList.add(new Objects_GeneralAvatar("Avatar8", 50+1*((gameWidth-100)/3), 	70+500+25, Assets.planet8));
-
 		avatarList.add(new Objects_GeneralAvatar("Avatar5", 50+1*((gameWidth-100)/3), 	70+250+25, Assets.planet5));
 		avatarList.add(new Objects_GeneralAvatar("Avatar2", 50+1*((gameWidth-100)/3), 	70+25, 	Assets.planet2));
 		avatarList.add(new Objects_GeneralAvatar("Avatar7", 50+0*((gameWidth-100)/3), 	70+500, Assets.planet7));
@@ -66,22 +68,26 @@ public class Screen_AvatarChooser extends Screen {
 				// Detect avatar chosen :)
 				for (Objects_GeneralAvatar i : avatarList){
 					if (utils.inBounds(event, i.getX(), i.getY(), i.getWidth(), i.getHeight())){
-						Assets.gridButtonMyPlanet = Assets.cheese130;//i.getImage();
+						Assets.gridButtonMyPlanet = i.getImage();
 						chosen = true;
+						i.setchosen();
 					}
 				}
 				
 				// starting the game :) 
-				if(utils.inBounds(event, Assets.blinkingReadyButton.getX(), Assets.blinkingReadyButton.getY(), 
-						Assets.blinkingReadyButton.getWidth(), Assets.blinkingReadyButton.getHeight()) && chosen){
+				if(utils.inBounds(event, 100, 1100, 
+						Assets.readyButton.getWidth(), Assets.readyButton.getHeight()) && chosen){
 					Assets.socketIO.getSocket().emit("ready", "");
 					Assets.Imready = true;
 				}
 			}
 		} 
-		if(Assets.ready)game.setScreen(new Screen_Game(game));
+		if(Assets.ready) {
+			nullify();
+			game.setScreen(new Screen_Game(game));
+		}
 		
-		Log.i("Screen_LoadingScreenJ", "update");
+		//Log.i("Screen_LoadingScreenJ", "update");
 		Assets.runTime += deltaTime;
 	}
 
@@ -91,13 +97,14 @@ public class Screen_AvatarChooser extends Screen {
 		Graphics g = game.getGraphics();
 		g.clearScreen(-12303292);
 		g.drawImage(Assets.avatar_page, 0,0);
+		
 		//g.drawImage(Assets.start, 120, 1050);
 		if(!chosen) {
 			g.drawImage(Assets.chooseplanet, 100, 1100);
 		} else if(!Assets.ready && Assets.Imready && chosen){
-			g.drawImage(Assets.blinkingWaitingButton.getImageFrame(runTime/30), Assets.blinkingWaitingButton.getX(), Assets.blinkingWaitingButton.getY());
+			g.drawImage(Assets.waitingButton, 100, 1100);
 		}else{
-			g.drawImage(Assets.blinkingReadyButton.getImageFrame(runTime/12), Assets.blinkingReadyButton.getX(), Assets.blinkingReadyButton.getY());
+			g.drawImage(Assets.readyButton, 100, 1100);
 		}
 //			g.drawString("Waiting for another player...", 200, 80, painter);
 		
@@ -106,6 +113,14 @@ public class Screen_AvatarChooser extends Screen {
 			g.drawImage(i.getImage(), i.getX(), i.getY());
 		}
 
+	}
+	public void nullify(){
+		for(int i=0;i<9;i++){
+			if(!avatarList.get(i).getchosen())
+				avatarList.get(i).getImage().dispose();
+		}
+		
+		System.gc();
 	}
 
 	@Override

@@ -9,6 +9,7 @@ public class Objects_GeneralAvatar {
 	private int imageHeight;
 	private String name;
 	private Image avatarImage;
+	private boolean chosen = false;
 	
 	public Objects_GeneralAvatar(String name, int x, int y, Image image){
 		this.xCoor = x;
@@ -30,7 +31,12 @@ public class Objects_GeneralAvatar {
 	public String toString(){
 		return name;
 	}
-	
+	public void setchosen(){
+		chosen = true;
+	}
+	public boolean getchosen(){
+		return chosen;
+	}
 	public Image getImage(){
 		return avatarImage;
 	}

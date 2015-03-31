@@ -13,20 +13,21 @@ import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
 
 public class Screen_Result extends Screen{
-	
-	private int gameHeight = game.getGraphics().getHeight();
-	private int gameWidth = game.getGraphics().getWidth();
+	private NNGame game;
+	private int gameHeight,gameWidth;
 	private Paint painter = new Paint()
 			, painter1 = new Paint()
 			, painter2 = new Paint();
 	private boolean won = false, lost = false, draw = false;
 	private Graphics g;
-	private int scoreCount = 0, opponentScoreCount = 0
-			, reason;
+	private int scoreCount = 0, opponentScoreCount = 0, reason;
 	private List<TouchEvent> touchEvents;
 	
-	public Screen_Result(Game game, ArrayList<Objects_GridButton> list, int reason) {
+	public Screen_Result(NNGame game, ArrayList<Objects_GridButton> list, int reason) {
 		super(game);
+		this.game = game;
+		gameHeight = game.getGraphics().getHeight();
+		gameWidth = game.getGraphics().getWidth();
 		nullifyE();
 		g = game.getGraphics();
 		
@@ -48,7 +49,7 @@ public class Screen_Result extends Screen{
 	}
 	private void nullifyE(){
 		Assets.gridButtonMyPlanet = null;
-		Assets.gridButtonNotMyPlanet = null;
+		//Assets.gridButtonNotMyPlanet = null;
 		System.gc();
 	}
 	@Override
@@ -127,5 +128,6 @@ public class Screen_Result extends Screen{
 		Assets.ready = false;
 		Assets.Imready = false;
 		Assets.runTime = 0;
+		Assets.freeze = false;
 	}
 }

@@ -8,11 +8,13 @@ import com.init.framework.Graphics;
 import com.init.framework.Screen;
 
 public class Screen_Loading extends Screen {
+	NNGame game;
 	Paint loading = new Paint();
 	String loadingCurrent;
 
-	public Screen_Loading(Game game) {
+	public Screen_Loading(NNGame game) {
 		super(game);
+		this.game = game;
 		// TODO Auto-generated constructor stub
 		Log.i("ScreenC_LoadingScreen", "ScreenC_LoadingScreen");
 
