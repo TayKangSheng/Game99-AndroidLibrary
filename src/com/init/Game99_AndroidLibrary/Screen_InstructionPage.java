@@ -11,12 +11,12 @@ import com.init.framework.Screen;
 
 
 
-public class ScreenG_LoadingPage extends Screen {
+public class Screen_InstructionPage extends Screen {
 	Paint load = new Paint();
 	String loading;
 	int gameHeight = game.getGraphics().getHeight();
 	//This is the loading page
-	public ScreenG_LoadingPage(Game game) {
+	public Screen_InstructionPage(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
 	}
