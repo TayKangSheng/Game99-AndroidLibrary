@@ -18,37 +18,47 @@ import com.init.framework.Input.TouchEvent;
 
 public class Screen_Game extends Screen{
 	private NNGame game;
-	private int gameWidth, smallestNo = 10;
 	private Graphics g;
 	private Paint painter = new Paint() //for the timer;
 		, painter1 = new Paint(), //for numbers on the grid;
 		painter2 = new Paint(),
 		glowPainter = new Paint();
+
 	private float GamerunTime = 0;
-	private Objects_Timer clock;
+	private int gameWidth, smallestNo = 10;
 	private boolean wholeWon = true, wholeLost = true;
+	
+	private Objects_Timer clock;
 	private Objects_ButtonHandler buttonHandler;
-	private ArrayList<Objects_GridButton> gameGrid = 
-			new ArrayList<Objects_GridButton>();
-	private List<TouchEvent> touchEvents;
 	private Objects_GridButton buttontemp1, buttontemp0;
+	
+	private ArrayList<Objects_GridButton> gameGrid;
+	private List<TouchEvent> touchEvents;
 	
 	public Screen_Game(NNGame game) {
 		super(game);
+		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
+
+		//initialize the game and all its values
 		this.game = game;
 		g = game.getGraphics();
+		clock = new Objects_Timer(10000);
 		gameWidth = game.getGraphics().getWidth();
-		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
-		Assets.gridButtonNotMyPlanet = g.newImage("turquoisedot.png", ImageFormat.RGB565, false);
-		if(Assets.gridButtonMyPlanet==null){
-			Assets.gridButtonMyPlanet = g.newImage("reddot.png", ImageFormat.RGB565, false);
-		}
+		gameGrid = new ArrayList<Objects_GridButton>();
 		Assets.running = true;
 		Assets.health = 10;
-		clock = new Objects_Timer();
+		//load images
+		Assets.gridButtonNotMyPlanet = 
+				g.newImage("turquoisedot.png", ImageFormat.RGB565, false);
+		if(Assets.gridButtonMyPlanet==null){
+			Assets.gridButtonMyPlanet = 
+					g.newImage("reddot.png", ImageFormat.RGB565, false);
+		}
+		//painter: for clock 
 		painter.setColor(clock.getColor());
 		painter.setTextSize(clock.getTextSize());
 		
+		//painter1: for numbers on the grid
 		painter1.setColor(Color.WHITE);
 		painter1.setTextSize(80);
 		painter1.setTextAlign(Paint.Align.CENTER);
@@ -62,8 +72,8 @@ public class Screen_Game extends Screen{
 		
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
-			buttontemp0 = new Objects_GridButton(75+(i%5)*130, 
-					150+((int)(i/5))*130, Assets.interGalaticaMapVector[i]);
+			buttontemp0 = new Objects_GridButton(75+(i%5)*Assets.GRIDSIZE, 
+					150+((int)(i/5))*Assets.GRIDSIZE, Assets.interGalaticaMapVector[i]);
 			gameGrid.add(buttontemp0);
 		}
 		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
@@ -78,19 +88,20 @@ public class Screen_Game extends Screen{
 			Assets.socketIO.getSocket().emit("gameover");
 			game.setScreen(new Screen_Result(game, gameGrid, "life")); 
 		}*/
-		if(Assets.otherQuit) game.setScreen(new Screen_Result(game, gameGrid, Assets.OTHER));
+		if(Assets.otherQuit)//check if opponent has quit
+			game.setScreen(new Screen_Result(game, gameGrid, Assets.OTHER));
 		if (Integer.valueOf(clock.getValue(GamerunTime))<=0){
+			//check time
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
 		}
 		// receive data and change color
-		if(Assets.otherPlayerPress>=0){
+		if(Assets.otherPlayerPress >= 0){
 			gameGrid.get(Assets.otherPlayerPress).setNormalClickable();
 			Assets.otherPlayerPress = -1;
 		}
-		if(Assets.bombed){
+		if(Assets.bombedLoc >= 0){
 			buttonHandler.Click(Assets.bombedLoc, Assets.BOMBED);
-			Assets.bombed = false;
-			Assets.bombs = null; Assets.bombedLoc = -1; 
+			Assets.bombedLoc = -1; 
 		}
 		if(Assets.freeze) return;
 		// Find smallest Number
@@ -110,11 +121,8 @@ public class Screen_Game extends Screen{
 			}else{ wholeLost = false;}
 		}
 		if(wholeWon) {
-			//Assets.socketIO.getSocket().emit("gameover", "won");
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.WON));
-		}
-		else if(wholeLost){
-			//Assets.socketIO.getSocket().emit("gameover", "lost"); 
+		} else if(wholeLost){
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.LOST));
 		}
 		//getting touch information and perform player operation
@@ -123,10 +131,8 @@ public class Screen_Game extends Screen{
 			if (event.type == TouchEvent.TOUCH_UP) {
 				for (int index=0;index<35;index++){
 					buttontemp1 = gameGrid.get(index);
-					//grid-button
 					if (utils.inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
 						buttonHandler.Click(index, smallestNo);
-						//click(buttontemp1, index);
 					if (utils.inBounds(event, 90, 1070, 100, 100)){
 						game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
 						Assets.socketIO.getSocket().emit("gameover");
@@ -149,14 +155,8 @@ public class Screen_Game extends Screen{
 		g.drawRect(5, 1065, gameWidth-10, 210, Color.parseColor("#2c3e50"));
 		// Paint timer
 		g.drawString(clock.getValue(GamerunTime), 669, 120, painter);
-		/*// Paint health
-		for (int i=0 ; i<Assets.health ; i++){
-			g.drawRect(50+(i*50), 50, 50, 50, Color.parseColor("#2ecc71"));
-		}*/
-		
 		// Paint Power ups
-		g.drawRect(90, 1070, 100, 100, Color.parseColor("#e67e22"));
-		
+		//g.drawRect(90, 1070, 100, 100, Color.parseColor("#e67e22"));
 		// Draw Grids
 		for (Objects_GridButton i : gameGrid){
 			if(i.getShake()){
@@ -166,21 +166,20 @@ public class Screen_Game extends Screen{
 						Assets.GRIDSIZE, painter2);
 			} else if(i.getShrink()){
 				i.updateFrame();
-				Log.i("shrink", i.getychange() +" "+i.getw()+" ");
-						
+				//Log.i("shrink", i.getychange() +" "+i.getw()+" ");
 				g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
 						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
 						i.getw(), i.geth(), painter2);
 			} else if(i.getPop()){
 				i.updateFrame();
-				
-				Log.i("pop", i.getychange() +" "+i.getw()+" ");
+				//Log.i("pop", i.getychange() +" "+i.getw()+" ");
 				g.drawImage(i.getImageDisplay(), 0, 0, 
 						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
 						i.getw(), i.geth(), painter2);
 			} else {
 				g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
 					Assets.GRIDSIZE, painter2);
+
 				if (i.getInt()==smallestNo){
 					g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
 							Assets.GRIDSIZE, glowPainter);
@@ -195,7 +194,6 @@ public class Screen_Game extends Screen{
 					}
 					else g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
 				}
-			//}
 		}
 		
 	}

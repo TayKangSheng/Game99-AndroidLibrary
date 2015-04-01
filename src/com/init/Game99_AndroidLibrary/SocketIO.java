@@ -98,7 +98,6 @@ public class SocketIO {
 			public void call(Object... args) {
 				if(args.length==1){
 					Log.i("socketio", "bomb effect received");
-					Assets.bombed = true;
 					Assets.bombedLoc = (Integer) args[0];
 				}
 			}

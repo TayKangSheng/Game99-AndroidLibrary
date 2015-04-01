@@ -8,17 +8,15 @@ import com.init.framework.Image;
 
 public class Objects_GridButton{
 	private static Random rand = new Random(); // Shared Random Number Generator
-	int xCoor, yCoor;
+	int xCoor, yCoor, randomInt;
 	Boolean clickable, normalClickable, 
 		bomb=false, smallest=false;
-	int randomInt;
 	Image ImageDisplay;
 	String contentDisplay;
 	
 	Objects_GridButton(int x, int y, boolean bool){
 		this.xCoor = x;
 		this.yCoor = y;
-		
 		// Initialization does not have power ups.
 		if (bool) setNormalClickable();
 		else setNormalNotClickable();
@@ -86,7 +84,6 @@ public class Objects_GridButton{
 		popingframe = frames2;
 		shrinkingIndex = 0;
 		popingIndex = 0;
-		
 		shrinkingData = increasing(shrinkingframe);
 		popingData = decreasing(popingframe);
 	}

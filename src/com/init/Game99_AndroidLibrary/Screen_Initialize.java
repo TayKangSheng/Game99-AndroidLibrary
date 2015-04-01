@@ -33,12 +33,16 @@ public class Screen_Initialize extends Screen {
 		
 		Assets.bomb = g.newImage("bomb.png", ImageFormat.RGB565, false);
 		Assets.smallest = g.newImage("bomb.png", ImageFormat.RGB565, false);
-		Assets.start = g.newImage("startbutton.png", ImageFormat.RGB565, false);
-		Assets.readyButton = g.newImage("readybutton1.png", ImageFormat.RGB565, false);
-		Assets.waitingButton = g.newImage("waitingbutton1.png", ImageFormat.RGB565, false);
-		Assets.space = g.newImage("startpage2.png", ImageFormat.RGB565, false);
+		Assets.start = g.newImage("yellowstartbutton.png", ImageFormat.RGB565, false);
+		Assets.restart = g.newImage("replaybtn.png", ImageFormat.RGB565, false);
+		Assets.readyButton = g.newImage("readybutton.png", ImageFormat.RGB565, false);
+		Assets.waitingButton = g.newImage("waitingbutton.png", ImageFormat.RGB565, false);
+		Assets.space = g.newImage("startpage.png", ImageFormat.RGB565, false);
 		Assets.avatar_page = g.newImage("starrynight.png", ImageFormat.RGB565, false);
-		
+		Assets.end_page = g.newImage("endpage.png", ImageFormat.RGB565, false);
+		Assets.instruction = g.newImage("instruction.png",ImageFormat.RGB565, false);
+		Assets.you_lost = g.newImage("youlose.png", ImageFormat.RGB565, false);
+		Assets.you_won = g.newImage("youwin.png", ImageFormat.RGB565, false);
 		
 		//let's go to the next screen;
         game.setScreen(new Screen_First(game));
