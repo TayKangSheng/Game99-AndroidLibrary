@@ -31,8 +31,8 @@ public class Objects_GeneralAvatar {
 	public String toString(){
 		return name;
 	}
-	public void setchosen(){
-		chosen = true;
+	public void setchosen(boolean bool){
+		chosen = bool;
 	}
 	public boolean getchosen(){
 		return chosen;

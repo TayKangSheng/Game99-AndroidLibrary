@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -21,7 +23,7 @@ public class Screen_Game extends Screen{
 	private Paint painter = new Paint() //for the timer;
 		, painter1 = new Paint(), //for numbers on the grid;
 		painter2 = new Paint(),
-		painter3 = new Paint();
+		glowPainter = new Paint();
 	private float GamerunTime = 0;
 	private Objects_Timer clock;
 	private boolean wholeWon = true, wholeLost = true;
@@ -50,6 +52,14 @@ public class Screen_Game extends Screen{
 		painter1.setColor(Color.WHITE);
 		painter1.setTextSize(80);
 		painter1.setTextAlign(Paint.Align.CENTER);
+		
+		glowPainter = new Paint();
+		glowPainter.setDither(true);
+		glowPainter.setAntiAlias(true);
+		glowPainter.setFilterBitmap(true);  
+		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE );
+		glowPainter.setColorFilter(colorFilterTint);
+		
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(75+(i%5)*130, 
@@ -129,6 +139,7 @@ public class Screen_Game extends Screen{
 	
 	@Override
 	public void paint(float deltaTime) {
+		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.01, GamerunTime, 0).intValue()  );
 		//Log.i("ScreenD_GameScreen", "paint");
 		// White Background for the entire screen
 		g.clearScreen(Color.parseColor("#2c3e50"));
@@ -167,8 +178,14 @@ public class Screen_Game extends Screen{
 				g.drawImage(i.getImageDisplay(), 0, 0, 
 						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
 						i.getw(), i.geth(), painter2);
-			} else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+			} else {
+				g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
 					Assets.GRIDSIZE, painter2);
+				if (i.getInt()==smallestNo){
+					g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+							Assets.GRIDSIZE, glowPainter);
+				}
+			}
 			
 			//if (i.getClickable()){
 				if (i.getNormalClickable()){

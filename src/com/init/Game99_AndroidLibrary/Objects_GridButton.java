@@ -135,6 +135,7 @@ public class Objects_GridButton{
 			}
 		}
 	}
+	
 	public int getxchange(){return xchange;}
 	public int getychange(){return ychange;}
 	public int getw(){return wchange+Assets.GRIDSIZE;}
@@ -151,6 +152,7 @@ public class Objects_GridButton{
 	public String getRandomInt() {
 		return String.valueOf(randomInt);
 	}
+	
 	public Image getImageDisplay(){ return ImageDisplay;}
 	public String getContentDisplay(){ return contentDisplay;}
 	public int getX(){ return xCoor; }

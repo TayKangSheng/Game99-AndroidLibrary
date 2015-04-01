@@ -3,17 +3,19 @@ package com.init.Game99_AndroidLibrary;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.res.AssetManager;
+import android.animation.ArgbEvaluator;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.media.Image;
 import android.util.Log;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
-import com.init.framework.Game;
 import com.init.framework.Graphics;
-import com.init.framework.Screen;
 import com.init.framework.Input.TouchEvent;
+import com.init.framework.Screen;
 
 public class Screen_AvatarChooser extends Screen {
 	private NNGame game;
@@ -25,6 +27,7 @@ public class Screen_AvatarChooser extends Screen {
 	private int gameWidth;
 	private float runTime;
 	private boolean chosen = false;
+	private Paint glowPainter;
 	
 	public Screen_AvatarChooser(NNGame game) {
 		super(game);
@@ -35,6 +38,13 @@ public class Screen_AvatarChooser extends Screen {
 		painter.setColor(Color.WHITE);
 		painter.setTextAlign(Align.CENTER);
 		painter.setTextSize(30);
+		
+		glowPainter = new Paint();
+		glowPainter.setDither(true);
+		glowPainter.setAntiAlias(true);
+		glowPainter.setFilterBitmap(true);  
+		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE );
+		glowPainter.setColorFilter(colorFilterTint);
 		
 		this.avatarChosen = null;
 		this.runTime = 0;
@@ -71,7 +81,9 @@ public class Screen_AvatarChooser extends Screen {
 					if (utils.inBounds(event, i.getX(), i.getY(), i.getWidth(), i.getHeight())){
 						Assets.gridButtonMyPlanet = i.getImage();
 						chosen = true;
-						i.setchosen();
+						for (Objects_GeneralAvatar j : avatarList)
+							j.setchosen(false);
+						i.setchosen(true);
 					}
 				}
 				
@@ -99,6 +111,7 @@ public class Screen_AvatarChooser extends Screen {
 		g.clearScreen(-12303292);
 		g.drawImage(Assets.avatar_page, 0,0);
 		
+		
 		//g.drawImage(Assets.start, 120, 1050);
 		if(!chosen) {
 			//g.drawImage(Assets.chooseplanet, 100, 1100);
@@ -107,11 +120,15 @@ public class Screen_AvatarChooser extends Screen {
 		}else{
 			g.drawImage(Assets.readyButton, 100, 1100);
 		}
-//			g.drawString("Waiting for another player...", 200, 80, painter);
 		
 		// Use for loop to draw all avatars.
+		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(50, 0.01, runTime, 0).intValue()  );
 		for (Objects_GeneralAvatar i: avatarList){
 			g.drawImage(i.getImage(), i.getX(), i.getY());
+			if (i.getchosen()){
+				g.drawImage(i.getImage(), 0,0,i.getX(), i.getY(), i.getWidth(),
+						i.getHeight(), glowPainter);
+			}
 		}
 
 	}
@@ -147,5 +164,5 @@ public class Screen_AvatarChooser extends Screen {
 	public void backButton() {
 		// TODO Auto-generated method stub
 	}
-
+	
 }
