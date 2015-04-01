@@ -4,23 +4,35 @@ import com.init.framework.Image;
 public class Assets {
 	/*game properties*/
 	public static boolean running, ready = false, gameover = false, Imready = false
-			 , otherQuit = false, freeze = false, bombed = false;
+			 , otherQuit = false, //in Game
+			 freeze = false;
 	public static float runTime;
 	public static SocketIO socketIO;
-	public static int otherPlayerPress = -1, id, health
-			, OTHER = 1, TIME=2, WON = 3, LOST = 0, GRIDSIZE=130
-			, bombLoc = -1, bombedLoc = -1, BOMBED = -2;
+	
+	public static int otherPlayerPress = -1, 
+			id, 
+			health,
+			bombLoc = -1, 
+			bombedLoc = -1;
+	
+    public static int OTHER = 1, TIME=2, WON = 3, LOST = 0, GRIDSIZE=130,
+			BOMBED = -2;
+    
 	public static boolean[] interGalaticaMapVector = null;
-	public static int[] bombs;
 	//public static Sound click;
 	
 	/*game images*/
 	public static Image space,
+		instruction,
 	    chosen,//space background with 42
-		start, //start button 
 		readyButton,
 		waitingButton,
-		avatar_page
+		you_won,
+		you_lost,
+		avatar_page, //starry night
+		start,
+		end_page,
+		restart 
 		;
 	
 	//for mainmenu animation;

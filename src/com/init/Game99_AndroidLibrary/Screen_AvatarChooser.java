@@ -19,7 +19,7 @@ public class Screen_AvatarChooser extends Screen {
 	private NNGame game;
 	private String avatarChosen;
 	private List<TouchEvent> touchEvents;
-	private Paint painter;
+	private Paint painter, painter1;
 	private ArrayList<Objects_GeneralAvatar> avatarList = 
 			new ArrayList<Objects_GeneralAvatar>();
 	private int gameWidth;
@@ -36,16 +36,21 @@ public class Screen_AvatarChooser extends Screen {
 		painter.setTextAlign(Align.CENTER);
 		painter.setTextSize(30);
 		
+		painter1 = new Paint();
+		painter1.setColor(Color.WHITE);
+		painter1.setTextSize(46);
+		painter1.setTextAlign(Paint.Align.CENTER);
+		
 		this.avatarChosen = null;
 		this.runTime = 0;
 		
 		avatarList.add(new Objects_GeneralAvatar("Avatar1", 50+0*((gameWidth-100)/3), 	70, 	Assets.planet1));
-		avatarList.add(new Objects_GeneralAvatar("Avatar0", 50+2*((gameWidth-100)/3), 	70+500+50, Assets.planet0));
-		avatarList.add(new Objects_GeneralAvatar("Avatar6", 50+2*((gameWidth-100)/3), 	70+250+50, Assets.planet6));
-		avatarList.add(new Objects_GeneralAvatar("Avatar3", 50+2*((gameWidth-100)/3), 	70+50, 	Assets.planet3));
-		avatarList.add(new Objects_GeneralAvatar("Avatar8", 50+1*((gameWidth-100)/3), 	70+500+25, Assets.planet8));
-		avatarList.add(new Objects_GeneralAvatar("Avatar5", 50+1*((gameWidth-100)/3), 	70+250+25, Assets.planet5));
-		avatarList.add(new Objects_GeneralAvatar("Avatar2", 50+1*((gameWidth-100)/3), 	70+25, 	Assets.planet2));
+		avatarList.add(new Objects_GeneralAvatar("Avatar0", 50+2*((gameWidth-100)/3), 	70+500, Assets.planet0));
+		avatarList.add(new Objects_GeneralAvatar("Avatar6", 50+2*((gameWidth-100)/3), 	70+250, Assets.planet6));
+		avatarList.add(new Objects_GeneralAvatar("Avatar3", 50+2*((gameWidth-100)/3), 	70, 	Assets.planet3));
+		avatarList.add(new Objects_GeneralAvatar("Avatar8", 50+1*((gameWidth-100)/3), 	70+500, Assets.planet8));
+		avatarList.add(new Objects_GeneralAvatar("Avatar5", 50+1*((gameWidth-100)/3), 	70+250, Assets.planet5));
+		avatarList.add(new Objects_GeneralAvatar("Avatar2", 50+1*((gameWidth-100)/3), 	70, 	Assets.planet2));
 		avatarList.add(new Objects_GeneralAvatar("Avatar7", 50+0*((gameWidth-100)/3), 	70+500, Assets.planet7));
 		avatarList.add(new Objects_GeneralAvatar("Avatar4", 50+0*((gameWidth-100)/3), 	70+250, Assets.planet4));
 
@@ -85,7 +90,7 @@ public class Screen_AvatarChooser extends Screen {
 		} 
 		if(Assets.ready) {
 			nullify();
-			game.setScreen(new Screen_Game(game));
+			game.setScreen(new Screen_Instruction(game));
 		}
 		
 		//Log.i("Screen_LoadingScreenJ", "update");
@@ -101,6 +106,8 @@ public class Screen_AvatarChooser extends Screen {
 		
 		//g.drawImage(Assets.start, 120, 1050);
 		if(!chosen) {
+			g.drawString("please choose your avatar planet", game.getGraphics().getWidth()/2, 
+					1050, painter1);
 			//g.drawImage(Assets.chooseplanet, 100, 1100);
 		} else if(!Assets.ready && Assets.Imready && chosen){
 			g.drawImage(Assets.waitingButton, 100, 1100);
@@ -111,6 +118,7 @@ public class Screen_AvatarChooser extends Screen {
 		
 		// Use for loop to draw all avatars.
 		for (Objects_GeneralAvatar i: avatarList){
+			//g.drawImage(i.getImage(),0,0,i.getX(),i.getY(), 150, 150);
 			g.drawImage(i.getImage(), i.getX(), i.getY());
 		}
 

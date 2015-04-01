@@ -70,23 +70,28 @@ public class Screen_Result extends Screen{
 	public void paint(float deltaTime) {
 		String msg = "";
 		g.clearScreen(Color.LTGRAY);
-		g.drawImage(Assets.avatar_page, 0, 0);
-		g.drawImage(Assets.start, 120, 1050);
-
-		if(this.reason==Assets.WON) msg = "won!";
-		else if(this.reason==Assets.LOST) msg = "lost";
+		g.drawImage(Assets.end_page, 0, 0);
+		g.drawImage(Assets.restart, game.getGraphics().getWidth()/2-Assets.restart.getWidth()/2-25, 
+				1010);
+		int h = g.getHeight()/2 - Assets.you_won.getHeight()/2-150;
+		int w = g.getWidth()/2 - Assets.you_won.getWidth()/2;
+		if(this.reason==Assets.WON){
+			g.drawImage(Assets.you_won,w,h);
+		}
+		else if(this.reason==Assets.LOST) 
+			g.drawImage(Assets.you_lost,w,h);
 		else if(this.reason==Assets.OTHER){
 			msg = "Other player quit.";
-			if(this.won) msg +=" but you won";
-			else if(this.lost) msg+=" and you lost";
+			if(this.won) g.drawImage(Assets.you_won,w,h);
+			else if(this.lost) g.drawImage(Assets.you_lost,w,h);
 			else msg += " and it's a draw";
 		} 
 		else if(this.reason==Assets.TIME){
-			if(this.won) msg ="you won";
-			else if(this.lost) msg ="you lost";
+			if(this.won) g.drawImage(Assets.you_won,w,h);
+			else if(this.lost) g.drawImage(Assets.you_lost,w,h);
 			else msg += "we have a draw";
 		}
-		g.drawString(msg, gameWidth/2 , gameHeight/2, painter);
+		//g.drawString(msg, gameWidth/2 , gameHeight/2, painter);
 	}
 
 	@Override

@@ -62,12 +62,14 @@ public class Screen_First extends Screen {
 
 	@Override
 	public void paint(float deltaTime) {
-		Log.i("ScreenB_MainMenu", "paint");
+		//Log.i("ScreenB_MainMenu", "paint");
 		
 		Graphics g = game.getGraphics();
 		
 		// Draw background Image
 		g.drawImage(Assets.space, 0, 0);
+		g.drawImage(Assets.start, game.getGraphics().getWidth()/2-Assets.restart.getWidth()/2-25, 
+				1010);
 		//g.drawImage(Assets.start, 120, 1050);
 		//g.drawString(Assets.msg, 50,50,paint);
 		
