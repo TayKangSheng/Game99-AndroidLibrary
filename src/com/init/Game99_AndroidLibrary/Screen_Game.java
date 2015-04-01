@@ -144,7 +144,7 @@ public class Screen_Game extends Screen{
 		// Paint timer
 		g.drawString(clock.getValue(GamerunTime), 669, 120, painter);
 		// Paint Power ups
-		g.drawRect(90, 1070, 100, 100, Color.parseColor("#e67e22"));
+		//g.drawRect(90, 1070, 100, 100, Color.parseColor("#e67e22"));
 		// Draw Grids
 		for (Objects_GridButton i : gameGrid){
 			if(i.getShake()){

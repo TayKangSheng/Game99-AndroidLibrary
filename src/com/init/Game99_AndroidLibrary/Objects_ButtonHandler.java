@@ -66,6 +66,7 @@ public class Objects_ButtonHandler {
 			}
 		}
 		else if (grid.get(index).getBomb()){
+			Assets.socketIO.getSocket().emit("bomb", index);
 			if (index<=4 && index>=0){
 				if (index == 0){
 					int[] r = round[0];
