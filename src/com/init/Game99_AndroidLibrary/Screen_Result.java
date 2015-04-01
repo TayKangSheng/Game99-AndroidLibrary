@@ -32,13 +32,13 @@ public class Screen_Result extends Screen{
 		g = game.getGraphics();
 		
 		painter.setColor(Color.WHITE);
-		painter.setTextSize(100);
+		painter.setTextSize(30);
 		painter.setTextAlign(Paint.Align.CENTER);
 		
 		this.reason = reason;
 		if(this.reason==Assets.WON || this.reason==Assets.LOST) return;
 		for (Objects_GridButton i : list){
-			if (i.getClickable()) opponentScoreCount++;
+			if (i.getNormalClickable()) opponentScoreCount++;
 			else  scoreCount++;
 		}
 		if(scoreCount>opponentScoreCount){ this.won = true;
@@ -129,5 +129,6 @@ public class Screen_Result extends Screen{
 		Assets.Imready = false;
 		Assets.runTime = 0;
 		Assets.freeze = false;
+		Assets.otherQuit = false;
 	}
 }

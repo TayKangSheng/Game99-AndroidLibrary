@@ -9,7 +9,7 @@ public class Assets {
 	public static SocketIO socketIO;
 	public static int otherPlayerPress = -1, id, health
 			, OTHER = 1, TIME=2, WON = 3, LOST = 0, GRIDSIZE=130
-			, bombLoc = -1, bombedLoc = -1;
+			, bombLoc = -1, bombedLoc = -1, BOMBED = -2;
 	public static boolean[] interGalaticaMapVector = null;
 	public static int[] bombs;
 	//public static Sound click;

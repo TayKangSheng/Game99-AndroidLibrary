@@ -25,28 +25,28 @@ public class Objects_GridButton{
 	}
 	
 	public void setNormalClickable(){
-		clickable = true; normalClickable = true;
+		normalClickable = true;
+		bomb = false; smallest = false;
 		randomInt = rand.nextInt(10);
 		ImageDisplay = Assets.gridButtonNotMyPlanet;
 		contentDisplay = String.valueOf(randomInt);
 	}
 	public void setNormalNotClickable(){
-		clickable = false; normalClickable = false;
+		normalClickable = false;
+		bomb = false; smallest = false;
 		randomInt = -1;
 		ImageDisplay = Assets.gridButtonMyPlanet;
 	}
 	public void setBomb(){
 		bomb = true;
-		clickable = true; normalClickable = false;
+		normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.bomb;
 	}
 	public void setSmallest(){
-		clickable = true; normalClickable = false;
+	    normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.smallest;
-		height = ImageDisplay.getHeight();
-		width = ImageDisplay.getWidth();
 		contentDisplay = "";
 	}
 	
@@ -144,7 +144,6 @@ public class Objects_GridButton{
 	public boolean getPop() {return poping;}
 	public boolean getShake(){return shaking;}
 	
-	public boolean getClickable() { return clickable; }
 	public boolean getNormalClickable() {return normalClickable;}
 	public boolean getBomb() {return bomb;}
 	public boolean getSmallest() {return smallest;}

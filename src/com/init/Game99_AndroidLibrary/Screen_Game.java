@@ -59,17 +59,6 @@ public class Screen_Game extends Screen{
 		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.init.framework.Screen#update(float)
-	 * click
-				1. Sort list of values
-				2. Check whether the click is valid.
-					2a. If it is, change image, send coordinates
-					2b. If it is not, health-1
-		lose:
-		1. timeout--> no socket
-		2. lose all your life: --> gameover o
-	 */
 	@Override
 	public void update(float deltaTime) {
 		//Log.i("ScreenD_GameScreen", "update");
@@ -89,9 +78,7 @@ public class Screen_Game extends Screen{
 			Assets.otherPlayerPress = -1;
 		}
 		if(Assets.bombed){
-			for(int i=0;i<Assets.bombs.length;i++){
-				gameGrid.get(Assets.bombedLoc + Assets.bombs[i]).setNormalClickable();
-			}
+			buttonHandler.Click(Assets.bombedLoc, Assets.BOMBED);
 			Assets.bombed = false;
 			Assets.bombs = null; Assets.bombedLoc = -1; 
 		}
@@ -102,6 +89,7 @@ public class Screen_Game extends Screen{
 		wholeLost = true;
 		if(Assets.bombLoc>=0){
 			gameGrid.get(Assets.bombLoc).setBomb();
+			Assets.bombLoc = -1;
 		}
 		for (Objects_GridButton i : gameGrid){
 			if (i.getInt()>=0){
@@ -179,10 +167,10 @@ public class Screen_Game extends Screen{
 				g.drawImage(i.getImageDisplay(), 0, 0, 
 						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
 						i.getw(), i.geth(), painter2);
-			}else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+			} else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
 					Assets.GRIDSIZE, painter2);
 			
-			if (i.getClickable()){
+			//if (i.getClickable()){
 				if (i.getNormalClickable()){
 					if(i.getShake()){
 						g.drawString(i.getRandomInt(), i.getX()+60+i.getxchange(), 
@@ -190,7 +178,7 @@ public class Screen_Game extends Screen{
 					}
 					else g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
 				}
-			}
+			//}
 		}
 		
 	}

@@ -90,10 +90,16 @@ public class SocketIO {
 			public void call(Object... args) {
 				if(args.length==1){
 					Assets.bombLoc = (Integer) args[0];
-				}else if(args.length==2){
+				}
+			}
+		});
+		socket.on("bombeffect", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				if(args.length==1){
+					Log.i("socketio", "bomb effect received");
 					Assets.bombed = true;
 					Assets.bombedLoc = (Integer) args[0];
-					Assets.bombs = (int[]) args[1];
 				}
 			}
 		});
