@@ -15,7 +15,9 @@ public class Assets {
 			bombLoc = -1, 
 			bombedLoc = -1;
 	
-    public static int OTHER = 1, TIME=2, WON = 3, LOST = 0, GRIDSIZE=130,
+    public static int OTHER = 1, TIME=2, WON = 3, LOST = 0, 
+    		QUIT = 4,
+    		GRIDSIZE=130,
 			BOMBED = -2;
     
 	public static boolean[] interGalaticaMapVector = null;
@@ -32,14 +34,11 @@ public class Assets {
 		avatar_page, //starry night
 		start,
 		end_page,
-		restart 
+		restart,
+		bomb,
+		smallest,
+		hint
 		;
-	
-	//for mainmenu animation;
-	public static Image backgroundanimearth0, backgroundanimearth1, backgroundanimearth2, 
-	backgroundanimearth3, backgroundanimearth4, backgroundanimearth5, backgroundanimearth6, 
-	backgroundanimearth7, backgroundanimearth8, backgroundanimearth9
-	, bomb, smallest;
 	
 	//planet avatars
 	public static Image planet1, planet2, planet3, planet4, planet5, planet6, planet7,

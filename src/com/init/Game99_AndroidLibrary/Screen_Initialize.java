@@ -24,8 +24,6 @@ public class Screen_Initialize extends Screen {
 	 */
 	@Override
 	public void update(float deltaTime) {
-		Log.i("ScreenA_Initialisation", "update");
-		//runtime and socketio;
 		Assets.runTime=0;
 		Assets.socketIO = new SocketIO();
 		//loads images;
@@ -43,6 +41,8 @@ public class Screen_Initialize extends Screen {
 		Assets.instruction = g.newImage("instruction.png",ImageFormat.RGB565, false);
 		Assets.you_lost = g.newImage("youlose.png", ImageFormat.RGB565, false);
 		Assets.you_won = g.newImage("youwin.png", ImageFormat.RGB565, false);
+		Assets.hint = g.newImage("reddot.png",ImageFormat.RGB565, false);
+		Assets.smallest = g.newImage("cheese130px",ImageFormat.RGB565, false);
 		
 		//let's go to the next screen;
         game.setScreen(new Screen_First(game));
@@ -50,7 +50,6 @@ public class Screen_Initialize extends Screen {
 
 	@Override
 	public void paint(float deltaTime) {
-		Log.i("ScreenA_Initialisation", "paint");
 	}
 
 	@Override

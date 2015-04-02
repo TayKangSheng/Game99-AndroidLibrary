@@ -77,7 +77,7 @@ public class Screen_Instruction extends Screen {
 		}else if(stay){
 			index ++;
 			g.drawImage(Assets.instruction, w, h);
-			if(index > 80){
+			if(index > 50){
 				g.drawImage(Assets.instruction, w, h);
 				stay = false; bounce2 = true; hIndex = 0;
 			}

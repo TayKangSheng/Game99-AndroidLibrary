@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -17,11 +19,12 @@ import com.init.framework.Input.TouchEvent;
 public class Screen_Game extends Screen{
 	private NNGame game;
 	private Graphics g;
-	private Paint painter = new Paint(), //for the timer;
-		painter1 = new Paint(), //for numbers on the grid;
-		painter2 = new Paint(), //for the grid images (transparency)
-		painter3 = new Paint();
-	
+
+	private Paint painter = new Paint() //for the timer;
+		, painter1 = new Paint(), //for numbers on the grid;
+		painter2 = new Paint(),
+		glowPainter = new Paint();
+
 	private float GamerunTime = 0;
 	private int gameWidth, smallestNo = 10;
 	private boolean wholeWon = true, wholeLost = true;
@@ -60,10 +63,19 @@ public class Screen_Game extends Screen{
 		painter1.setColor(Color.WHITE);
 		painter1.setTextSize(80);
 		painter1.setTextAlign(Paint.Align.CENTER);
+		
+		glowPainter = new Paint();
+		glowPainter.setDither(true);
+		glowPainter.setAntiAlias(true);
+		glowPainter.setFilterBitmap(true);  
+		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE );
+		glowPainter.setColorFilter(colorFilterTint);
+		
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(75+(i%5)*Assets.GRIDSIZE, 
 					150+((int)(i/5))*Assets.GRIDSIZE, Assets.interGalaticaMapVector[i]);
+			buttontemp0.pop(14);
 			gameGrid.add(buttontemp0);
 		}
 		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
@@ -108,10 +120,12 @@ public class Screen_Game extends Screen{
 				if (i.getInt() < smallestNo){
 					smallestNo = i.getInt();
 				}
-			}else{ wholeLost = false;}
+			}else if(i.getBomb()){}
+			else{ wholeLost = false;}
 		}
 		if(wholeWon) {
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.WON));
+			Assets.socketIO.getSocket().emit("gameover", "iwon");
 		} else if(wholeLost){
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.LOST));
 		}
@@ -135,6 +149,7 @@ public class Screen_Game extends Screen{
 	
 	@Override
 	public void paint(float deltaTime) {
+		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.01, GamerunTime, 0).intValue()  );
 		// White Background for the entire screen
 		g.clearScreen(Color.parseColor("#2c3e50"));
 		// Gray Background for health and timer
@@ -143,8 +158,6 @@ public class Screen_Game extends Screen{
 		g.drawRect(5, 1065, gameWidth-10, 210, Color.parseColor("#2c3e50"));
 		// Paint timer
 		g.drawString(clock.getValue(GamerunTime), 669, 120, painter);
-		// Paint Power ups
-		//g.drawRect(90, 1070, 100, 100, Color.parseColor("#e67e22"));
 		// Draw Grids
 		for (Objects_GridButton i : gameGrid){
 			if(i.getShake()){
@@ -164,15 +177,21 @@ public class Screen_Game extends Screen{
 				g.drawImage(i.getImageDisplay(), 0, 0, 
 						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
 						i.getw(), i.geth(), painter2);
-			} else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+			} else {
+				g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
 					Assets.GRIDSIZE, painter2);
-				if (i.getNormalClickable()){
-					if(i.getShake()){
-						g.drawString(i.getRandomInt(), i.getX()+60+i.getxchange(), 
-								i.getY()+90+i.getychange() ,painter1);
-					}
-					else g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
+			}
+			
+			if (i.getNormalClickable()){
+				if(i.getShake()){
+					g.drawString(i.getRandomInt(), i.getX()+60+i.getxchange(), 
+							i.getY()+90+i.getychange() ,painter1);
 				}
+				else {
+					if(!i.getPop())
+						g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
+				}
+			}
 		}
 		
 	}

@@ -10,7 +10,7 @@ public class Objects_GridButton{
 	private static Random rand = new Random(); // Shared Random Number Generator
 	int xCoor, yCoor, randomInt;
 	Boolean clickable, normalClickable, 
-		bomb=false, smallest=false;
+		bomb=false, smallest=false, hint=false, lastClickable;
 	Image ImageDisplay;
 	String contentDisplay;
 	
@@ -21,7 +21,7 @@ public class Objects_GridButton{
 		if (bool) setNormalClickable();
 		else setNormalNotClickable();
 	}
-	
+	//setters
 	public void setNormalClickable(){
 		normalClickable = true;
 		bomb = false; smallest = false;
@@ -42,21 +42,29 @@ public class Objects_GridButton{
 		ImageDisplay = Assets.bomb;
 	}
 	public void setSmallest(){
+		lastClickable = normalClickable;
 	    normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.smallest;
-		contentDisplay = "";
 	}
-	
+	public void setHint(){
+		lastClickable = normalClickable;
+		normalClickable = false;
+		randomInt = -1;
+		ImageDisplay = Assets.hint;
+	}
+	//animations
 	private boolean shrinking = false, poping = false, shaking = false;
 	private int shakingIndex = 0, shrinkingIndex = 0, popingIndex = 0,
 			shakingframe = 0, shrinkingframe = 0, popingframe = 0
-			,xchange, ychange, wchange, hchange, width, height;
+			,xchange, ychange, wchange, hchange;
+	private int[] shrinkingData, popingData;
 	private int[][] shakingData = {{2, 1},{-1,-2},
 							{-3,0},{0,2},{1,-1},
 							{-1,2},{-3,1},{2,1},
 							{-1,-1},{2,2},{1,-2}};
-	int[] shrinkingData, popingData;
+	
+	//calculating shrinking/poping data
 	private int[] decreasing(int frame){
 		if(frame==0) frame = 7;
 		int[] result = new int[frame];
@@ -75,9 +83,9 @@ public class Objects_GridButton{
 			result1[result1.length-1-i] = (int)(interval*interval*i*i - Assets.GRIDSIZE);
 			Log.i("increasing", result1[result1.length-1-i]+"");
 		}
-		
 		return result1;
 	}
+	
 	public void shrink(int frames1, int frames2){
 		shrinking = true;
 		shrinkingframe = frames1;
@@ -93,10 +101,11 @@ public class Objects_GridButton{
 		Assets.freeze = true;
 		shakingIndex = 0;
 	}
-	private void restore(){
-		shaking = false;
-		shrinking = false; poping = false;
-		Assets.freeze = false;
+	public void pop(int frames){
+		popingframe = frames;
+		popingIndex = 0;
+		popingData = decreasing(popingframe);
+		poping = true;
 	}
 	public void updateFrame(){
 		if(this.shaking){
@@ -132,25 +141,28 @@ public class Objects_GridButton{
 			}
 		}
 	}
+	
+	//getters
+	public int getX(){ return xCoor; }
+	public int getY(){ return yCoor; }
 	public int getxchange(){return xchange;}
 	public int getychange(){return ychange;}
 	public int getw(){return wchange+Assets.GRIDSIZE;}
 	public int geth(){return hchange+Assets.GRIDSIZE;}
-	
+	public boolean getlastclickable(){return lastClickable;}
+	//get states
 	public boolean getShrink() {return shrinking;}
 	public boolean getPop() {return poping;}
 	public boolean getShake(){return shaking;}
 	
 	public boolean getNormalClickable() {return normalClickable;}
 	public boolean getBomb() {return bomb;}
+	public boolean getHint() {return hint;}
 	public boolean getSmallest() {return smallest;}
 	public int getInt(){ return randomInt;}
-	public String getRandomInt() {
-		return String.valueOf(randomInt);
-	}
+	public String getRandomInt() { return String.valueOf(randomInt);}
 	public Image getImageDisplay(){ return ImageDisplay;}
 	public String getContentDisplay(){ return contentDisplay;}
-	public int getX(){ return xCoor; }
-	public int getY(){ return yCoor; }
+	
 
 }

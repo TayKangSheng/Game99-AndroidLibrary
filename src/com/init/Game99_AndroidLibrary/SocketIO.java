@@ -40,7 +40,6 @@ public class SocketIO {
 		socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
-				Log.d("socketio", "socket connected");
 				socket.emit("joined", "I am android, and I just landed!");
 				// socket.disconnect(); // why is there a disconnect here?
 			}        
@@ -62,6 +61,7 @@ public class SocketIO {
 		socket.on("button", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
+				Log.i("button", args[0]+"");
 				Assets.otherPlayerPress = (Integer) args[0];
 				// socket.disconnect(); // why is there a disconnect here?
 			}        
@@ -75,6 +75,7 @@ public class SocketIO {
 					//if(result.equals("won")) //Assets.won = true;
 					//else if(result.equals("lost")) //Assets.lost = true;
 					if(result.equals("quit")) Assets.otherQuit = true;
+					if(result.equals("otherwon")) Assets.otherQuit = true;
 				}
 			}        
 		});
@@ -106,8 +107,6 @@ public class SocketIO {
 		socket.on("grid", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
-				// TODO Auto-generated method stub
-				Log.d("socketio", "socket event connect error");
 				//there is a grid!
 				JSONObject data = (JSONObject) args[0];
 				try {

@@ -39,7 +39,7 @@ public class Screen_First extends Screen {
 
 	@Override
 	public void update(float deltaTime) {
-		Log.i("ScreenB_MainMenu", "update");
+		//Log.i("ScreenB_MainMenu", "update");
 		Assets.runTime += deltaTime;
 		
 		touchEvents = game.getInput().getTouchEvents();

@@ -55,6 +55,7 @@ public class Objects_ButtonHandler {
 				for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
 		}
 		}
+		//if clicked on the right one
 		if (grid.get(index).getNormalClickable()){ 
 			if(grid.get(index).getInt() == small){
 				Assets.socketIO.getSocket().emit("button", index);
@@ -119,6 +120,20 @@ public class Objects_ButtonHandler {
 			}
 		} else if (grid.get(index).getSmallest()){
 			grid.get(index).setNormalNotClickable();
+			if(grid.get(index).getlastclickable()) 
+				Assets.socketIO.getSocket().emit("button", index);
+			int tmp = 0;
+			for(Objects_GridButton btn: grid){
+				if(btn.getInt()==small){
+					btn.setNormalNotClickable();
+					Assets.socketIO.getSocket().emit("button", tmp);
+					tmp++;
+				}
+			}
+		} else if(grid.get(index).getHint()){
+			grid.get(index).setNormalNotClickable();
+			if(grid.get(index).getlastclickable()) 
+				Assets.socketIO.getSocket().emit("button", index);
 		}
 		else{
 			grid.get(index).shake(14);
