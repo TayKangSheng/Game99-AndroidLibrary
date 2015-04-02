@@ -9,8 +9,9 @@ import com.init.framework.Image;
 public class Objects_GridButton{
 	private static Random rand = new Random(); // Shared Random Number Generator
 	int xCoor, yCoor, randomInt;
-	Boolean clickable, normalClickable, 
+	Boolean clickable, normalClickable = false, 
 		bomb=false, smallest=false, hint=false, lastClickable;
+
 	Image ImageDisplay;
 	String contentDisplay;
 	
@@ -23,35 +24,41 @@ public class Objects_GridButton{
 	}
 	//setters
 	public void setNormalClickable(){
+		if(!this.normalClickable){
 		normalClickable = true;
-		bomb = false; smallest = false;
+		hint = false; bomb = false; smallest = false;
 		randomInt = rand.nextInt(10);
 		ImageDisplay = Assets.gridButtonNotMyPlanet;
 		contentDisplay = String.valueOf(randomInt);
+		}
 	}
 	public void setNormalNotClickable(){
 		normalClickable = false;
-		bomb = false; smallest = false;
+		bomb = false; smallest = false; hint = false;
 		randomInt = -1;
 		ImageDisplay = Assets.gridButtonMyPlanet;
 	}
 	public void setBomb(){
-		bomb = true;
+		bomb = true; smallest = false; hint = false;
 		normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.bomb;
 	}
 	public void setSmallest(){
+		smallest = true; bomb = false; hint = false;
 		lastClickable = normalClickable;
 	    normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.smallest;
 	}
 	public void setHint(){
+		hint = true; bomb = false; smallest = false;
 		lastClickable = normalClickable;
 		normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.hint;
+		Assets.glow = true;
+		Assets.glowRunTime = 0;
 	}
 	//animations
 	private boolean shrinking = false, poping = false, shaking = false;
@@ -65,26 +72,7 @@ public class Objects_GridButton{
 							{-1,-1},{2,2},{1,-2}};
 	
 	//calculating shrinking/poping data
-	private int[] decreasing(int frame){
-		if(frame==0) frame = 7;
-		int[] result = new int[frame];
-		double interval = Math.sqrt(Assets.GRIDSIZE)/frame;
-		for(int i=0;i<frame;i++){
-			result[i] = (int)(interval*interval*i*i - Assets.GRIDSIZE);
-			Log.i("decreasing", result[i]+"");
-		}
-		return result;
-	}
-	private int[] increasing(int frame){
-		if(frame==0) frame = 7;
-		int[] result1 = new int[frame];
-		double interval = Math.sqrt(Assets.GRIDSIZE) / frame;
-		for(int i=0;i<frame;i++){
-			result1[result1.length-1-i] = (int)(interval*interval*i*i - Assets.GRIDSIZE);
-			Log.i("increasing", result1[result1.length-1-i]+"");
-		}
-		return result1;
-	}
+	
 	
 	public void shrink(int frames1, int frames2){
 		shrinking = true;
@@ -92,8 +80,8 @@ public class Objects_GridButton{
 		popingframe = frames2;
 		shrinkingIndex = 0;
 		popingIndex = 0;
-		shrinkingData = increasing(shrinkingframe);
-		popingData = decreasing(popingframe);
+		shrinkingData = utils.increasing(shrinkingframe);
+		popingData = utils.decreasing(popingframe);
 	}
 	public void shake(int frames){
 		shaking = true;
@@ -104,7 +92,7 @@ public class Objects_GridButton{
 	public void pop(int frames){
 		popingframe = frames;
 		popingIndex = 0;
-		popingData = decreasing(popingframe);
+		popingData = utils.decreasing(popingframe);
 		poping = true;
 	}
 	public void updateFrame(){
@@ -139,12 +127,13 @@ public class Objects_GridButton{
 			} else{
 				poping = false;
 			}
-		}
+		} 
 	}
 	
 	//getters
 	public int getX(){ return xCoor; }
 	public int getY(){ return yCoor; }
+
 	public int getxchange(){return xchange;}
 	public int getychange(){return ychange;}
 	public int getw(){return wchange+Assets.GRIDSIZE;}

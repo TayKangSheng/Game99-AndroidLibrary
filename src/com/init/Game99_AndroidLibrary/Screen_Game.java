@@ -9,7 +9,7 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
-
+import com.init.Game99_AndroidLibrary.*;
 import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
@@ -64,18 +64,19 @@ public class Screen_Game extends Screen{
 		painter1.setTextSize(80);
 		painter1.setTextAlign(Paint.Align.CENTER);
 		
-		glowPainter = new Paint();
+		//glow painter for glowing
 		glowPainter.setDither(true);
 		glowPainter.setAntiAlias(true);
 		glowPainter.setFilterBitmap(true);  
-		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE );
+		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE);
 		glowPainter.setColorFilter(colorFilterTint);
 		
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(75+(i%5)*Assets.GRIDSIZE, 
 					150+((int)(i/5))*Assets.GRIDSIZE, Assets.interGalaticaMapVector[i]);
-			buttontemp0.pop(14);
+			buttontemp0.pop(14); 
+			//starting the pop action at the start
 			gameGrid.add(buttontemp0);
 		}
 		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
@@ -83,7 +84,6 @@ public class Screen_Game extends Screen{
 
 	@Override
 	public void update(float deltaTime) {
-		//Log.i("ScreenD_GameScreen", "update");
 		GamerunTime += deltaTime;
 		// check clock
 		/*if(Assets.health==0) {
@@ -113,6 +113,20 @@ public class Screen_Game extends Screen{
 		if(Assets.bombLoc>=0){
 			gameGrid.get(Assets.bombLoc).setBomb();
 			Assets.bombLoc = -1;
+		}
+		if(Assets.hintLoc>=0){
+			gameGrid.get(Assets.hintLoc).setHint();
+			Assets.hintLoc = -1;
+		}
+		if(Assets.smallestLoc>=0){
+			gameGrid.get(Assets.smallestLoc).setSmallest();
+			Assets.smallestLoc = -1;
+		}
+		if(Assets.smallestLocs!=null){
+			for(int i: Assets.smallestLocs){
+				gameGrid.get(i).setNormalClickable();
+			}
+			Assets.smallestLocs = null;
 		}
 		for (Objects_GridButton i : gameGrid){
 			if (i.getInt()>=0){
@@ -149,6 +163,7 @@ public class Screen_Game extends Screen{
 	
 	@Override
 	public void paint(float deltaTime) {
+		//Log.i("deltatime",deltaTime+"");
 		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.01, GamerunTime, 0).intValue()  );
 		// White Background for the entire screen
 		g.clearScreen(Color.parseColor("#2c3e50"));
@@ -178,8 +193,19 @@ public class Screen_Game extends Screen{
 						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
 						i.getw(), i.geth(), painter2);
 			} else {
-				g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
-					Assets.GRIDSIZE, painter2);
+				if(Assets.glow){
+					Assets.glowRunTime+=deltaTime;
+					if(Assets.glowRunTime>Assets.HINTTIME){
+						Assets.glow = false;
+						Assets.glowRunTime = 0;
+					}
+					if (i.getInt()==smallestNo){
+						g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+								Assets.GRIDSIZE, glowPainter);
+					} else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+									Assets.GRIDSIZE, painter2);
+				} else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
+						Assets.GRIDSIZE, painter2);
 			}
 			
 			if (i.getNormalClickable()){
@@ -191,9 +217,8 @@ public class Screen_Game extends Screen{
 					if(!i.getPop())
 						g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
 				}
-			}
 		}
-		
+		}
 	}
 
 	@Override

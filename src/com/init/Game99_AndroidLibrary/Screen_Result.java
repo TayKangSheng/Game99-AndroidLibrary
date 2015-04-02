@@ -59,7 +59,7 @@ public class Screen_Result extends Screen{
 			if (event.type == TouchEvent.TOUCH_UP) {
 				if(inBounds(event,120,1045,551,127)) {
 					Assets.socketIO.getSocket().emit("joined");
-					restoreGame();
+					utils.restoreGame();
 					game.setScreen(new Screen_Initialize(game));
 				}
 			}
@@ -125,15 +125,4 @@ public class Screen_Result extends Screen{
         else
             return false;
     }
-
-	public static void restoreGame(){
-		Assets.health = 10;
-		Assets.running = true;
-		Assets.gameover = false;
-		Assets.ready = false;
-		Assets.Imready = false;
-		Assets.runTime = 0;
-		Assets.freeze = false;
-		Assets.otherQuit = false;
-	}
 }

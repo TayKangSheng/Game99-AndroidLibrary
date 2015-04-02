@@ -21,6 +21,7 @@ public class Objects_ButtonHandler {
 			{0,1,-5,-4,5,6},{0,-1,-5,-6,5,4},{0,1,-1,4,-4,5, -5,6,-6}
 	};
 	public void Click(int index, int small){
+		//feedback change if opponent pressed bomb
 		if(small==Assets.BOMBED){
 			if (index<=4 && index>=0){
 				if (index == 0){
@@ -53,8 +54,9 @@ public class Objects_ButtonHandler {
 			} else{
 				int[] r = round[8];
 				for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+			}
 		}
-		}
+		
 		//if clicked on the right one
 		if (grid.get(index).getNormalClickable()){ 
 			if(grid.get(index).getInt() == small){
@@ -118,21 +120,23 @@ public class Objects_ButtonHandler {
 					grid.get(index+r[i]).setNormalNotClickable();
 				}
 			}
+			
 		} else if (grid.get(index).getSmallest()){
 			grid.get(index).setNormalNotClickable();
-			if(grid.get(index).getlastclickable()) 
+			//if(grid.get(index).getlastclickable()) 
 				Assets.socketIO.getSocket().emit("button", index);
 			int tmp = 0;
+			ArrayList array = new ArrayList();
 			for(Objects_GridButton btn: grid){
 				if(btn.getInt()==small){
 					btn.setNormalNotClickable();
-					Assets.socketIO.getSocket().emit("button", tmp);
-					tmp++;
-				}
+					array.add(tmp);
+				}tmp ++;
 			}
+			Assets.socketIO.getSocket().emit("smallest", array);
 		} else if(grid.get(index).getHint()){
 			grid.get(index).setNormalNotClickable();
-			if(grid.get(index).getlastclickable()) 
+			//if(grid.get(index).getlastclickable()) 
 				Assets.socketIO.getSocket().emit("button", index);
 		}
 		else{

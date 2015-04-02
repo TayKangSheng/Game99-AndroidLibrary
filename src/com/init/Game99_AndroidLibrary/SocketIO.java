@@ -58,6 +58,24 @@ public class SocketIO {
 				// socket.disconnect(); // why is there a disconnect here?
 			}        
 		});
+		socket.on("smallesteffect", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				JSONObject data = (JSONObject) args[0];
+				try {
+					JSONArray array = data.getJSONArray("data");
+					Assets.smallestLocs = new int[array.length()];
+					for(int i=0;i<array.length();i++){
+						Assets.smallestLocs[i] = (Integer) array.get(i);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				
+				// socket.disconnect(); // why is there a disconnect here?
+			}        
+		});
 		socket.on("button", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
@@ -103,7 +121,24 @@ public class SocketIO {
 				}
 			}
 		});
-		
+		socket.on("hint", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				if(args.length==1){
+					Log.i("socketio", "hint received");
+					Assets.hintLoc = (Integer) args[0];
+				}
+			}
+		});
+		socket.on("smallest", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				if(args.length==1){
+					Log.i("socketio", "smallest received");
+					Assets.smallestLoc = (Integer) args[0];
+				}
+			}
+		});
 		socket.on("grid", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {

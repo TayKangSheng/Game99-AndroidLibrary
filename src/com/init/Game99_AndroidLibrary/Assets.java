@@ -2,23 +2,31 @@ package com.init.Game99_AndroidLibrary;
 import com.init.framework.Image;
 
 public class Assets {
-	/*game properties*/
-	public static boolean running, ready = false, gameover = false, Imready = false
-			 , otherQuit = false, //in Game
-			 freeze = false;
-	public static float runTime;
+	/*game properties state related! => must be reset in result page*/
+	public static boolean running, 
+				ready = false, 
+				gameover = false, 
+			    Imready = false, //player is ready
+			    otherQuit = false, 
+			    //other quit => server gets signal => this player gets signal => otherQuit is set true
+			   freeze = false, 
+			   glow = true;
+	public static float runTime, 
+			glowRunTime = 0;
 	public static SocketIO socketIO;
-	
+	public static int[] smallestLocs;
 	public static int otherPlayerPress = -1, 
 			id, 
 			health,
 			bombLoc = -1, 
-			bombedLoc = -1;
+			bombedLoc = -1,
+			hintLoc = -1,
+			smallestLoc = -1;
 	
     public static int OTHER = 1, TIME=2, WON = 3, LOST = 0, 
     		QUIT = 4,
     		GRIDSIZE=130,
-			BOMBED = -2;
+			BOMBED = -2, HINTTIME = 7000;
     
 	public static boolean[] interGalaticaMapVector = null;
 	//public static Sound click;
