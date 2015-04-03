@@ -177,10 +177,6 @@ public class Objects_GridButton{
 				hchange = popingData[popingIndex-1];
 				xchange = -wchange/2;
 				ychange = -wchange/2;
-				if (this.bombed){
-					// shift xcoor and ycoor back to original
-					bombingIndex --;
-				}
 			} else{
 				poping = false;
 				if (this.bombed){

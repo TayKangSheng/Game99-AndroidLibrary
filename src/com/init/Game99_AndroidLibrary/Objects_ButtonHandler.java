@@ -37,34 +37,70 @@ public class Objects_ButtonHandler {
 			if (index<=4 && index>=0){
 				if (index == 0){
 					int[] r = round[0];
-					for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+					for(int i=0;i<r.length;i++) {
+						grid.get(index+r[i]).bombed(15, 10, r[i]);
+						grid.get(index+r[i]).setNormalClickable();
+						
+					}
 				} else if (index == 4){
 					int[] r = round[1];
-					for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+					for(int i=0;i<r.length;i++) {
+						grid.get(index+r[i]).bombed(15, 10, r[i]);
+						grid.get(index+r[i]).setNormalClickable();
+						
+					}
 				} else{
 					int[] r = round[2];
-					for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+					for(int i=0;i<r.length;i++) {
+						grid.get(index+r[i]).bombed(15, 10, r[i]);
+						grid.get(index+r[i]).setNormalClickable();
+						
+					}
 				}
 			} else if (index<=34 && index>=30){
 				if (index == 30){
 					int[] r = round[3];
-					for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+					for(int i=0;i<r.length;i++) {
+						grid.get(index+r[i]).bombed(15, 10, r[i]);
+						grid.get(index+r[i]).setNormalClickable();
+						
+					}
 				} else if (index == 34){
 					int[] r = round[4];
-					for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+					for(int i=0;i<r.length;i++) {
+						grid.get(index+r[i]).bombed(15, 10, r[i]);
+						grid.get(index+r[i]).setNormalClickable();
+						
+					}
 				} else{
 					int[] r = round[5];
-					for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+					for(int i=0;i<r.length;i++) {
+						grid.get(index+r[i]).bombed(15, 10, r[i]);
+						grid.get(index+r[i]).setNormalClickable();
+						
+					}
 				}			
 			} else if ( (index==5) || (index==10) || (index==15) || (index==20) || (index==25) ){
 				int[] r = round[6];
-				for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+				for(int i=0;i<r.length;i++) {
+					grid.get(index+r[i]).bombed(15, 10, r[i]);
+					grid.get(index+r[i]).setNormalClickable();
+					
+				}
 			} else if ( (index==9) || (index==14) || (index==19) || (index==24) || (index==29) ){
 				int[] r = round[7];
-				for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+				for(int i=0;i<r.length;i++) {
+					grid.get(index+r[i]).bombed(15, 10, r[i]);
+					grid.get(index+r[i]).setNormalClickable();
+					
+				}
 			} else{
 				int[] r = round[8];
-				for(int i=0;i<r.length;i++) grid.get(index+r[i]).setNormalClickable();
+				for(int i=0;i<r.length;i++) {
+					grid.get(index+r[i]).bombed(15, 10, r[i]);
+					grid.get(index+r[i]).setNormalClickable();
+					
+				}
 			}
 		}else {
 			//if clicked on the right one

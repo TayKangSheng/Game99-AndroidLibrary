@@ -227,7 +227,8 @@ public class Screen_Game extends Screen{
 							i.getY()+90+i.getychange() ,painter1);
 				}
 				else {
-					if(!i.getPop())
+					if (i.getBombed());
+					else if(!i.getPop())
 						g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
 				}
 			}
