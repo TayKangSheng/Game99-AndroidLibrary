@@ -23,7 +23,8 @@ public class Screen_Game extends Screen{
 	private Paint painter = new Paint() //for the timer;
 	, painter1 = new Paint(), //for numbers on the grid;
 	painter2 = new Paint(),
-	glowPainter = new Paint();
+	glowPainter = new Paint(),
+	bombPainter = new Paint();
 
 	private float GamerunTime = 0;
 	private int gameWidth, smallestNo = 10;
@@ -70,6 +71,12 @@ public class Screen_Game extends Screen{
 		glowPainter.setFilterBitmap(true);  
 		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE);
 		glowPainter.setColorFilter(colorFilterTint);
+		
+		bombPainter.setDither(true);
+		bombPainter.setAntiAlias(true);
+		bombPainter.setFilterBitmap(true);  
+		ColorFilter bombFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.rgb(239, 234, 96));
+		bombPainter.setColorFilter(bombFilterTint);
 
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
@@ -186,7 +193,7 @@ public class Screen_Game extends Screen{
 				if (i.getBombed()){
 					g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
 							i.getX()+i.getxchange(), i.getY()+i.getychange(), 
-							i.getw(), i.geth(), glowPainter);
+							i.getw(), i.geth(), bombPainter);
 				} else{
 					g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
 							i.getX()+i.getxchange(), i.getY()+i.getychange(), 
