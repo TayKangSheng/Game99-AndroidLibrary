@@ -66,4 +66,13 @@ public class utils {
 		}
 		return result1;
 	}
+	
+	public static int[] shift(int frame){
+		int[] result = new int[frame];
+		for (int i=0 ; i<frame; i++){
+			result[i] = (int) i*(Assets.GRIDSIZE / frame);
+		}
+		return result;
+				
+	}
 }

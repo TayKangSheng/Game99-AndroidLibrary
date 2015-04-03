@@ -21,21 +21,21 @@ public class Screen_Game extends Screen{
 	private Graphics g;
 
 	private Paint painter = new Paint() //for the timer;
-		, painter1 = new Paint(), //for numbers on the grid;
-		painter2 = new Paint(),
-		glowPainter = new Paint();
+	, painter1 = new Paint(), //for numbers on the grid;
+	painter2 = new Paint(),
+	glowPainter = new Paint();
 
 	private float GamerunTime = 0;
 	private int gameWidth, smallestNo = 10;
 	private boolean wholeWon = true, wholeLost = true;
-	
+
 	private Objects_Timer clock;
 	private Objects_ButtonHandler buttonHandler;
 	private Objects_GridButton buttontemp1, buttontemp0;
-	
+
 	private ArrayList<Objects_GridButton> gameGrid;
 	private List<TouchEvent> touchEvents;
-	
+
 	public Screen_Game(NNGame game) {
 		super(game);
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
@@ -58,19 +58,19 @@ public class Screen_Game extends Screen{
 		//painter: for clock 
 		painter.setColor(clock.getColor());
 		painter.setTextSize(clock.getTextSize());
-		
+
 		//painter1: for numbers on the grid
 		painter1.setColor(Color.WHITE);
 		painter1.setTextSize(80);
 		painter1.setTextAlign(Paint.Align.CENTER);
-		
+
 		//glow painter for glowing
 		glowPainter.setDither(true);
 		glowPainter.setAntiAlias(true);
 		glowPainter.setFilterBitmap(true);  
 		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE);
 		glowPainter.setColorFilter(colorFilterTint);
-		
+
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(75+(i%5)*Assets.GRIDSIZE, 
@@ -151,16 +151,16 @@ public class Screen_Game extends Screen{
 					buttontemp1 = gameGrid.get(index);
 					if (utils.inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
 						buttonHandler.Click(index, smallestNo);
-					if (utils.inBounds(event, 90, 1070, 100, 100)){
-						game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
-						Assets.socketIO.getSocket().emit("gameover");
+						if (utils.inBounds(event, 90, 1070, 100, 100)){
+							game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
+							Assets.socketIO.getSocket().emit("gameover");
+						}
 					}
 				}
 			}
-			}
 		}
 	}
-	
+
 	@Override
 	public void paint(float deltaTime) {
 		//Log.i("deltatime",deltaTime+"");
@@ -183,15 +183,27 @@ public class Screen_Game extends Screen{
 			} else if(i.getShrink()){
 				i.updateFrame();
 				//Log.i("shrink", i.getychange() +" "+i.getw()+" ");
-				g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
-						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
-						i.getw(), i.geth(), painter2);
+				if (i.getBombed()){
+					g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
+							i.getX()+i.getxchange(), i.getY()+i.getychange(), 
+							i.getw(), i.geth(), glowPainter);
+				} else{
+					g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
+							i.getX()+i.getxchange(), i.getY()+i.getychange(), 
+							i.getw(), i.geth(), painter2);
+				}
 			} else if(i.getPop()){
 				i.updateFrame();
 				//Log.i("pop", i.getychange() +" "+i.getw()+" ");
-				g.drawImage(i.getImageDisplay(), 0, 0, 
-						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
-						i.getw(), i.geth(), painter2);
+				if (i.getBombed()){
+					g.drawImage(Assets.gridButtonNotMyPlanet, 0, 0, 
+							i.getX()+i.getxchange(), i.getY()+i.getychange(), 
+							i.getw(), i.geth(), glowPainter);
+				} else{
+					g.drawImage(i.getImageDisplay(), 0, 0, 
+							i.getX()+i.getxchange(), i.getY()+i.getychange(), 
+							i.getw(), i.geth(), painter2);
+				}
 			} else {
 				if(Assets.glow){
 					Assets.glowRunTime+=deltaTime;
@@ -203,11 +215,12 @@ public class Screen_Game extends Screen{
 						g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
 								Assets.GRIDSIZE, glowPainter);
 					} else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
-									Assets.GRIDSIZE, painter2);
+							Assets.GRIDSIZE, painter2);
+
 				} else g.drawImage(i.getImageDisplay(), 0,0,i.getX(), i.getY(), Assets.GRIDSIZE,
 						Assets.GRIDSIZE, painter2);
 			}
-			
+
 			if (i.getNormalClickable()){
 				if(i.getShake()){
 					g.drawString(i.getRandomInt(), i.getX()+60+i.getxchange(), 
@@ -217,7 +230,7 @@ public class Screen_Game extends Screen{
 					if(!i.getPop())
 						g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
 				}
-		}
+			}
 		}
 	}
 
