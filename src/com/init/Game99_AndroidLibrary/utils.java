@@ -24,13 +24,14 @@ public class utils {
 	 * @param runTime: runTime of the game
 	 * @return
 	 */
-	public static Double accelerateDeccelerateCurve(int constant, double speed, double runTime, int offset){
+	public static Double accelerateDeccelerateCurve
+	(int constant, double speed, double runTime, int offset){
 		Double value = constant*Math.cos(speed*(runTime+1)*Math.PI)+(constant+offset);
-		if (value > (constant*2)+(offset/2)){
-			return (double)(constant*2)+(offset/2);
-		} else{
+		//if (value > (constant*2)+(offset/2)){
+			//return (double)(constant*2)+(offset/2);
+		//} else{
 			return value;
-		}
+		//}
 	}
 	public static void restoreGame(){
 		Assets.running = false;
@@ -40,7 +41,7 @@ public class utils {
 		Assets.Imready = false; //player is ready
 	    Assets.otherQuit = false; 
 		Assets.freeze = false;
-	    Assets.glow = true;
+	    Assets.glow = false;
 	    Assets.runTime = 0;
 	    Assets.bombedLoc = -1; Assets.bombLoc = -1;
 	    Assets.hintLoc = -1;

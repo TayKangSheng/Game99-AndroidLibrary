@@ -63,7 +63,7 @@ public class Objects_ButtonHandler {
 					grid.get(index).setNormalNotClickable();
 					grid.get(index).shrink(7, 7);
 				}else{
-					grid.get(index).shake(14);
+					grid.get(index).shake(100);
 					v.vibrate(500);
 				}
 			}
@@ -135,8 +135,10 @@ public class Objects_ButtonHandler {
 				Assets.socketIO.getSocket().emit("smallest", array);
 			} else if(grid.get(index).getHint()){
 				grid.get(index).setNormalNotClickable();
+				Assets.glow = true;
+				Assets.glowRunTime = 0;
 				//if(grid.get(index).getlastclickable()) 
-					Assets.socketIO.getSocket().emit("button", index);
+				Assets.socketIO.getSocket().emit("button", index);
 			}
 			else{
 				grid.get(index).shake(14);

@@ -10,7 +10,7 @@ public class Assets {
 			    otherQuit = false, 
 			    //other quit => server gets signal => this player gets signal => otherQuit is set true
 			   freeze = false, 
-			   glow = true;
+			   glow = false;
 	public static float runTime, 
 			glowRunTime = 0;
 	public static SocketIO socketIO;
@@ -26,7 +26,7 @@ public class Assets {
     public static int OTHER = 1, TIME=2, WON = 3, LOST = 0, 
     		QUIT = 4,
     		GRIDSIZE=130,
-			BOMBED = -2, HINTTIME = 7000;
+			BOMBED = -2, HINTTIME = 15000;
     
 	public static boolean[] interGalaticaMapVector = null;
 	//public static Sound click;

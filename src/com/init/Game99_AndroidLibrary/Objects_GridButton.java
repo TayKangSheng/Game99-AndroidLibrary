@@ -57,8 +57,7 @@ public class Objects_GridButton{
 		normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.hint;
-		Assets.glow = true;
-		Assets.glowRunTime = 0;
+		
 	}
 	//animations
 	private boolean shrinking = false, poping = false, shaking = false;

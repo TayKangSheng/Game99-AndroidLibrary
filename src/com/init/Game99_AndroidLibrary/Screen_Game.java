@@ -68,7 +68,7 @@ public class Screen_Game extends Screen{
 		glowPainter.setDither(true);
 		glowPainter.setAntiAlias(true);
 		glowPainter.setFilterBitmap(true);  
-		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE);
+		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.YELLOW);
 		glowPainter.setColorFilter(colorFilterTint);
 		
 		/*initialize gridButtons*/
@@ -114,7 +114,7 @@ public class Screen_Game extends Screen{
 			gameGrid.get(Assets.bombLoc).setBomb();
 			Assets.bombLoc = -1;
 		}
-		if(Assets.hintLoc>=0){
+		if(Assets.hintLoc>=0){ //location of hint button
 			gameGrid.get(Assets.hintLoc).setHint();
 			Assets.hintLoc = -1;
 		}
@@ -164,7 +164,7 @@ public class Screen_Game extends Screen{
 	@Override
 	public void paint(float deltaTime) {
 		//Log.i("deltatime",deltaTime+"");
-		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.01, GamerunTime, 0).intValue()  );
+		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.03, GamerunTime, 0).intValue()  );
 		// White Background for the entire screen
 		g.clearScreen(Color.parseColor("#2c3e50"));
 		// Gray Background for health and timer
@@ -193,7 +193,7 @@ public class Screen_Game extends Screen{
 						i.getX()+i.getxchange(), i.getY()+i.getychange(), 
 						i.getw(), i.geth(), painter2);
 			} else {
-				if(Assets.glow){
+				if(Assets.glow){ //when hint is pressed
 					Assets.glowRunTime+=deltaTime;
 					if(Assets.glowRunTime>Assets.HINTTIME){
 						Assets.glow = false;

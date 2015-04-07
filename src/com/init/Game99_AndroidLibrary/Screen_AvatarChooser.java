@@ -44,7 +44,7 @@ public class Screen_AvatarChooser extends Screen {
 		glowPainter.setDither(true);
 		glowPainter.setAntiAlias(true);
 		glowPainter.setFilterBitmap(true);  
-		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.WHITE );
+		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.YELLOW );
 		glowPainter.setColorFilter(colorFilterTint);
 
 		painter1 = new Paint();
@@ -131,7 +131,7 @@ public class Screen_AvatarChooser extends Screen {
 		}
 		
 		// Use for loop to draw all avatars.
-		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(50, 0.01, runTime, 0).intValue()  );
+		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(70, 0.03, runTime, 5).intValue()  );
 		for (Objects_GeneralAvatar i: avatarList){
 			//g.drawImage(i.getImage(),0,0,i.getX(),i.getY(), 150, 150);
 			g.drawImage(i.getImage(), i.getX(), i.getY());
