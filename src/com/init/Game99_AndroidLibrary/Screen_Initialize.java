@@ -1,13 +1,8 @@
 package com.init.Game99_AndroidLibrary;
 
-import java.util.ArrayList;
-
-import android.R;
 import android.util.Log;
-import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
-import com.init.framework.Image;
 import com.init.framework.Graphics.ImageFormat;
 
 public class Screen_Initialize extends Screen {
@@ -41,7 +36,7 @@ public class Screen_Initialize extends Screen {
 		Assets.you_lost = g.newImage("youlose.png", ImageFormat.RGB565, false);
 		Assets.you_won = g.newImage("youwin.png", ImageFormat.RGB565, false);
 		Assets.hint = g.newImage("reddot.png",ImageFormat.RGB565, false);
-		Assets.smallest = g.newImage("cheese130px.png",ImageFormat.RGB565, false);
+		Assets.smallest = g.newImage("CheesePowerUp.png",ImageFormat.RGB565, false);
 		
 		//let's go to the next screen;
         game.setScreen(new Screen_First(game));

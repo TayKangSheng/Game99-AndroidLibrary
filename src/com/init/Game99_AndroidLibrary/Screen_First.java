@@ -1,14 +1,6 @@
 package com.init.Game99_AndroidLibrary;
-
 import java.util.List;
-
-import android.R;
-import android.graphics.Paint;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
-import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;

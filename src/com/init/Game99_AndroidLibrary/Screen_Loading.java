@@ -2,8 +2,6 @@ package com.init.Game99_AndroidLibrary;
 
 import android.graphics.Paint;
 import android.util.Log;
-
-import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
 

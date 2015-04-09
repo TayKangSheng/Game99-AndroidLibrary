@@ -73,8 +73,8 @@ public class Screen_Result extends Screen{
 		g.drawImage(Assets.end_page, 0, 0);
 		g.drawImage(Assets.restart, game.getGraphics().getWidth()/2-Assets.restart.getWidth()/2-25, 
 				1010);
-		int h = g.getHeight()/2 - Assets.you_won.getHeight()/2-150;
-		int w = g.getWidth()/2 - Assets.you_won.getWidth()/2;
+		int h = gameHeight/2 - Assets.you_won.getHeight()/2-150;
+		int w = gameWidth/2 - Assets.you_won.getWidth()/2;
 		if(this.reason==Assets.WON){
 			g.drawImage(Assets.you_won,w,h);
 		}

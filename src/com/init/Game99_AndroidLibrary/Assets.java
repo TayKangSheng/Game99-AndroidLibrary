@@ -25,8 +25,11 @@ public class Assets {
 	
     public static int OTHER = 1, TIME=2, WON = 3, LOST = 0, 
     		QUIT = 4,
-    		GRIDSIZE=130,
-			BOMBED = -2, HINTTIME = 15000;
+    		GRIDSIZE=120,
+    		GRID_INTERVAL = 7,
+			BOMBED = -2, HINTTIME = 15000,
+			SHAKE_FRAME = 70, VIBRATION_TIME = 800,
+			FONT_SIZE = 70;
     
 	public static boolean[] interGalaticaMapVector = null;
 	//public static Sound click;

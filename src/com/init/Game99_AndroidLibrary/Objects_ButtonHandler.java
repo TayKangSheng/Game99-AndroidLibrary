@@ -1,10 +1,6 @@
 package com.init.Game99_AndroidLibrary;
 
 import java.util.ArrayList;
-import java.util.Random;
-
-import com.init.framework.Game;
-
 import android.os.Vibrator;
 public class Objects_ButtonHandler {
 	private NNGame game;
@@ -110,8 +106,8 @@ public class Objects_ButtonHandler {
 					grid.get(index).setNormalNotClickable();
 					grid.get(index).shrink(7, 7);
 				}else{
-					grid.get(index).shake(100);
-					v.vibrate(500);
+					grid.get(index).shake(Assets.SHAKE_FRAME);
+					v.vibrate(Assets.VIBRATION_TIME);
 				}
 			}
 			else if (grid.get(index).getBomb()){
@@ -201,8 +197,8 @@ public class Objects_ButtonHandler {
 				Assets.socketIO.getSocket().emit("button", index);
 			}
 			else{
-				grid.get(index).shake(14);
-				v.vibrate(500);
+				grid.get(index).shake(Assets.SHAKE_FRAME);
+				v.vibrate(Assets.VIBRATION_TIME);
 			}
 		
 		}

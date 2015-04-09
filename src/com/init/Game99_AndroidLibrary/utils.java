@@ -1,6 +1,4 @@
 package com.init.Game99_AndroidLibrary;
-
-import android.graphics.Color;
 import android.util.Log;
 
 import com.init.framework.Input.TouchEvent;
@@ -34,7 +32,7 @@ public class utils {
 		//}
 	}
 	public static void restoreGame(){
-		Assets.running = false;
+		Assets.running = false; 
 		Assets.glow = false;
 		Assets.ready = false;
 		Assets.gameover = false; 

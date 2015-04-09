@@ -9,8 +9,6 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
-import com.init.Game99_AndroidLibrary.*;
-import com.init.framework.Game;
 import com.init.framework.Graphics;
 import com.init.framework.Screen;
 import com.init.framework.Graphics.ImageFormat;
@@ -19,7 +17,7 @@ import com.init.framework.Input.TouchEvent;
 public class Screen_Game extends Screen{
 	private NNGame game;
 	private Graphics g;
-
+	private int yourScore = 0, lifeBar = 0, lastyourScore = 0;
 	private Paint painter = new Paint() //for the timer;
 	, painter1 = new Paint(), //for numbers on the grid;
 	painter2 = new Paint(),
@@ -28,7 +26,7 @@ public class Screen_Game extends Screen{
 
 	private float GamerunTime = 0;
 	private int gameWidth, smallestNo = 10;
-	private boolean wholeWon = true, wholeLost = true;
+	private boolean wholeWon = true, wholeLost = true, barChanging = false;
 
 	private Objects_Timer clock;
 	private Objects_ButtonHandler buttonHandler;
@@ -44,7 +42,7 @@ public class Screen_Game extends Screen{
 		//initialize the game and all its values
 		this.game = game;
 		g = game.getGraphics();
-		clock = new Objects_Timer(10000);
+		clock = new Objects_Timer(8000);
 		gameWidth = game.getGraphics().getWidth();
 		gameGrid = new ArrayList<Objects_GridButton>();
 		Assets.running = true;
@@ -62,8 +60,10 @@ public class Screen_Game extends Screen{
 
 		//painter1: for numbers on the grid
 		painter1.setColor(Color.WHITE);
-		painter1.setTextSize(80);
+		painter1.setTextSize(Assets.FONT_SIZE);
 		painter1.setTextAlign(Paint.Align.CENTER);
+		Typeface tf = Typeface.create("Helvetica", Typeface.NORMAL);
+		painter1.setTypeface(tf);
 
 		//glow painter for glowing
 		glowPainter.setDither(true);
@@ -80,8 +80,8 @@ public class Screen_Game extends Screen{
 
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
-			buttontemp0 = new Objects_GridButton(75+(i%5)*Assets.GRIDSIZE, 
-					150+((int)(i/5))*Assets.GRIDSIZE, Assets.interGalaticaMapVector[i]);
+			buttontemp0 = new Objects_GridButton(90+(i%5)*(Assets.GRIDSIZE+Assets.GRID_INTERVAL), 
+					180+((int)(i/5))*(Assets.GRIDSIZE+Assets.GRID_INTERVAL), Assets.interGalaticaMapVector[i]);
 			buttontemp0.pop(14); 
 			//starting the pop action at the start
 			gameGrid.add(buttontemp0);
@@ -112,7 +112,7 @@ public class Screen_Game extends Screen{
 			buttonHandler.Click(Assets.bombedLoc, Assets.BOMBED);
 			Assets.bombedLoc = -1; 
 		}
-		if(Assets.freeze) return;
+		// if(Assets.freeze) return;
 		// Find smallest Number
 		smallestNo = 10;
 		wholeWon = true;
@@ -135,7 +135,11 @@ public class Screen_Game extends Screen{
 			}
 			Assets.smallestLocs = null;
 		}
+		lastyourScore = yourScore;
+		yourScore = 0;
 		for (Objects_GridButton i : gameGrid){
+			if(i.getNormalClickable()){}
+			else yourScore ++;
 			if (i.getInt()>=0){
 				wholeWon = false;
 				if (i.getInt() < smallestNo){
@@ -154,6 +158,9 @@ public class Screen_Game extends Screen{
 		touchEvents = game.getInput().getTouchEvents();
 		for (TouchEvent event: touchEvents) {
 			if (event.type == TouchEvent.TOUCH_UP) {
+				if(Assets.freeze){
+					break;
+				}
 				for (int index=0;index<35;index++){
 					buttontemp1 = gameGrid.get(index);
 					if (utils.inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
@@ -167,19 +174,40 @@ public class Screen_Game extends Screen{
 			}
 		}
 	}
-
+	public int lifeBar(){
+		if(lifeBar>7) {
+			lifeBar = 0;
+			barChanging = false;
+		}
+		else{lifeBar++;}
+		return gameWidth/35 * yourScore * (lifeBar/7);
+		
+	}
 	@Override
 	public void paint(float deltaTime) {
 		//Log.i("deltatime",deltaTime+"");
 		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.03, GamerunTime, 0).intValue()  );
 		// White Background for the entire screen
+		
 		g.clearScreen(Color.parseColor("#2c3e50"));
 		// Gray Background for health and timer
-		g.drawRect(5, 5, gameWidth-10, 140, Color.parseColor("#2c3e50"));
+		//left, top, right, bottom
+		//g.drawRect(5, 5, gameWidth-10, 140, Color.parseColor("#2c3e50"));
+		g.drawImage(Assets.avatar_page, 0, 0);
+		g.drawRect(0, 5, gameWidth, 40, Color.parseColor("#2aa198"));
+		if(yourScore!=lastyourScore){
+			barChanging = true;
+			int right = lifeBar();
+			g.drawRect(0, 5, right, 40, Color.parseColor("#ff8000"));
+		} else if(barChanging){
+			int right = lifeBar();
+			g.drawRect(0, 5, right, 40, Color.parseColor("#ff8000")); 
+		} else g.drawRect(0, 5, gameWidth/35*yourScore, 40, Color.parseColor("#ff8000")); 
+		
 		// Magenta background for power ups
-		g.drawRect(5, 1065, gameWidth-10, 210, Color.parseColor("#2c3e50"));
+		//g.drawRect(5, 1065, gameWidth-10, 210, Color.parseColor("#2c3e50"));
 		// Paint timer
-		g.drawString(clock.getValue(GamerunTime), 669, 120, painter);
+		g.drawString(clock.getValue(GamerunTime), gameWidth/2-50, 140, painter);
 		// Draw Grids
 		for (Objects_GridButton i : gameGrid){
 			if(i.getShake()){
@@ -236,7 +264,8 @@ public class Screen_Game extends Screen{
 				else {
 					if (i.getBombed());
 					else if(!i.getPop())
-						g.drawString(i.getRandomInt(), i.getX()+60, i.getY()+90 ,painter1);
+						g.drawString(i.getRandomInt(), i.getX()+Assets.GRIDSIZE/2, i.getY()+Assets.GRIDSIZE/2+25,
+								painter1);
 				}
 			}
 		}
