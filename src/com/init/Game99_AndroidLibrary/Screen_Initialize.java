@@ -24,7 +24,7 @@ public class Screen_Initialize extends Screen {
 		//loads images;
 		Graphics g = game.getGraphics();
 		
-		Assets.bomb = g.newImage("bomb.png", ImageFormat.RGB565, false);
+		Assets.bomb = g.newImage("CheesePowerUp.png", ImageFormat.RGB565, false);
 		Assets.start = g.newImage("yellowstartbutton.png", ImageFormat.RGB565, false);
 		Assets.restart = g.newImage("replaybtn.png", ImageFormat.RGB565, false);
 		Assets.readyButton = g.newImage("readybutton.png", ImageFormat.RGB565, false);
@@ -35,8 +35,8 @@ public class Screen_Initialize extends Screen {
 		Assets.instruction = g.newImage("instruction.png",ImageFormat.RGB565, false);
 		Assets.you_lost = g.newImage("youlose.png", ImageFormat.RGB565, false);
 		Assets.you_won = g.newImage("youwin.png", ImageFormat.RGB565, false);
-		Assets.hint = g.newImage("reddot.png",ImageFormat.RGB565, false);
-		Assets.smallest = g.newImage("CheesePowerUp.png",ImageFormat.RGB565, false);
+		Assets.hint = g.newImage("130-bluecrystal.png",ImageFormat.RGB565, false);
+		Assets.smallest = g.newImage("130-irregcrystal.png",ImageFormat.RGB565, false);
 		
 		//let's go to the next screen;
         game.setScreen(new Screen_First(game));
