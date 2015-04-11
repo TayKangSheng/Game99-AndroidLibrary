@@ -9,10 +9,12 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
+
+import com.init.framework.Audio;
 import com.init.framework.Graphics;
-import com.init.framework.Screen;
 import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
+import com.init.framework.Screen;
 
 public class Screen_Game extends Screen{
 	private NNGame game;
@@ -87,6 +89,11 @@ public class Screen_Game extends Screen{
 			gameGrid.add(buttontemp0);
 		}
 		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
+		
+		/* initialise audio */
+		Assets.gameScreenBGM.setLooping(true);
+		Assets.gameScreenBGM.setVolume(0.5f);
+		Assets.gameScreenBGM.play();
 	}
 
 	@Override
@@ -105,6 +112,7 @@ public class Screen_Game extends Screen{
 		}
 		// receive data and change color
 		if(Assets.otherPlayerPress >= 0){
+			Assets.popping.play(1f);
 			gameGrid.get(Assets.otherPlayerPress).setNormalClickable();
 			Assets.otherPlayerPress = -1;
 		}
@@ -284,6 +292,9 @@ public class Screen_Game extends Screen{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+		Assets.gameScreenBGM.stop();
+//		Assets.gameScreenBGM.dispose();
+		Assets.gameScreenBGM = null;
 	}
 
 	@Override

@@ -85,7 +85,8 @@ public class Screen_AvatarChooser extends Screen {
 				Log.i("Coor",event.x + ", " +event.y);
 				// Detect avatar chosen :)
 				for (Objects_GeneralAvatar i : avatarList){
-					if (utils.inBounds(event, i.getX(), i.getY(), i.getWidth(), i.getHeight())){
+					if (utils.inBounds(event, i.getX(), i.getY(), i.getWidth(), i.getHeight()) && Assets.Imready==false){
+						Assets.click.play(1f);
 						Assets.gridButtonMyPlanet = i.getImage();
 						chosen = true;
 						for (Objects_GeneralAvatar j : avatarList)
@@ -147,6 +148,7 @@ public class Screen_AvatarChooser extends Screen {
 			if(!avatarList.get(i).getchosen())
 				avatarList.get(i).getImage().dispose();
 		}
+
 		/*Assets.readyButton = null;
 		Assets.waitingButton = null;
 		Assets.space = null;
@@ -168,6 +170,9 @@ public class Screen_AvatarChooser extends Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+		Assets.startScreenBGM.stop();
+		Assets.startScreenBGM.dispose();
+		Assets.startScreenBGM = null;
 	}
 
 	@Override

@@ -107,6 +107,7 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
     public void onCompletion(MediaPlayer player) {
         synchronized (this) {
             isPrepared = false;
+            player.stop();
         }
     }
 

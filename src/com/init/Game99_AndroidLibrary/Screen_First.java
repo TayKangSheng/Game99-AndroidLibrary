@@ -1,6 +1,9 @@
 package com.init.Game99_AndroidLibrary;
 import java.util.List;
+
 import android.util.Log;
+
+import com.init.framework.Audio;
 import com.init.framework.Graphics;
 import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
@@ -9,7 +12,7 @@ import com.init.framework.Screen;
 public class Screen_First extends Screen {
 	private List<TouchEvent> touchEvents;
 	private Graphics g;
-	//private Objects_Animation earthAnimation;
+	private Audio music;
 	private NNGame game;
 	public Screen_First(NNGame game) {
 		super(game);
@@ -27,6 +30,11 @@ public class Screen_First extends Screen {
 		Assets.planet7 = g.newImage("130-sun.png", ImageFormat.RGB565, false);
 		Assets.planet8 = g.newImage("130-watermelon.png", ImageFormat.RGB565, false);
 		//earthAnimation = Assets.movingEarth;
+		Assets.startScreenBGM.setVolume(0.5f);
+		Assets.startScreenBGM.setLooping(true);
+		if (!Assets.startScreenBGM.isPlaying())
+			Assets.startScreenBGM.play();
+		
 	}
 
 	@Override
@@ -39,14 +47,11 @@ public class Screen_First extends Screen {
 			if (event.type == TouchEvent.TOUCH_UP) {
 				System.out.println(event.x + ", " +event.y);
 				if(utils.inBounds(event,150,1045,300,127)) {
+					Assets.click.play(1f);
 					game.setScreen(new Screen_AvatarChooser(game));
-					//Assets.socketIO.getSocket().emit("ready", "");
 				}
 			}
 		}
-		
-		if(Assets.ready) game.setScreen(new Screen_AvatarChooser(game));
-		//game.setScreen(new ScreenC_LoadingScreen(game));
 	}
 
 	

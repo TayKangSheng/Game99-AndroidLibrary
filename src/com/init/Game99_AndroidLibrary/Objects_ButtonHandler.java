@@ -30,6 +30,7 @@ public class Objects_ButtonHandler {
 	public void Click(int index, int small){
 		//feedback change if opponent pressed bomb
 		if(small==Assets.BOMBED){
+			Assets.explosion.play(1f);
 			if (index<=4 && index>=0){
 				if (index == 0){
 					int[] r = round[0];
@@ -102,6 +103,7 @@ public class Objects_ButtonHandler {
 			//if clicked on the right one
 			if (grid.get(index).getNormalClickable()){ 
 				if(grid.get(index).getInt() == small){
+					Assets.popping.play(1f);
 					Assets.socketIO.getSocket().emit("button", index);
 					grid.get(index).setNormalNotClickable();
 					grid.get(index).shrink(7, 7);
@@ -115,6 +117,7 @@ public class Objects_ButtonHandler {
 				 * 	- all shrink
 				 * 	- all gravitate towards center bomb.
 				 */
+				Assets.explosion.play(1f);
 				Assets.socketIO.getSocket().emit("bomb", index);
 				if (index<=4 && index>=0){
 					if (index == 0){

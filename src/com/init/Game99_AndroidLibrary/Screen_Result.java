@@ -16,25 +16,28 @@ public class Screen_Result extends Screen{
 	private NNGame game;
 	private int gameHeight,gameWidth;
 	private Paint painter = new Paint()
-			, painter1 = new Paint()
-			, painter2 = new Paint();
+	, painter1 = new Paint()
+	, painter2 = new Paint();
 	private boolean won = false, lost = false, draw = false;
 	private Graphics g;
 	private int scoreCount = 0, opponentScoreCount = 0, reason;
 	private List<TouchEvent> touchEvents;
-	
+
 	public Screen_Result(NNGame game, ArrayList<Objects_GridButton> list, int reason) {
 		super(game);
 		this.game = game;
 		gameHeight = game.getGraphics().getHeight();
 		gameWidth = game.getGraphics().getWidth();
-		nullifyE();
-		g = game.getGraphics();
 		
+
+		
+//		nullifyE();
+		g = game.getGraphics();
+
 		painter.setColor(Color.WHITE);
 		painter.setTextSize(30);
 		painter.setTextAlign(Paint.Align.CENTER);
-		
+
 		this.reason = reason;
 		if(this.reason==Assets.WON || this.reason==Assets.LOST) return;
 		for (Objects_GridButton i : list){
@@ -44,16 +47,30 @@ public class Screen_Result extends Screen{
 		if(scoreCount>opponentScoreCount){ this.won = true;
 		}else if(scoreCount==opponentScoreCount){ this.draw = true;
 		}else this.lost = true;
-		
+
 		Assets.avatar_page = g.newImage("starrynight.png", ImageFormat.RGB565, false);
+		
+		if (this.won)
+			Assets.victoryBGM.play();
+		else
+			Assets.loseBGM.play();
+		
 	}
 	private void nullifyE(){
 		Assets.gridButtonMyPlanet = null;
-		//Assets.gridButtonNotMyPlanet = null;
 		System.gc();
 	}
 	@Override
 	public void update(float deltaTime) {
+		if(this.won){
+			if (!Assets.victoryBGM.isPlaying())
+				Assets.victoryBGM.play();
+		} else if(this.lost){
+			if (!Assets.loseBGM.isPlaying())
+				Assets.loseBGM.play();
+		}
+		
+		
 		touchEvents = game.getInput().getTouchEvents();
 		for (TouchEvent event: touchEvents) {
 			if (event.type == TouchEvent.TOUCH_UP) {
@@ -65,7 +82,7 @@ public class Screen_Result extends Screen{
 			}
 		}
 	}
-	
+
 	@Override
 	public void paint(float deltaTime) {
 		String msg = "";
@@ -98,7 +115,7 @@ public class Screen_Result extends Screen{
 	public void pause() {
 		// TODO Auto-generated method stub
 	}
-	
+
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
@@ -107,6 +124,12 @@ public class Screen_Result extends Screen{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+//		Assets.victoryBGM.stop();
+//		Assets.victoryBGM.dispose();
+//		Assets.victoryBGM=null;
+//		Assets.loseBGM.stop();
+//		Assets.loseBGM.dispose();
+//		Assets.loseBGM=null;
 	}
 
 	@Override
@@ -114,15 +137,15 @@ public class Screen_Result extends Screen{
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public boolean inBounds(TouchEvent event, int x, int y, int width,
-            int height) {
-        if (event.x > x 
-        		&& event.x < x + width - 1 
-        		&& event.y > y
-                && event.y < y + height - 1)
-            return true;
-        else
-            return false;
-    }
+			int height) {
+		if (event.x > x 
+				&& event.x < x + width - 1 
+				&& event.y > y
+				&& event.y < y + height - 1)
+			return true;
+		else
+			return false;
+	}
 }

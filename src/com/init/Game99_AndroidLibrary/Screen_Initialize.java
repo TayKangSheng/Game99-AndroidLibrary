@@ -1,9 +1,11 @@
 package com.init.Game99_AndroidLibrary;
 
 import android.util.Log;
+
+import com.init.framework.Audio;
 import com.init.framework.Graphics;
-import com.init.framework.Screen;
 import com.init.framework.Graphics.ImageFormat;
+import com.init.framework.Screen;
 
 public class Screen_Initialize extends Screen {
 	private NNGame game;
@@ -37,6 +39,20 @@ public class Screen_Initialize extends Screen {
 		Assets.you_won = g.newImage("youwin.png", ImageFormat.RGB565, false);
 		Assets.hint = g.newImage("130-bluecrystal.png",ImageFormat.RGB565, false);
 		Assets.smallest = g.newImage("130-irregcrystal.png",ImageFormat.RGB565, false);
+		
+		// Load Music
+		Audio music = game.getAudio();
+		if (Assets.gameScreenBGM==null)
+			Assets.gameScreenBGM = music.createMusic("audio-noragami-harmony.mp3");
+		if (Assets.startScreenBGM==null)
+			Assets.startScreenBGM = music.createMusic("audio-Parks-and-Recreation-Theme-Song.mp3");
+		if (Assets.victoryBGM==null)
+			Assets.victoryBGM = music.createMusic("audio-ff-victory.mp3");
+		if (Assets.loseBGM==null)
+			Assets.loseBGM = music.createMusic("audio-ff7-skyblueeyes.mp3");
+		Assets.click = music.createSound("audio-click.mp3");
+		Assets.popping = music.createSound("audio-popping.mp3");
+		Assets.explosion = music.createSound("audio-explosion.mp3");
 		
 		//let's go to the next screen;
         game.setScreen(new Screen_First(game));

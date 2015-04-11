@@ -1,5 +1,7 @@
 package com.init.Game99_AndroidLibrary;
 import com.init.framework.Image;
+import com.init.framework.Music;
+import com.init.framework.Sound;
 
 public class Assets {
 	/*game properties state related! => must be reset in result page*/
@@ -50,6 +52,18 @@ public class Assets {
 		smallest,
 		hint
 		;
+	
+	/* game BGM */
+	public static Music 
+		startScreenBGM,
+		gameScreenBGM,
+		victoryBGM,
+		loseBGM;
+	
+	public static Sound 
+		click,
+		popping,
+		explosion;
 	
 	//planet avatars
 	public static Image planet1, planet2, planet3, planet4, planet5, planet6, planet7,
