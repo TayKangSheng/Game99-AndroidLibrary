@@ -91,9 +91,9 @@ public class Screen_Game extends Screen{
 		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
 		
 		/* initialise audio */
-		Assets.gameScreenBGM.setLooping(true);
-		Assets.gameScreenBGM.setVolume(0.5f);
-		Assets.gameScreenBGM.play();
+		Assets.startScreenBGM.setLooping(true);
+		Assets.startScreenBGM.setVolume(0.5f);
+		Assets.startScreenBGM.play();
 	}
 
 	@Override
@@ -111,6 +111,7 @@ public class Screen_Game extends Screen{
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
 		}
 		// receive data and change color
+		/* Receive opponent's click */
 		if(Assets.otherPlayerPress >= 0){
 			Assets.popping.play(1f);
 			gameGrid.get(Assets.otherPlayerPress).setNormalClickable();
@@ -139,6 +140,7 @@ public class Screen_Game extends Screen{
 		}
 		if(Assets.smallestLocs!=null){
 			for(int i: Assets.smallestLocs){
+				Assets.popping.play(1f);
 				gameGrid.get(i).setNormalClickable();
 			}
 			Assets.smallestLocs = null;
@@ -292,9 +294,9 @@ public class Screen_Game extends Screen{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		Assets.gameScreenBGM.stop();
-//		Assets.gameScreenBGM.dispose();
-		Assets.gameScreenBGM = null;
+		Assets.startScreenBGM.stop();
+		Assets.startScreenBGM.dispose();
+		Assets.startScreenBGM = null;
 	}
 
 	@Override

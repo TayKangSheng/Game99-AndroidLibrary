@@ -50,7 +50,8 @@ public class Assets {
 		restart,
 		bomb,
 		smallest,
-		hint
+		hint,
+		avatar_page_blinkingstars
 		;
 	
 	/* game BGM */

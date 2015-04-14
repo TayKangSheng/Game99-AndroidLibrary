@@ -28,10 +28,10 @@ public class Screen_Result extends Screen{
 		this.game = game;
 		gameHeight = game.getGraphics().getHeight();
 		gameWidth = game.getGraphics().getWidth();
-		
 
-		
-//		nullifyE();
+
+
+		//		nullifyE();
 		g = game.getGraphics();
 
 		painter.setColor(Color.WHITE);
@@ -49,12 +49,12 @@ public class Screen_Result extends Screen{
 		}else this.lost = true;
 
 		Assets.avatar_page = g.newImage("starrynight.png", ImageFormat.RGB565, false);
-		
+
 		if (this.won)
 			Assets.victoryBGM.play();
 		else
 			Assets.loseBGM.play();
-		
+
 	}
 	private void nullifyE(){
 		Assets.gridButtonMyPlanet = null;
@@ -69,8 +69,8 @@ public class Screen_Result extends Screen{
 			if (!Assets.loseBGM.isPlaying())
 				Assets.loseBGM.play();
 		}
-		
-		
+
+
 		touchEvents = game.getInput().getTouchEvents();
 		for (TouchEvent event: touchEvents) {
 			if (event.type == TouchEvent.TOUCH_UP) {
@@ -124,12 +124,17 @@ public class Screen_Result extends Screen{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-//		Assets.victoryBGM.stop();
-//		Assets.victoryBGM.dispose();
-//		Assets.victoryBGM=null;
-//		Assets.loseBGM.stop();
-//		Assets.loseBGM.dispose();
-//		Assets.loseBGM=null;
+		if (Assets.victoryBGM.isPlaying()){
+			Assets.victoryBGM.stop();
+			Assets.victoryBGM.dispose();
+			Assets.victoryBGM=null;
+		} 
+
+		if (Assets.loseBGM.isPlaying()){
+			Assets.loseBGM.stop();
+			Assets.loseBGM.dispose();
+			Assets.loseBGM=null;
+		}
 	}
 
 	@Override

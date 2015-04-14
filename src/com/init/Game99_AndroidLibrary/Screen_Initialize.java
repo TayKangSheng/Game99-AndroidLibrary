@@ -26,7 +26,7 @@ public class Screen_Initialize extends Screen {
 		//loads images;
 		Graphics g = game.getGraphics();
 		
-		Assets.bomb = g.newImage("CheesePowerUp.png", ImageFormat.RGB565, false);
+		Assets.bomb = g.newImage("130-rainbowCrystal.png", ImageFormat.RGB565, false);
 		Assets.start = g.newImage("yellowstartbutton.png", ImageFormat.RGB565, false);
 		Assets.restart = g.newImage("replaybtn.png", ImageFormat.RGB565, false);
 		Assets.readyButton = g.newImage("readybutton.png", ImageFormat.RGB565, false);
@@ -39,6 +39,7 @@ public class Screen_Initialize extends Screen {
 		Assets.you_won = g.newImage("youwin.png", ImageFormat.RGB565, false);
 		Assets.hint = g.newImage("130-bluecrystal.png",ImageFormat.RGB565, false);
 		Assets.smallest = g.newImage("130-irregcrystal.png",ImageFormat.RGB565, false);
+		Assets.avatar_page_blinkingstars = g.newImage("starrynight-blinkingstars.png", ImageFormat.RGB565, false);
 		
 		// Load Music
 		Audio music = game.getAudio();

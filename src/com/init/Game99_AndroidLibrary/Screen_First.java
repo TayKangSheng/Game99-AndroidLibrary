@@ -20,20 +20,20 @@ public class Screen_First extends Screen {
 		g = game.getGraphics();
 		Log.i("Screen_First", "ScreenB_First");
 		
-		Assets.planet0 = g.newImage("130px-blueplanet.png", ImageFormat.RGB565, false);
+		Assets.planet0 = g.newImage("130-blueplanet.png", ImageFormat.RGB565, false);
 		Assets.planet1 = g.newImage("130-cheese.png", ImageFormat.RGB565, false);
 		Assets.planet2 = g.newImage("130-cyanstripesplanet.png", ImageFormat.RGB565, false);
 		Assets.planet3 = g.newImage("130-earth.png", ImageFormat.RGB565, false);
 		Assets.planet4 = g.newImage("130-jupiter.png", ImageFormat.RGB565, false);
 		Assets.planet5 = g.newImage("130-moon.png", ImageFormat.RGB565, false);
-		Assets.planet6 = g.newImage("saturn.png", ImageFormat.RGB565, false);
+		Assets.planet6 = g.newImage("130-saturn.png", ImageFormat.RGB565, false);
 		Assets.planet7 = g.newImage("130-sun.png", ImageFormat.RGB565, false);
 		Assets.planet8 = g.newImage("130-watermelon.png", ImageFormat.RGB565, false);
 		//earthAnimation = Assets.movingEarth;
-		Assets.startScreenBGM.setVolume(0.5f);
-		Assets.startScreenBGM.setLooping(true);
-		if (!Assets.startScreenBGM.isPlaying())
-			Assets.startScreenBGM.play();
+		Assets.gameScreenBGM.setVolume(0.5f);
+		Assets.gameScreenBGM.setLooping(true);
+		if (!Assets.gameScreenBGM.isPlaying())
+			Assets.gameScreenBGM.play();
 		
 	}
 
