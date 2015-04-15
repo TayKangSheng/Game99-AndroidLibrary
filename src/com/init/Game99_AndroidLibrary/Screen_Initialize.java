@@ -30,7 +30,7 @@ public class Screen_Initialize extends Screen {
 		Assets.start = g.newImage("yellowstartbutton.png", ImageFormat.RGB565, false);
 		Assets.restart = g.newImage("replaybtn.png", ImageFormat.RGB565, false);
 		Assets.readyButton = g.newImage("readybutton.png", ImageFormat.RGB565, false);
-		Assets.waitingButton = g.newImage("waitingbutton.png", ImageFormat.RGB565, false);
+		Assets.waitingButton = g.newImage("waitnb1.png", ImageFormat.RGB565, false);
 		Assets.space = g.newImage("startpage.png", ImageFormat.RGB565, false);
 		Assets.avatar_page = g.newImage("starrynight.png", ImageFormat.RGB565, false);
 		Assets.end_page = g.newImage("endpage.png", ImageFormat.RGB565, false);
