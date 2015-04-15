@@ -51,7 +51,22 @@ public class Assets {
 		bomb,
 		smallest,
 		hint,
-		avatar_page_blinkingstars
+		avatar_page_blinkingstars,
+		message_good,
+		message_nice,
+		message_cool,
+		message_excellent,
+		message_great,
+		message_keepgoing,
+		message_perfect,
+		message_wrong,
+		message_stillwrong,
+		message_omg,
+		message_canyounot,
+		message_lastwarning,
+		message_nomorechance,
+		message_kthxbye,
+		message_faint
 		;
 	
 	/* game BGM */

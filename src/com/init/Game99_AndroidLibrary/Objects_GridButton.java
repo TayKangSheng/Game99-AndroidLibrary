@@ -9,7 +9,7 @@ import com.init.framework.Image;
 public class Objects_GridButton{
 	private static Random rand = new Random(); // Shared Random Number Generator
 	final int xCoorFinal, yCoorFinal;
-	int xCoor, yCoor, randomInt;
+	int xCoor, yCoor, randomInt, message, messageFrameCountDown;
 	Boolean clickable, normalClickable = false, 
 			bomb=false, smallest=false, hint=false, lastClickable;
 
@@ -62,6 +62,11 @@ public class Objects_GridButton{
 		ImageDisplay = Assets.hint;
 		
 	}
+	
+	public void setMessage(int messageNumber){
+		this.message = messageNumber;
+		this.messageFrameCountDown=30;
+	}
 	//animations
 	private boolean shrinking = false, poping = false, shaking = false, bombed = false;
 	private int shakingIndex = 0, shrinkingIndex = 0, popingIndex = 0, bombingIndex = 0,
@@ -110,6 +115,13 @@ public class Objects_GridButton{
 		relativeLoc = relativelocation;
 	}
 	public void updateFrame(){
+		if(this.message!=0){
+			if (messageFrameCountDown>0)
+				messageFrameCountDown--;
+			else{
+				this.message=0;
+			}
+		}
 		if(this.shaking){
 			if(shakingIndex<shakingframe){
 				shakingIndex ++;
@@ -210,5 +222,8 @@ public class Objects_GridButton{
 	public String getRandomInt() { return String.valueOf(randomInt);}
 	public Image getImageDisplay(){ return ImageDisplay;}
 	public String getContentDisplay(){ return contentDisplay;}
-
+	
+	public int getMessage(){ return message;};
+	public int getMessageCountDown() {return messageFrameCountDown;};
+	
 }
