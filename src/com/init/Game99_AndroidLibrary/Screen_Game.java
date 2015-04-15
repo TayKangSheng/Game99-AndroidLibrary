@@ -279,6 +279,44 @@ public class Screen_Game extends Screen{
 				}
 			}
 		}
+		
+		for (Objects_GridButton i : gameGrid){
+			if (i.getMessageCountDown()!=0){
+				if (i.getMessage()==1)
+					g.drawImage(Assets.message_nice, i.getX(), i.getY());
+				else if (i.getMessage()==2)
+					g.drawImage(Assets.message_good, i.getX(), i.getY());
+				else if (i.getMessage()==3)
+					g.drawImage(Assets.message_great, i.getX(), i.getY());
+				else if (i.getMessage()==4)
+					g.drawImage(Assets.message_cool, i.getX(), i.getY());
+				else if (i.getMessage()==5)
+					g.drawImage(Assets.message_excellent, i.getX(), i.getY());
+				else if (i.getMessage()==6)
+					g.drawImage(Assets.message_keepgoing, i.getX(), i.getY());
+				else if (i.getMessage()>=7)
+					g.drawImage(Assets.message_perfect, i.getX(), i.getY());
+				else if (i.getMessage()==-1)
+					g.drawImage(Assets.message_wrong, i.getX(), i.getY());	
+				else if (i.getMessage()==-2)
+					g.drawImage(Assets.message_stillwrong, i.getX(), i.getY());
+				else if (i.getMessage()==-3)
+					g.drawImage(Assets.message_omg, i.getX(), i.getY());
+				else if (i.getMessage()==-4)
+					g.drawImage(Assets.message_canyounot, i.getX(), i.getY());
+				else if (i.getMessage()==-5)
+					g.drawImage(Assets.message_lastwarning, i.getX(), i.getY());
+				else if (i.getMessage()==-6)
+					g.drawImage(Assets.message_nomorechance, i.getX(), i.getY());
+				else if (i.getMessage()==-7)
+					g.drawImage(Assets.message_kthxbye, i.getX(), i.getY());
+				else if (i.getMessage()==-8)
+					g.drawImage(Assets.message_faint, i.getX(), i.getY());
+				else
+					g.drawImage(Assets.message_faint, i.getX(), i.getY());
+				i.updateFrame();
+			}
+		}
 	}
 
 	@Override

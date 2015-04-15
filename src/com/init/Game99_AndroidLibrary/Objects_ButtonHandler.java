@@ -1,15 +1,22 @@
 package com.init.Game99_AndroidLibrary;
 
 import java.util.ArrayList;
+
+import com.init.framework.Graphics;
+
 import android.os.Vibrator;
 public class Objects_ButtonHandler {
 	private NNGame game;
 	Vibrator v;
 	ArrayList<Objects_GridButton> grid;
+	Graphics g;
+	int streak;
 	public Objects_ButtonHandler(ArrayList<Objects_GridButton> gameGrid, NNGame game){
 		grid = gameGrid;
 		this.game = game;
+		this.g = game.getGraphics();
 		v = (Vibrator) game.getSystemService(game.VIBRATOR_SERVICE);
+		streak=0;
 	}
 	private int[][] round = {
 			/*	relative location legend
@@ -103,6 +110,13 @@ public class Objects_ButtonHandler {
 			//if clicked on the right one
 			if (grid.get(index).getNormalClickable()){ 
 				if(grid.get(index).getInt() == small){
+					if (streak<0){
+						streak=1;
+						grid.get(index).setMessage(streak);
+					} else{
+						streak++;
+						grid.get(index).setMessage(streak);
+					}
 					Assets.popping.play(1f);
 					Assets.socketIO.getSocket().emit("button", index);
 					grid.get(index).setNormalNotClickable();
@@ -110,6 +124,13 @@ public class Objects_ButtonHandler {
 				}else{
 					grid.get(index).shake(Assets.SHAKE_FRAME);
 					v.vibrate(Assets.VIBRATION_TIME);
+					if (streak>0){
+						streak=-1;
+						grid.get(index).setMessage(streak);
+					} else{
+						streak--;
+						grid.get(index).setMessage(streak);
+					}
 				}
 			}
 			else if (grid.get(index).getBomb()){
@@ -202,6 +223,13 @@ public class Objects_ButtonHandler {
 			else{
 				grid.get(index).shake(Assets.SHAKE_FRAME);
 				v.vibrate(Assets.VIBRATION_TIME);
+				if (streak>0){
+					streak=-1;
+					grid.get(index).setMessage(streak);
+				} else{
+					streak--;
+					grid.get(index).setMessage(streak);
+				}
 			}
 		
 		}

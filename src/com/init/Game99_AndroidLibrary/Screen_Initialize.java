@@ -40,6 +40,21 @@ public class Screen_Initialize extends Screen {
 		Assets.hint = g.newImage("130-bluecrystal.png",ImageFormat.RGB565, false);
 		Assets.smallest = g.newImage("130-irregcrystal.png",ImageFormat.RGB565, false);
 		Assets.avatar_page_blinkingstars = g.newImage("starrynight-blinkingstars.png", ImageFormat.RGB565, false);
+		Assets.message_good = g.newImage("Message-Good.png", ImageFormat.RGB565, false);
+		Assets.message_nice = g.newImage("Message-Nice.png", ImageFormat.RGB565, false);
+		Assets.message_cool = g.newImage("Message-Cool.png", ImageFormat.RGB565, false);
+		Assets.message_excellent = g.newImage("Message-Excellent.png", ImageFormat.RGB565, false);
+		Assets.message_great = g.newImage("Message-Great.png", ImageFormat.RGB565, false);
+		Assets.message_keepgoing = g.newImage("Message-KeepGoing.png", ImageFormat.RGB565, false);
+		Assets.message_perfect = g.newImage("Message-Perfect.png", ImageFormat.RGB565, false);
+		Assets.message_wrong = g.newImage("Message-Wrong.png", ImageFormat.RGB565, false);
+		Assets.message_stillwrong = g.newImage("Message-StillWrong.png", ImageFormat.RGB565, false);
+		Assets.message_omg = g.newImage("Message-OMG.png", ImageFormat.RGB565, false);
+		Assets.message_canyounot = g.newImage("Message-CanYouNot.png", ImageFormat.RGB565, false);
+		Assets.message_lastwarning = g.newImage("Message-LastWarning.png", ImageFormat.RGB565, false);
+		Assets.message_nomorechance = g.newImage("Message-NoMoreChance.png", ImageFormat.RGB565, false);
+		Assets.message_kthxbye = g.newImage("Message-KThxBye.png", ImageFormat.RGB565, false);
+		Assets.message_faint = g.newImage("Message-Faint.png", ImageFormat.RGB565, false);
 		
 		// Load Music
 		Audio music = game.getAudio();
