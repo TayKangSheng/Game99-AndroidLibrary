@@ -43,6 +43,7 @@ public class utils {
 	    Assets.runTime = 0;
 	    Assets.bombedLoc = -1; Assets.bombLoc = -1;
 	    Assets.hintLoc = -1;
+	    Assets.avatar = 2;
 	}
 	public static int[] decreasing(int frame){
 		if(frame==0) frame = 7;
@@ -50,7 +51,7 @@ public class utils {
 		double interval = Math.sqrt(Assets.GRIDSIZE)/frame;
 		for(int i=0;i<frame;i++){
 			result[i] = (int)(interval*interval*i*i - Assets.GRIDSIZE);
-			Log.i("decreasing", result[i]+"");
+			//Log.i("decreasing", result[i]+"");
 		}
 		return result;
 	}
@@ -61,7 +62,7 @@ public class utils {
 		double interval = Math.sqrt(Assets.GRIDSIZE) / frame;
 		for(int i=0;i<frame;i++){
 			result1[result1.length-1-i] = (int)(interval*interval*i*i - Assets.GRIDSIZE);
-			Log.i("increasing", result1[result1.length-1-i]+"");
+			//Log.i("increasing", result1[result1.length-1-i]+"");
 		}
 		return result1;
 	}

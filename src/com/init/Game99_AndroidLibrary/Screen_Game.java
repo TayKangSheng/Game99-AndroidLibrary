@@ -29,7 +29,7 @@ public class Screen_Game extends Screen{
 	private float GamerunTime = 0;
 	private int gameWidth, smallestNo = 10;
 	private boolean wholeWon = true, wholeLost = true, barChanging = false;
-
+	private String hexcolor1, hexcolor2;
 	private Objects_Timer clock;
 	private Objects_ButtonHandler buttonHandler;
 	private Objects_GridButton buttontemp1, buttontemp0;
@@ -40,7 +40,7 @@ public class Screen_Game extends Screen{
 	public Screen_Game(NNGame game) {
 		super(game);
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
-
+		
 		//initialize the game and all its values
 		this.game = game;
 		g = game.getGraphics();
@@ -59,7 +59,7 @@ public class Screen_Game extends Screen{
 		//painter: for clock 
 		painter.setColor(clock.getColor());
 		painter.setTextSize(clock.getTextSize());
-
+		
 		//painter1: for numbers on the grid
 		painter1.setColor(Color.WHITE);
 		painter1.setTextSize(Assets.FONT_SIZE);
@@ -79,11 +79,14 @@ public class Screen_Game extends Screen{
 		bombPainter.setFilterBitmap(true);  
 		ColorFilter bombFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.rgb(239, 234, 96));
 		bombPainter.setColorFilter(bombFilterTint);
-
+		
+	    hexcolor1 = Assets.colors[Assets.avatar][0];
+		hexcolor2 = Assets.colors[Assets.avatar][1];
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(90+(i%5)*(Assets.GRIDSIZE+Assets.GRID_INTERVAL), 
-					180+((int)(i/5))*(Assets.GRIDSIZE+Assets.GRID_INTERVAL), Assets.interGalaticaMapVector[i]);
+					180+((int)(i/5))*(Assets.GRIDSIZE+Assets.GRID_INTERVAL), 
+					Assets.interGalaticaMapVector[i]);
 			buttontemp0.pop(14); 
 			//starting the pop action at the start
 			gameGrid.add(buttontemp0);
@@ -196,28 +199,31 @@ public class Screen_Game extends Screen{
 	@Override
 	public void paint(float deltaTime) {
 		//Log.i("deltatime",deltaTime+"");
-		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.03, GamerunTime, 0).intValue()  );
-		// White Background for the entire screen
 		
+		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.03, 
+				GamerunTime, 0).intValue());
+		
+		// White Background for the entire screen
 		g.clearScreen(Color.parseColor("#2c3e50"));
-		// Gray Background for health and timer
-		//left, top, right, bottom
-		//g.drawRect(5, 5, gameWidth-10, 140, Color.parseColor("#2c3e50"));
+		
+		// Gray Background for health and time (left, top, right, bottom)
 		g.drawImage(Assets.avatar_page, 0, 0);
-		g.drawRect(0, 5, gameWidth, 40, Color.parseColor("#2aa198"));
+		
+		//draw the life bar
+		//other planet
+		g.drawRect(0, 5, gameWidth, 40, Color.parseColor(hexcolor2));
 		if(yourScore!=lastyourScore){
 			barChanging = true;
 			int right = lifeBar();
-			g.drawRect(0, 5, right, 40, Color.parseColor("#ff8000"));
+			g.drawRect(0, 5, right, 40, Color.parseColor(hexcolor1));
 		} else if(barChanging){
 			int right = lifeBar();
-			g.drawRect(0, 5, right, 40, Color.parseColor("#ff8000")); 
-		} else g.drawRect(0, 5, gameWidth/35*yourScore, 40, Color.parseColor("#ff8000")); 
+			g.drawRect(0, 5, right, 40, Color.parseColor(hexcolor1)); 
+		} else g.drawRect(0, 5, gameWidth/35*yourScore, 40, Color.parseColor(hexcolor1)); 
 		
-		// Magenta background for power ups
-		//g.drawRect(5, 1065, gameWidth-10, 210, Color.parseColor("#2c3e50"));
 		// Paint timer
 		g.drawString(clock.getValue(GamerunTime), gameWidth/2-50, 140, painter);
+		
 		// Draw Grids
 		for (Objects_GridButton i : gameGrid){
 			if(i.getShake()){
@@ -279,7 +285,7 @@ public class Screen_Game extends Screen{
 				}
 			}
 		}
-		
+		//draw messages
 		for (Objects_GridButton i : gameGrid){
 			if (i.getMessageCountDown()!=0){
 				if (i.getMessage()==1)
