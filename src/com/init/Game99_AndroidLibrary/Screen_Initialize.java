@@ -23,9 +23,26 @@ public class Screen_Initialize extends Screen {
 	public void update(float deltaTime) {
 		Assets.runTime=0;
 		Assets.socketIO = new SocketIO();
+		
+		// Load Music
+		Audio music = game.getAudio();
+		if (Assets.gameScreenBGM==null)
+			Assets.gameScreenBGM = music.createMusic("audio-noragami-harmony.mp3");
+		if (Assets.startScreenBGM==null)
+			Assets.startScreenBGM = music.createMusic("audio-Parks-and-Recreation-Theme-Song.mp3");
+		if (Assets.victoryBGM==null)
+			Assets.victoryBGM = music.createMusic("audio-ff-victory.mp3");
+		if (Assets.loseBGM==null)
+			Assets.loseBGM = music.createMusic("audio-ff7-skyblueeyes.mp3");
+		Assets.click = music.createSound("audio-click.mp3");
+		Assets.popping = music.createSound("audio-popping.mp3");
+		Assets.explosion = music.createSound("audio-explosion.mp3");
+		Assets.welcome = music.createSound("audio-welcome.mp3");
+		Assets.gunshots = music.createSound("audio-gunshots.mp3");
+		
 		//loads images;
 		Graphics g = game.getGraphics();
-		
+		Assets.initlogo = g.newImage("initlogo.png", ImageFormat.RGB565, false);
 		Assets.bomb = g.newImage("130-rainbowCrystal.png", ImageFormat.RGB565, false);
 		Assets.start = g.newImage("yellowstartbutton.png", ImageFormat.RGB565, false);
 		Assets.restart = g.newImage("replaybtn.png", ImageFormat.RGB565, false);
@@ -55,23 +72,13 @@ public class Screen_Initialize extends Screen {
 		Assets.message_nomorechance = g.newImage("Message-NoMoreChance.png", ImageFormat.RGB565, false);
 		Assets.message_kthxbye = g.newImage("Message-KThxBye.png", ImageFormat.RGB565, false);
 		Assets.message_faint = g.newImage("Message-Faint.png", ImageFormat.RGB565, false);
-		
-		// Load Music
-		Audio music = game.getAudio();
-		if (Assets.gameScreenBGM==null)
-			Assets.gameScreenBGM = music.createMusic("audio-noragami-harmony.mp3");
-		if (Assets.startScreenBGM==null)
-			Assets.startScreenBGM = music.createMusic("audio-Parks-and-Recreation-Theme-Song.mp3");
-		if (Assets.victoryBGM==null)
-			Assets.victoryBGM = music.createMusic("audio-ff-victory.mp3");
-		if (Assets.loseBGM==null)
-			Assets.loseBGM = music.createMusic("audio-ff7-skyblueeyes.mp3");
-		Assets.click = music.createSound("audio-click.mp3");
-		Assets.popping = music.createSound("audio-popping.mp3");
-		Assets.explosion = music.createSound("audio-explosion.mp3");
+		Assets.slogan_we = g.newImage("slogan-we.png", ImageFormat.RGB565, false);
+		Assets.slogan_the = g.newImage("slogan-the.png", ImageFormat.RGB565, false);
+		Assets.slogan_momentum = g.newImage("slogan-momentum.png", ImageFormat.RGB565, false);
+
 		
 		//let's go to the next screen;
-        game.setScreen(new Screen_First(game));
+        game.setScreen(new Screen_WelcomePage(game));
 	}
 
 	@Override
