@@ -121,7 +121,6 @@ public class Screen_AvatarChooser extends Screen {
 					}
 					Assets.socketIO.getSocket().emit("ready", "");
 					Assets.Imready = true;
-					Assets.click.play(1f);
 				}
 			}
 		} 

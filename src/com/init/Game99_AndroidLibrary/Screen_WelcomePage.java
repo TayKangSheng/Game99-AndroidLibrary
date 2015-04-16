@@ -4,7 +4,9 @@ import java.util.List;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.init.framework.Audio;
 import com.init.framework.Graphics;
+import com.init.framework.Graphics.ImageFormat;
 import com.init.framework.Input.TouchEvent;
 import com.init.framework.Screen;
 
@@ -22,7 +24,15 @@ public class Screen_WelcomePage extends Screen {
 		g = game.getGraphics();
 		painter = new Paint();
 		alpha = 0;
-
+		
+		Audio music = game.getAudio();
+		Assets.initlogo = g.newImage("initlogo.png", ImageFormat.RGB565, false);
+		Assets.slogan_we = g.newImage("slogan-we.png", ImageFormat.RGB565, false);
+		Assets.slogan_the = g.newImage("slogan-the.png", ImageFormat.RGB565, false);
+		Assets.slogan_momentum = g.newImage("slogan-momentum.png", ImageFormat.RGB565, false);
+		Assets.welcome = music.createSound("audio-welcome.mp3");
+		Assets.gunshots = music.createSound("audio-gunshots.mp3");
+		
 		Assets.welcome.play(0.5f);
 	}
 
@@ -42,7 +52,7 @@ public class Screen_WelcomePage extends Screen {
 		}
 		
 		if (runTime > 450)
-			game.setScreen(new Screen_First(game));
+			game.setScreen(new Screen_Initialize(game));
 
 	}
 
@@ -84,6 +94,12 @@ public class Screen_WelcomePage extends Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+		Assets.initlogo = null;
+		Assets.slogan_we = null;
+		Assets.slogan_the = null;
+		Assets.slogan_momentum = null;
+		Assets.welcome = null;
+		Assets.gunshots = null;
 
 	}
 
