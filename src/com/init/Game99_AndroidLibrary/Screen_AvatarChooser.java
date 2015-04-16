@@ -67,16 +67,17 @@ public class Screen_AvatarChooser extends Screen {
 		this.avatarChosen = null;
 		this.runTime = 0;
 		
-		avatarList.add(new Objects_GeneralAvatar("Avatar1", 25, 	70, 	Assets.planet1)); 
+		
 		avatarList.add(new Objects_GeneralAvatar("Avatar0", 525, 	70+500, Assets.planet0)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar6", 525, 	70+250, Assets.planet6)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar3", 525, 	70, 	Assets.planet3)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar8", 275, 	70+500, Assets.planet5)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar5", 275, 	70+250, Assets.planet8)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar1", 25, 	70, 	Assets.planet1)); 
 		avatarList.add(new Objects_GeneralAvatar("Avatar2", 275,  	70, 	Assets.planet2)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar7", 25,		70+500, Assets.planet7)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar3", 525, 	70, 	Assets.planet3)); 
 		avatarList.add(new Objects_GeneralAvatar("Avatar4", 25, 	70+250, Assets.planet4));  
-
+		avatarList.add(new Objects_GeneralAvatar("Avatar5", 275, 	70+250, Assets.planet8)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar6", 525, 	70+250, Assets.planet6)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar7", 25,		70+500, Assets.planet7));
+		avatarList.add(new Objects_GeneralAvatar("Avatar8", 275, 	70+500, Assets.planet5)); 
+		
 		Log.i("ScreenB_MainMenu", "ScreenB_MainMenu");
 	}
 

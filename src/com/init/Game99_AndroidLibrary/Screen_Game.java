@@ -188,12 +188,14 @@ public class Screen_Game extends Screen{
 		}
 	}
 	public int lifeBar(){
-		if(lifeBar>7) {
+		if(barChanging){
+		if(lifeBar>12) {
 			lifeBar = 0;
 			barChanging = false;
 		}
 		else{lifeBar++;}
-		return gameWidth/35 * yourScore * (lifeBar/7);
+		return (int)(gameWidth/35.0 * lastyourScore + (yourScore-lastyourScore)*lifeBar/12.0);
+		}else return (int)(gameWidth/35.0 * yourScore);
 		
 	}
 	@Override
