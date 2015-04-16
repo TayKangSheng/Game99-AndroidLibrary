@@ -66,7 +66,11 @@ public class Assets {
 		message_lastwarning,
 		message_nomorechance,
 		message_kthxbye,
-		message_faint
+		message_faint,
+		initlogo,
+		slogan_we,
+		slogan_the,
+		slogan_momentum
 		;
 	
 	/* game BGM */
@@ -79,7 +83,10 @@ public class Assets {
 	public static Sound 
 		click,
 		popping,
-		explosion;
+		explosion,
+		welcome,
+		gunshots;
+	
 	
 	//planet avatars
 	public static Image planet1, planet2, planet3, planet4, planet5, planet6, planet7,

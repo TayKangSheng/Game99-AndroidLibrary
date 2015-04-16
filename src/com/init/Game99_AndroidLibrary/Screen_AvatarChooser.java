@@ -27,6 +27,7 @@ public class Screen_AvatarChooser extends Screen {
 	private int gameWidth;
 	private float runTime;
 	private boolean chosen = false;
+	private boolean waiting = false;
 	private int[] planetSizeOffset = { 55, 30, 25, 30, 50, 15, 40, -10, 25};
 	
 	public Screen_AvatarChooser(NNGame game) {
@@ -110,7 +111,11 @@ public class Screen_AvatarChooser extends Screen {
 				// starting the game :) 
 				if(utils.inBounds(event, 50, 900, 
 						Assets.readyButton.getWidth(), Assets.readyButton.getHeight()) && chosen){
-					Assets.click.play(1f);
+					if (waiting == false){
+						Assets.click.play(1f);
+						waiting = true;
+					}
+
 					Assets.socketIO.getSocket().emit("ready", "");
 					Assets.Imready = true;
 				}
