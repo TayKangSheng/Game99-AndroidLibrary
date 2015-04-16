@@ -189,13 +189,13 @@ public class Screen_Game extends Screen{
 	}
 	public int lifeBar(){
 		if(barChanging){
-		if(lifeBar>12) {
+		if(lifeBar>20) {
 			lifeBar = 0;
 			barChanging = false;
 		}
 		else{lifeBar++;}
-		return (int)(gameWidth/35.0 * lastyourScore + (yourScore-lastyourScore)*lifeBar/12.0);
-		}else return (int)(gameWidth/35.0 * yourScore);
+		return (int)(gameWidth/35.0 * lastyourScore + (yourScore-lastyourScore)*(gameWidth/20.0)*lifeBar/20.0);
+		}else return (int)(gameWidth/35.0 * yourScore)+5;
 		
 	}
 	@Override
@@ -222,7 +222,7 @@ public class Screen_Game extends Screen{
 		} else if(barChanging){
 			int right = lifeBar();
 			g.drawRect(0, 5, right, 40, Color.parseColor(hexcolor1)); 
-		} else g.drawRect(0, 5, gameWidth/35*yourScore, 40, Color.parseColor(hexcolor1)); 
+		} else g.drawRect(0, 5, (int)(gameWidth/35.0*yourScore), 40, Color.parseColor(hexcolor1)); 
 		
 		// Paint timer
 		g.drawString(clock.getValue(GamerunTime), gameWidth/2-50, 140, painter);
