@@ -34,9 +34,9 @@ public class Assets {
 			SHAKE_FRAME = 70, VIBRATION_TIME = 800,
 			FONT_SIZE = 70;
     public static String[][] colors = {
-    	{"1ACBA7","#2aa198"}, {"FB7027","#2aa198"}, {"F6CB74","#2aa198"}, 
-    	{"D3D9BD","#2aa198"}, {"73B8D0","#2aa198"}, {"DD352E","#2aa198"},
-    	{"26A65B","#2aa198"}, {"EE6851","#2aa198"}, {"22A7F0","#2aa198"}
+    	{"#1ACBA7","#2aa198"}, {"#FB7027","#2aa198"}, {"#F6CB74","#2aa198"}, 
+    	{"#D3D9BD","#2aa198"}, {"#73B8D0","#2aa198"}, {"#DD352E","#2aa198"},
+    	{"#26A65B","#2aa198"}, {"#EE6851","#2aa198"}, {"#22A7F0","#2aa198"}
     };
     
 	public static boolean[] interGalaticaMapVector = null;

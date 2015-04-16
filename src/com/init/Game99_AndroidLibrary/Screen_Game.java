@@ -215,6 +215,7 @@ public class Screen_Game extends Screen{
 		if(yourScore!=lastyourScore){
 			barChanging = true;
 			int right = lifeBar();
+			Log.i("color", hexcolor1);
 			g.drawRect(0, 5, right, 40, Color.parseColor(hexcolor1));
 		} else if(barChanging){
 			int right = lifeBar();
