@@ -3,17 +3,15 @@ package com.init.Game99_AndroidLibrary;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.animation.ArgbEvaluator;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.util.Log;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Interpolator;
 
 import com.init.framework.Graphics;
+import com.init.framework.Image;
 import com.init.framework.Input.TouchEvent;
 import com.init.framework.Screen;
 
@@ -24,11 +22,13 @@ public class Screen_AvatarChooser extends Screen {
 	private Paint painter, painter1, painter2, glowPainter, whiteGlowPainter, blinkingstarsPainter;
 	private ArrayList<Objects_GeneralAvatar> avatarList = 
 			new ArrayList<Objects_GeneralAvatar>();
+	private ArrayList<Image> waitingAnimation = new ArrayList<Image>();
+	private Objects_Animation waitingButton;
 	private int gameWidth;
 	private float runTime;
 	private boolean chosen = false;
 	private boolean waiting = false;
-	private int[] planetSizeOffset = { 55, 30, 25, 30, 50, 15, 40, -10, 25};
+	private int[] planetSizeOffset = { 37, 15, 35, 35, 35, 21, 35, 35, 35};
 	
 	public Screen_AvatarChooser(NNGame game) {
 		super(game);
@@ -67,16 +67,33 @@ public class Screen_AvatarChooser extends Screen {
 		this.avatarChosen = null;
 		this.runTime = 0;
 		
+		waitingAnimation.add( Assets.waitingButton1);
+		waitingAnimation.add(Assets.waitingButton2);
+		waitingAnimation.add(Assets.waitingButton3);
+		waitingAnimation.add(Assets.waitingButton4);
 		
-		avatarList.add(new Objects_GeneralAvatar("Avatar0", 525, 	70+500, Assets.planet0)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar1", 25, 	70, 	Assets.planet1)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar2", 275,  	70, 	Assets.planet2)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar3", 525, 	70, 	Assets.planet3)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar4", 25, 	70+250, Assets.planet4));  
-		avatarList.add(new Objects_GeneralAvatar("Avatar5", 275, 	70+250, Assets.planet8)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar6", 525, 	70+250, Assets.planet6)); 
-		avatarList.add(new Objects_GeneralAvatar("Avatar7", 25,		70+500, Assets.planet7));
-		avatarList.add(new Objects_GeneralAvatar("Avatar8", 275, 	70+500, Assets.planet5)); 
+		waitingButton = new Objects_Animation(waitingAnimation, 0, 0);
+		
+//		avatarList.add(new Objects_GeneralAvatar("Avatar0", 525, 	70+500, Assets.planet0)); 
+//		avatarList.add(new Objects_GeneralAvatar("Avatar1", 25, 	70, 	Assets.planet1)); 
+//		avatarList.add(new Objects_GeneralAvatar("Avatar2", 275,  	70, 	Assets.planet2)); 
+//		avatarList.add(new Objects_GeneralAvatar("Avatar3", 525, 	70, 	Assets.planet3)); 
+//		avatarList.add(new Objects_GeneralAvatar("Avatar4", 25, 	70+250, Assets.planet4));  
+//		avatarList.add(new Objects_GeneralAvatar("Avatar5", 275, 	70+250, Assets.planet8)); 
+//		avatarList.add(new Objects_GeneralAvatar("Avatar6", 525, 	70+250, Assets.planet6)); 
+//		avatarList.add(new Objects_GeneralAvatar("Avatar7", 25,		70+500, Assets.planet7));
+//		avatarList.add(new Objects_GeneralAvatar("Avatar8", 275, 	70+500, Assets.planet5)); 
+		
+		avatarList.add(new Objects_GeneralAvatar("Avatar0", 25, 	70, 	Assets.planet0)); // 25, 275, 527
+		avatarList.add(new Objects_GeneralAvatar("Avatar1", 275, 	70, 	Assets.planet1)); // 70, 70+250, 70+500
+		avatarList.add(new Objects_GeneralAvatar("Avatar2", 525,  	70, 	Assets.planet2)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar3", 25, 	70+250, Assets.planet3)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar4", 275, 	70+250, Assets.planet4)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar5", 525, 	70+250, Assets.planet5));
+		avatarList.add(new Objects_GeneralAvatar("Avatar6", 25, 	70+500, Assets.planet6)); 
+		avatarList.add(new Objects_GeneralAvatar("Avatar7", 275,	70+500, Assets.planet7));
+		avatarList.add(new Objects_GeneralAvatar("Avatar8", 525, 	70+500, Assets.planet8)); 
+
 		
 		Log.i("ScreenB_MainMenu", "ScreenB_MainMenu");
 	}
@@ -127,10 +144,9 @@ public class Screen_AvatarChooser extends Screen {
 		} 
 		if(Assets.ready) {
 			nullify();
-			game.setScreen(new Screen_Instruction(game));
+			game.setScreen(new Screen_PowerUpInstruction(game));
 		}
 		
-		//Log.i("Screen_LoadingScreenJ", "update");
 		Assets.runTime += deltaTime;
 	}
 
@@ -145,29 +161,24 @@ public class Screen_AvatarChooser extends Screen {
 		blinkingstarsPainter.setAlpha((int) (utils.accelerateDeccelerateCurve(127, 0.01, runTime, 0)+0.5d));
 		
 		whiteGlowPainter.setAlpha( utils.accelerateDeccelerateCurve(110, 0.01, runTime, 30).intValue()  );
-		//g.drawImage(Assets.start, 120, 1050);
+
 		if(!chosen) {
 			g.drawString("please choose your avatar planet", 
 					game.getGraphics().getWidth()/2, 
 					1000, painter1);
-			//g.drawImage(Assets.chooseplanet, 100, 1100);
 		} else if(!Assets.ready && Assets.Imready && chosen){
-			//g.drawImage(Assets.waitingButton, 100, 1000);
-			g.drawImage(Assets.waitingButton, 
-					gameWidth/2-Assets.waitingButton.getWidth()/2-25, 
+			g.drawImage(waitingButton.getImageFrame(runTime/13), 
+					gameWidth/2-waitingButton.getImageFrame(runTime).getWidth()/2-25, 
 					1010);
 		}else{
 			g.drawImage(Assets.readyButton, 
 					gameWidth/2-Assets.readyButton.getWidth()/2-25, 
 					1010);
-			//g.drawImage(Assets.readyButton, 0, 0, 50, 900, Assets.readyButton.getWidth(), Assets.readyButton.getHeight(),whiteGlowPainter);
 		}
 		
 		// Use for loop to draw all avatars.
 		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(70, 0.03, runTime, 5).intValue()  );
 		for (int i=0 ; i<avatarList.size() ; i++ ){
-//		for (Objects_GeneralAvatar i: avatarList){
-			//g.drawImage(i.getImage(),0,0,i.getX(),i.getY(), 150, 150);
 			g.drawImage(avatarList.get(i).getImage(), 0, 0, avatarList.get(i).
 					getX()+planetSizeOffset[i], avatarList.get(i).getY()+planetSizeOffset[i],
 					250-2*planetSizeOffset[i], 250-2*planetSizeOffset[i], painter2);
@@ -178,8 +189,8 @@ public class Screen_AvatarChooser extends Screen {
 						250-2*planetSizeOffset[i], 250-2*planetSizeOffset[i], glowPainter);
 			}
 		}
-
 	}
+	
 	public void nullify(){
 		for(int i=0;i<9;i++){
 			if(!avatarList.get(i).getchosen())
@@ -197,19 +208,23 @@ public class Screen_AvatarChooser extends Screen {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
+		while (Assets.gameScreenBGM.isPlaying()){
+			Assets.gameScreenBGM.pause();
+		}
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
+		while (!Assets.gameScreenBGM.isPlaying()){
+			Assets.gameScreenBGM.play();
+		}
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		Assets.gameScreenBGM.stop();
-		Assets.gameScreenBGM.dispose();
-		Assets.gameScreenBGM = null;
+
 	}
 
 	@Override

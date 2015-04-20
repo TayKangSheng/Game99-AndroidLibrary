@@ -37,10 +37,12 @@ public class Screen_Game extends Screen{
 	private ArrayList<Objects_GridButton> gameGrid;
 	private List<TouchEvent> touchEvents;
 
+	private long lastSavedTime;
+
 	public Screen_Game(NNGame game) {
 		super(game);
 		Log.i("ScreenD_GameScreen", "ScreenD_GameScreen");
-		
+
 		//initialize the game and all its values
 		this.game = game;
 		g = game.getGraphics();
@@ -59,7 +61,7 @@ public class Screen_Game extends Screen{
 		//painter: for clock 
 		painter.setColor(clock.getColor());
 		painter.setTextSize(clock.getTextSize());
-		
+
 		//painter1: for numbers on the grid
 		painter1.setColor(Color.WHITE);
 		painter1.setTextSize(Assets.FONT_SIZE);
@@ -73,15 +75,18 @@ public class Screen_Game extends Screen{
 		glowPainter.setFilterBitmap(true);  
 		ColorFilter colorFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.YELLOW);
 		glowPainter.setColorFilter(colorFilterTint);
-		
+
 		bombPainter.setDither(true);
 		bombPainter.setAntiAlias(true);
 		bombPainter.setFilterBitmap(true);  
 		ColorFilter bombFilterTint = new LightingColorFilter(Color.TRANSPARENT, Color.rgb(239, 234, 96));
 		bombPainter.setColorFilter(bombFilterTint);
-		
-	    hexcolor1 = Assets.colors[Assets.avatar][0];
+
+		hexcolor1 = Assets.colors[Assets.avatar][0];
 		hexcolor2 = Assets.colors[Assets.avatar][1];
+
+		lastSavedTime = System.currentTimeMillis();
+
 		/*initialize gridButtons*/
 		for (int i=0; i<35;i++){
 			buttontemp0 = new Objects_GridButton(90+(i%5)*(Assets.GRIDSIZE+Assets.GRID_INTERVAL), 
@@ -92,7 +97,7 @@ public class Screen_Game extends Screen{
 			gameGrid.add(buttontemp0);
 		}
 		buttonHandler =  new Objects_ButtonHandler(gameGrid, game);
-		
+
 		/* initialise audio */
 		Assets.startScreenBGM.setLooping(true);
 		Assets.startScreenBGM.setVolume(0.5f);
@@ -142,8 +147,8 @@ public class Screen_Game extends Screen{
 			Assets.smallestLoc = -1;
 		}
 		if(Assets.smallestLocs!=null){
+			Assets.spell.play(1f);
 			for(int i: Assets.smallestLocs){
-				Assets.popping.play(1f);
 				gameGrid.get(i).setNormalClickable();
 			}
 			Assets.smallestLocs = null;
@@ -178,10 +183,10 @@ public class Screen_Game extends Screen{
 					buttontemp1 = gameGrid.get(index);
 					if (utils.inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
 						buttonHandler.Click(index, smallestNo);
-						if (utils.inBounds(event, 90, 1070, 100, 100)){
-							game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
-							Assets.socketIO.getSocket().emit("gameover");
-						}
+//						if (utils.inBounds(event, 90, 1070, 100, 100)){
+//							game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
+//							Assets.socketIO.getSocket().emit("gameover");
+//						}
 					}
 				}
 			}
@@ -189,28 +194,27 @@ public class Screen_Game extends Screen{
 	}
 	public int lifeBar(){
 		if(barChanging){
-		if(lifeBar>20) {
-			lifeBar = 0;
-			barChanging = false;
-		}
-		else{lifeBar++;}
-		return (int)(gameWidth/35.0 * lastyourScore + (yourScore-lastyourScore)*(gameWidth/20.0)*lifeBar/20.0);
+			if(lifeBar>20) {
+				lifeBar = 0;
+				barChanging = false;
+			}
+			else{lifeBar++;}
+			return (int)(gameWidth/35.0 * lastyourScore + (yourScore-lastyourScore)*(gameWidth/20.0)*lifeBar/20.0);
 		}else return (int)(gameWidth/35.0 * yourScore)+5;
-		
+
 	}
 	@Override
 	public void paint(float deltaTime) {
 		//Log.i("deltatime",deltaTime+"");
-		
+
 		glowPainter.setAlpha( utils.accelerateDeccelerateCurve(75, 0.03, 
 				GamerunTime, 0).intValue());
-		
+
 		// White Background for the entire screen
 		g.clearScreen(Color.parseColor("#2c3e50"));
-		
+
 		// Gray Background for health and time (left, top, right, bottom)
 		g.drawImage(Assets.avatar_page, 0, 0);
-		
 		//draw the life bar
 		//other planet
 		g.drawRect(0, 5, gameWidth, 40, Color.parseColor(hexcolor2));
@@ -223,10 +227,10 @@ public class Screen_Game extends Screen{
 			int right = lifeBar();
 			g.drawRect(0, 5, right, 40, Color.parseColor(hexcolor1)); 
 		} else g.drawRect(0, 5, (int)(gameWidth/35.0*yourScore), 40, Color.parseColor(hexcolor1)); 
-		
+
 		// Paint timer
 		g.drawString(clock.getValue(GamerunTime), gameWidth/2-50, 140, painter);
-		
+
 		// Draw Grids
 		for (Objects_GridButton i : gameGrid){
 			if(i.getShake()){
@@ -331,11 +335,19 @@ public class Screen_Game extends Screen{
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
+		lastSavedTime = System.currentTimeMillis();
+		while (Assets.startScreenBGM.isPlaying()){
+			Assets.startScreenBGM.pause();
+		}
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
+		while (!Assets.startScreenBGM.isPlaying()){
+			Assets.startScreenBGM.play();
+		}
+		GamerunTime += ((System.currentTimeMillis()-lastSavedTime)/10);
 	}
 
 	@Override

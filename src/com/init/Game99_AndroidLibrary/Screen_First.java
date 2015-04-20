@@ -19,29 +19,39 @@ public class Screen_First extends Screen {
 		this.game = game;
 		g = game.getGraphics();
 		Log.i("Screen_First", "ScreenB_First");
+
+//		Assets.planet0 = g.newImage("130-blueplanet.png", ImageFormat.RGB565, false);
+//		Assets.planet1 = g.newImage("130-cheese.png", ImageFormat.RGB565, false);
+//		Assets.planet2 = g.newImage("130-cyanstripesplanet.png", ImageFormat.RGB565, false);
+//		Assets.planet3 = g.newImage("130-earth.png", ImageFormat.RGB565, false);
+//		Assets.planet4 = g.newImage("130-jupiter.png", ImageFormat.RGB565, false);
+//		Assets.planet5 = g.newImage("130-moon.png", ImageFormat.RGB565, false);
+//		Assets.planet6 = g.newImage("130-saturn.png", ImageFormat.RGB565, false);
+//		Assets.planet7 = g.newImage("130-sun.png", ImageFormat.RGB565, false);
+//		Assets.planet8 = g.newImage("130-watermelon.png", ImageFormat.RGB565, false);
 		
 		Assets.planet0 = g.newImage("130-blueplanet.png", ImageFormat.RGB565, false);
-		Assets.planet1 = g.newImage("130-cheese.png", ImageFormat.RGB565, false);
-		Assets.planet2 = g.newImage("130-cyanstripesplanet.png", ImageFormat.RGB565, false);
-		Assets.planet3 = g.newImage("130-earth.png", ImageFormat.RGB565, false);
-		Assets.planet4 = g.newImage("130-jupiter.png", ImageFormat.RGB565, false);
-		Assets.planet5 = g.newImage("130-moon.png", ImageFormat.RGB565, false);
-		Assets.planet6 = g.newImage("130-saturn.png", ImageFormat.RGB565, false);
-		Assets.planet7 = g.newImage("130-sun.png", ImageFormat.RGB565, false);
-		Assets.planet8 = g.newImage("130-watermelon.png", ImageFormat.RGB565, false);
-		//earthAnimation = Assets.movingEarth;
+		Assets.planet1 = g.newImage("130-sun.png", ImageFormat.RGB565, false);
+		Assets.planet2 = g.newImage("130-cheese.png", ImageFormat.RGB565, false);
+		Assets.planet3 = g.newImage("130-moon.png", ImageFormat.RGB565, false);
+		Assets.planet4 = g.newImage("130-cyanstripesplanet.png", ImageFormat.RGB565, false);
+		Assets.planet5 = g.newImage("130-earth.png", ImageFormat.RGB565, false);
+		Assets.planet6 = g.newImage("130-jupiter.png", ImageFormat.RGB565, false);
+		Assets.planet7 = g.newImage("130-watermelon.png", ImageFormat.RGB565, false);
+		Assets.planet8 = g.newImage("130-saturn.png", ImageFormat.RGB565, false);
+
 		Assets.gameScreenBGM.setVolume(0.5f);
 		Assets.gameScreenBGM.setLooping(true);
 		if (!Assets.gameScreenBGM.isPlaying())
 			Assets.gameScreenBGM.play();
-		
+
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		//Log.i("ScreenB_MainMenu", "update");
 		Assets.runTime += deltaTime;
-		
+
 		touchEvents = game.getInput().getTouchEvents();
 		for (TouchEvent event: touchEvents) {
 			if (event.type == TouchEvent.TOUCH_UP) {
@@ -54,26 +64,26 @@ public class Screen_First extends Screen {
 		}
 	}
 
-	
-    
+
+
 
 	@Override
 	public void paint(float deltaTime) {
 		//Log.i("ScreenB_MainMenu", "paint");
-		
+
 		Graphics g = game.getGraphics();
-		
+
 		// Draw background Image
 		g.drawImage(Assets.space, 0, 0);
 		g.drawImage(Assets.start, game.getGraphics().getWidth()/2-Assets.restart.getWidth()/2-25, 
 				1010);
 		//g.drawImage(Assets.start, 120, 1050);
 		//g.drawString(Assets.msg, 50,50,paint);
-		
+
 		//g.drawImage(earthAnimation.getImageFrame(Assets.runTime/20),0,0);
-		
+
 	}
-	
+
 	public int getColour(boolean x){
 		if (x)
 			return -1;
@@ -82,27 +92,31 @@ public class Screen_First extends Screen {
 	}
 
 	@Override
-	public void pause() {
+	public void pause() { // Home Button
 		// TODO Auto-generated method stub
+		while (Assets.gameScreenBGM.isPlaying()){
+			Assets.gameScreenBGM.pause();
+		}
 
 	}
 
 	@Override
-	public void resume() {
+	public void resume() { // Coming back to game
 		// TODO Auto-generated method stub
+		while (!Assets.gameScreenBGM.isPlaying()){
+			Assets.gameScreenBGM.play();
+		}
 
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void backButton() {
-		// TODO Auto-generated method stub
-
+		;
 	}
 
 }

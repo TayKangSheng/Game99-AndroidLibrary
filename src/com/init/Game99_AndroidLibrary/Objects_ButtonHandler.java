@@ -201,6 +201,7 @@ public class Objects_ButtonHandler {
 				}
 				
 			} else if (grid.get(index).getSmallest()){
+				Assets.spell.play(1f);
 				grid.get(index).setNormalNotClickable();
 				//if(grid.get(index).getlastclickable()) 
 					Assets.socketIO.getSocket().emit("button", index);
@@ -214,6 +215,7 @@ public class Objects_ButtonHandler {
 				}
 				Assets.socketIO.getSocket().emit("smallest", array);
 			} else if(grid.get(index).getHint()){
+				Assets.bubble.play(1f);
 				grid.get(index).setNormalNotClickable();
 				Assets.glow = true;
 				Assets.glowRunTime = 0;

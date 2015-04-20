@@ -31,14 +31,18 @@ public class Assets {
     		GRIDSIZE=120,
     		GRID_INTERVAL = 7,
 			BOMBED = -2, HINTTIME = 15000,
-			SHAKE_FRAME = 70, VIBRATION_TIME = 800,
+			SHAKE_FRAME = 50, VIBRATION_TIME = 600,
 			FONT_SIZE = 70;
     public static String[][] colors = {
     	{"#1ACBA7","#2aa198"}, //green
     	{"#FB7027","#2aa198"}, //pink
     	{"#F6CB74","#2aa198"}, 
-    	{"#D3D9BD","#2aa198"}, {"#73B8D0","#2aa198"}, {"#DD352E","#2aa198"},
-    	{"#26A65B","#2aa198"}, {"#EE6851","#2aa198"}, {"#22A7F0","#2aa198"}
+    	{"#D3D9BD","#2aa198"}, 
+    	{"#73B8D0","#2aa198"}, 
+    	{"#DD352E","#2aa198"},
+    	{"#26A65B","#2aa198"}, 
+    	{"#EE6851","#2aa198"}, 
+    	{"#22A7F0","#2aa198"}
     };
     
 	public static boolean[] interGalaticaMapVector = null;
@@ -46,10 +50,14 @@ public class Assets {
 	
 	/*game images*/
 	public static Image space,
+		powerupinstruction,
 		instruction,
 	    chosen,//space background with 42
 		readyButton,
-		waitingButton,
+		waitingButton1,
+		waitingButton2,
+		waitingButton3,
+		waitingButton4,
 		you_won,
 		you_lost,
 		avatar_page, //starry night
@@ -75,25 +83,24 @@ public class Assets {
 		message_nomorechance,
 		message_kthxbye,
 		message_faint,
-		initlogo,
-		slogan_we,
-		slogan_the,
-		slogan_momentum
+		initlogo
 		;
 	
 	/* game BGM */
 	public static Music 
 		startScreenBGM,
-		gameScreenBGM,
-		victoryBGM,
-		loseBGM;
+		gameScreenBGM
+		;
 	
 	public static Sound 
 		click,
 		popping,
 		explosion,
 		welcome,
-		gunshots;
+		victoryBGM,
+		loseBGM,
+		spell,
+		bubble;
 	
 	
 	//planet avatars
