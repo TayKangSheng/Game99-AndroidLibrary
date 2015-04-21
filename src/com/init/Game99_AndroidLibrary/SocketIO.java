@@ -121,6 +121,20 @@ public class SocketIO {
 				}
 			}
 		});
+		/*socket.on("nobomb", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				Assets.nobomb = (Integer) args[0];
+			}
+		});
+		*/
+		/*socket.on("yesbomb", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				Assets.yesbomb = (Integer) args[0];
+			}
+		});*/
+		
 		socket.on("hint", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
@@ -128,6 +142,19 @@ public class SocketIO {
 					Log.i("socketio", "hint received");
 					Assets.hintLoc = (Integer) args[0];
 				}
+			}
+		});
+		socket.on("nosmallest", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				Assets.nosmallest = (Integer) args[0];
+			}
+		});
+		socket.on("nohint", new Emitter.Listener() {
+			
+			@Override
+			public void call(Object... args) {
+				Assets.nohint = (Integer) args[0];
 			}
 		});
 		socket.on("smallest", new Emitter.Listener() {

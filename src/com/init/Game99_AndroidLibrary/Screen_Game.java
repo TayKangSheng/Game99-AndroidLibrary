@@ -125,6 +125,22 @@ public class Screen_Game extends Screen{
 			gameGrid.get(Assets.otherPlayerPress).setNormalClickable();
 			Assets.otherPlayerPress = -1;
 		}
+		if(Assets.nosmallest >= 0){
+			if(gameGrid.get(Assets.nosmallest).getlastclickable())
+				gameGrid.get(Assets.nosmallest).setNormalNotClickable();
+			else gameGrid.get(Assets.nosmallest).setNormalClickable();
+			Assets.nosmallest = -1;
+		}
+		if(Assets.nohint >= 0){
+			if(gameGrid.get(Assets.nohint).getlastclickable())
+				gameGrid.get(Assets.nohint).setNormalNotClickable();
+			else gameGrid.get(Assets.nohint).setNormalClickable();
+			Assets.nohint = -1;
+		}
+		/*if(Assets.yesbomb>=0){
+			buttonHandler.Click(Assets.yesbomb, Assets.IBOMB);
+			Assets.yesbomb = -1;
+		}*/
 		if(Assets.bombedLoc >= 0){
 			buttonHandler.Click(Assets.bombedLoc, Assets.BOMBED);
 			Assets.bombedLoc = -1; 

@@ -36,6 +36,7 @@ public class Objects_ButtonHandler {
 	};
 	public void Click(int index, int small){
 		//feedback change if opponent pressed bomb
+		
 		if(small==Assets.BOMBED){
 			Assets.explosion.play(1f);
 			if (index<=4 && index>=0){
@@ -134,10 +135,6 @@ public class Objects_ButtonHandler {
 				}
 			}
 			else if (grid.get(index).getBomb()){
-				/* Animation for bomb click
-				 * 	- all shrink
-				 * 	- all gravitate towards center bomb.
-				 */
 				Assets.explosion.play(1f);
 				Assets.socketIO.getSocket().emit("bomb", index);
 				if (index<=4 && index>=0){
@@ -199,12 +196,15 @@ public class Objects_ButtonHandler {
 						grid.get(index+r[i]).bombed(15, 10, r[i]);
 					}
 				}
-				
-			} else if (grid.get(index).getSmallest()){
+			} 
+			else if (grid.get(index).getSmallest()){
+				Assets.socketIO.getSocket().emit("nosmallest", index);
 				Assets.spell.play(1f);
-				grid.get(index).setNormalNotClickable();
+				if(grid.get(index).getlastclickable()) 
+					grid.get(index).setNormalNotClickable();
+				else grid.get(index).setNormalClickable();
 				//if(grid.get(index).getlastclickable()) 
-					Assets.socketIO.getSocket().emit("button", index);
+					//Assets.socketIO.getSocket().emit("button", index);
 				int tmp = 0;
 				ArrayList array = new ArrayList();
 				for(Objects_GridButton btn: grid){
@@ -215,12 +215,15 @@ public class Objects_ButtonHandler {
 				}
 				Assets.socketIO.getSocket().emit("smallest", array);
 			} else if(grid.get(index).getHint()){
+				Assets.socketIO.getSocket().emit("nohint", index);
 				Assets.bubble.play(1f);
-				grid.get(index).setNormalNotClickable();
+				if(grid.get(index).getlastclickable()){
+					grid.get(index).setNormalNotClickable();
+				}else grid.get(index).setNormalClickable();
 				Assets.glow = true;
 				Assets.glowRunTime = 0;
 				//if(grid.get(index).getlastclickable()) 
-				Assets.socketIO.getSocket().emit("button", index);
+				//Assets.socketIO.getSocket().emit("button", index);
 			}
 			else{
 				grid.get(index).shake(Assets.SHAKE_FRAME);

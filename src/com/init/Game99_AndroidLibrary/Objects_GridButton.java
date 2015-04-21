@@ -10,8 +10,8 @@ public class Objects_GridButton{
 	private static Random rand = new Random(); // Shared Random Number Generator
 	final int xCoorFinal, yCoorFinal;
 	int xCoor, yCoor, randomInt, message, messageFrameCountDown;
-	Boolean clickable, normalClickable = false, 
-			bomb=false, smallest=false, hint=false, lastClickable;
+	private Boolean normalClickable = false, 
+			bomb=false, smallest=false, hint=false, lastClickable = false; //clickedBomb = false;
 
 	Image ImageDisplay;
 	String contentDisplay;
@@ -43,20 +43,23 @@ public class Objects_GridButton{
 	}
 	public void setBomb(){
 		bomb = true; smallest = false; hint = false;
+		//clickedBomb = false;
 		normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.bomb;
 	}
 	public void setSmallest(){
 		smallest = true; bomb = false; hint = false;
-		lastClickable = normalClickable;
+		if(!bomb&&!hint)
+			lastClickable = normalClickable;
 		normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.smallest;
 	}
 	public void setHint(){
 		hint = true; bomb = false; smallest = false;
-		lastClickable = normalClickable;
+		if((!bomb&&!smallest))
+			lastClickable = normalClickable;
 		normalClickable = false;
 		randomInt = -1;
 		ImageDisplay = Assets.hint;
@@ -202,12 +205,13 @@ public class Objects_GridButton{
 	//getters
 	public int getX(){ return xCoor; }
 	public int getY(){ return yCoor; }
-
 	public int getxchange(){return xchange;}
 	public int getychange(){return ychange;}
+	//public boolean getclickedBomb(){return clickedBomb;}
 	public int getw(){return wchange+Assets.GRIDSIZE;}
 	public int geth(){return hchange+Assets.GRIDSIZE;}
 	public boolean getlastclickable(){return lastClickable;}
+	//public void setclickedBomb(boolean b){clickedBomb = b;}
 	//get states
 	public boolean getShrink() {return shrinking;}
 	public boolean getPop() {return poping;}

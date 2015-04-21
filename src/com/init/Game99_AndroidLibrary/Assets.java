@@ -12,7 +12,9 @@ public class Assets {
 			    otherQuit = false, 
 			    //other quit => server gets signal => this player gets signal => otherQuit is set true
 			   freeze = false, 
-			   glow = false;
+			   glow = false
+			   //bombsent = false
+			   ;
 	public static float runTime, 
 			glowRunTime = 0;
 	public static SocketIO socketIO;
@@ -24,12 +26,18 @@ public class Assets {
 			bombLoc = -1, 
 			bombedLoc = -1,
 			hintLoc = -1,
-			smallestLoc = -1;
+			smallestLoc = -1,
+			nosmallest = -1,
+			//nobomb = -1,
+			nohint = -1
+			//yesbomb = -1
+			;
 	
     public static int OTHER = 1, TIME=2, WON = 3, LOST = 0, 
     		QUIT = 4,
     		GRIDSIZE=120,
     		GRID_INTERVAL = 7,
+    		IBOMB = -3,
 			BOMBED = -2, HINTTIME = 15000,
 			SHAKE_FRAME = 50, VIBRATION_TIME = 600,
 			FONT_SIZE = 70;

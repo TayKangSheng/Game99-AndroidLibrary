@@ -27,8 +27,9 @@ public class Screen_Instruction extends Screen {
 		timer = new Objects_Timer(500);
 		runtime = 0;
 		s = 0; 
-		if(Assets.id==0) haltnum = 5;
-		else haltnum = 4;
+		haltnum = 4;
+		//if(Assets.id==0) haltnum = 5;
+		//else haltnum = 4;
 		h = g.getHeight()/2-Assets.instruction.getHeight()/2;
 		w = gameWidth/2-Assets.instruction.getWidth()/2;
 		volume = 0.5f;
