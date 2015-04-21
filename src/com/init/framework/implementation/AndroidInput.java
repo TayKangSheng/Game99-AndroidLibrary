@@ -34,7 +34,9 @@ public class AndroidInput implements Input {
         return touchHandler.getTouchY(pointer);
     }
 
-
+    public void clearTouchEvents(){
+    	touchHandler.clearTouchEvents();
+    }
 
     @Override
     public List<TouchEvent> getTouchEvents() {

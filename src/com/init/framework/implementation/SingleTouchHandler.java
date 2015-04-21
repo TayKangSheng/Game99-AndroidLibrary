@@ -86,6 +86,7 @@ public class SingleTouchHandler implements TouchHandler {
             return touchY;
         }
     }
+    
 
     @Override
     public List<TouchEvent> getTouchEvents() {
@@ -99,4 +100,13 @@ public class SingleTouchHandler implements TouchHandler {
             return touchEvents;
         }
     }
+
+	@Override
+	public void clearTouchEvents() {
+		// TODO Auto-generated method stub
+    	synchronized(this) {
+    		touchEvents.clear();
+    		touchEventsBuffer.clear();
+    	}
+	}
 }

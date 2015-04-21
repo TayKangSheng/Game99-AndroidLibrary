@@ -102,6 +102,8 @@ public class Screen_Game extends Screen{
 		Assets.startScreenBGM.setLooping(true);
 		Assets.startScreenBGM.setVolume(0.5f);
 		Assets.startScreenBGM.play();
+		
+		game.getInput().clearTouchEvents();
 	}
 
 	@Override
@@ -199,12 +201,13 @@ public class Screen_Game extends Screen{
 					buttontemp1 = gameGrid.get(index);
 					if (utils.inBounds(event, buttontemp1.getX(), buttontemp1.getY(), 130, 130)){
 						buttonHandler.Click(index, smallestNo);
-//						if (utils.inBounds(event, 90, 1070, 100, 100)){
-//							game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
-//							Assets.socketIO.getSocket().emit("gameover");
-//						}
+						//						if (utils.inBounds(event, 90, 1070, 100, 100)){
+						//							game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
+						//							Assets.socketIO.getSocket().emit("gameover");
+						//						}
 					}
 				}
+
 			}
 		}
 	}
