@@ -114,11 +114,16 @@ public class Screen_Game extends Screen{
 			Assets.socketIO.getSocket().emit("gameover");
 			game.setScreen(new Screen_Result(game, gameGrid, "life")); 
 		}*/
+		
+		
 		if(Assets.otherQuit)//check if opponent has quit
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.OTHER));
 		if (Integer.valueOf(clock.getValue(GamerunTime))<=0){
 			//check time
 			game.setScreen(new Screen_Result(game, gameGrid, Assets.TIME));
+		}
+		if (Integer.valueOf(clock.getValue(GamerunTime))<=10){
+			Assets.glow = true;
 		}
 		// receive data and change color
 		/* Receive opponent's click */
