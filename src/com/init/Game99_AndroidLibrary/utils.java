@@ -39,11 +39,14 @@ public class utils {
 		Assets.Imready = false; //player is ready
 	    Assets.otherQuit = false; 
 		Assets.freeze = false;
+		Assets.won = false;
+		Assets.lost = false;
 	    Assets.glow = false;
 	    Assets.runTime = 0;
 	    Assets.bombedLoc = -1; Assets.bombLoc = -1;
 	    Assets.hintLoc = -1;
 	    Assets.avatar = 2;
+	    Assets.sentbombLoc = -1;
 	}
 	public static int[] decreasing(int frame){
 		if(frame==0) frame = 7;

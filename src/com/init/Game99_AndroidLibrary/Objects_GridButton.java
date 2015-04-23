@@ -201,7 +201,13 @@ public class Objects_GridButton{
 			}
 		}  
 	}
-
+	public void setNullAfterBomb(){
+		bomb = false; smallest = false; hint = false;
+		//clickedBomb = false;
+		normalClickable = false;
+		randomInt = -1;
+		ImageDisplay = Assets.bomb;
+	}
 	//getters
 	public int getX(){ return xCoor; }
 	public int getY(){ return yCoor; }

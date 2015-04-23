@@ -93,7 +93,8 @@ public class SocketIO {
 					//if(result.equals("won")) //Assets.won = true;
 					//else if(result.equals("lost")) //Assets.lost = true;
 					if(result.equals("quit")) Assets.otherQuit = true;
-					if(result.equals("otherwon")) Assets.otherQuit = true;
+					if(result.equals("otherwon")) Assets.won = true;
+					if(result.equals("lost")) Assets.lost = true;
 				}
 			}        
 		});
@@ -118,6 +119,15 @@ public class SocketIO {
 				if(args.length==1){
 					Log.i("socketio", "bomb effect received");
 					Assets.bombedLoc = (Integer) args[0];
+				}
+			}
+		});
+		socket.on("yesbomb", new Emitter.Listener() {
+			@Override
+			public void call(Object... args) {
+				if(args.length==1){
+					Log.i("socketio", "bomb effect received");
+					Assets.sentbombLoc = (Integer) args[0];
 				}
 			}
 		});

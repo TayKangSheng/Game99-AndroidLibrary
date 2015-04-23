@@ -12,7 +12,7 @@ public class Assets {
 			    otherQuit = false, 
 			    //other quit => server gets signal => this player gets signal => otherQuit is set true
 			   freeze = false, 
-			   glow = false
+			   glow = false, won = false, lost = false;
 			   //bombsent = false
 			   ;
 	public static float runTime, 
@@ -40,7 +40,7 @@ public class Assets {
     		IBOMB = -3,
 			BOMBED = -2, HINTTIME = 15000,
 			SHAKE_FRAME = 50, VIBRATION_TIME = 600,
-			FONT_SIZE = 70;
+			FONT_SIZE = 70, SENTBOMB = -4;
     public static String[][] colors = {
     	{"#1ACBA7","#2aa198"}, //green
     	{"#FB7027","#2aa198"}, //pink
@@ -116,4 +116,5 @@ public class Assets {
 	planet8, planet0;
 	//game dots
 	public static Image gridButtonMyPlanet, gridButtonNotMyPlanet;
+	public static int sentbombLoc = -1;
 }

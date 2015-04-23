@@ -147,6 +147,10 @@ public class Screen_Game extends Screen{
 			buttonHandler.Click(Assets.bombedLoc, Assets.BOMBED);
 			Assets.bombedLoc = -1; 
 		}
+		if(Assets.sentbombLoc >= 0){
+			buttonHandler.Click(Assets.sentbombLoc, Assets.SENTBOMB);
+			Assets.sentbombLoc = -1; 
+		}
 		// if(Assets.freeze) return;
 		// Find smallest Number
 		smallestNo = 10;
