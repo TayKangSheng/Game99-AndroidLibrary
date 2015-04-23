@@ -167,7 +167,7 @@ public class Screen_AvatarChooser extends Screen {
 					game.getGraphics().getWidth()/2, 
 					1000, painter1);
 		} else if(!Assets.ready && Assets.Imready && chosen){
-			g.drawImage(waitingButton.getImageFrame(runTime/13), 
+			g.drawImage(waitingButton.getImageFrame(runTime/17), 
 					gameWidth/2-waitingButton.getImageFrame(runTime).getWidth()/2-25, 
 					1010);
 		}else{
