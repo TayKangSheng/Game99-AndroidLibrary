@@ -152,29 +152,29 @@ The Screen classes act as states for our game. Different screens serves differen
 
 **_STATE DIAGRAM_??**  
 
-####3.4.1 Welcome Page (Screen_WelcomePage.java)  
+#####3.4.1 Welcome Page (Screen_WelcomePage.java)  
 This screen is our game's initial splash screen, showing our "Init Studios" logo and slogan.
 
 The animation displaying the logo on this page is done by incrementing alpha (transparency) of the image file slowly by 5 units every time update() is called and the animation displaying the slogan images are based on time. Animation is manually coordinated to the music background as the animations on this page is minimal hence the use of complicated design patterns is unnecessary.
 
-####3.4.2 Game Initialization (Screen_Initialize.java) 
+#####3.4.2 Game Initialization (Screen_Initialize.java) 
 This page initializes all essential game data declared in Assets.java into memory such as images and audio. The update method() and paint() method in this screen is not used at all as the next screen is called immediately at the end of the constructor method. Therefore user will not be aware of the existence of this screen at all. 
 
-####3.4.3 Main Menu (Screen_First.java) 
+#####3.4.3 Main Menu (Screen_First.java) 
 This is our main menu screen, like every game, the main menu screen is the first page that interacts with the user. This page provides information such as the name of our game to our user. This page consist of a single start button starting the game experience. 
 
 There is no animation for this page but only a button and 
 
-####3.4.4 Avatar Page (Screen_AvatarChooser.java) 
+#####3.4.4 Avatar Page (Screen_AvatarChooser.java) 
 User picks avatar...
 
-####3.4.5 Instruction Page (Screen_Instruction.java)
+#####3.4.5 Instruction Page (Screen_Instruction.java)
 How to play the game...
 
-####3.4.6 Game Screen (Screen_Game.java) 
+#####3.4.6 Game Screen (Screen_Game.java) 
 Main competition...
 
-####3.4.7 Results (Screen_Result.java)
+#####3.4.7 Results (Screen_Result.java)
 Display results of the game...
 
 
@@ -245,7 +245,7 @@ WebSocket is a full-duplex,
 
 #6. Areas of Improvement
 
-#7. Conclusion ‘Anusha’
+#7. Conclusion `Anusha`
 This project has been a challenging and fruitful journey. It has presented us with a lot of difficulties and allowed us to utilize the concepts we learnt in 50.003 to overcome these issues. 
 We learnt that it is imperative to begin with a design model that suits our team and stick to it in order to optimize efficiency. In our case, we adopted the agile development design model and it worked well for our team as well as this project. 
 The UML we worked on at the beginning helped put the entire project into perspective and gave us a better understanding of the direction our project was heading in. 
