@@ -150,7 +150,7 @@ However it is important to note that hardware consideration is increasingly less
 
 The Screen classes act as states for our game. Different screens serves different functionality and compartmentalize the user experience for the user. 
 
-![State Diagram](Game99-AndroidLibrary/report/State Diagram.png)  
+![State Diagram](./State Diagram.png)  
 
 #####3.4.1 Welcome Page (Screen_WelcomePage.java)  
 This screen is our game's initial splash screen, showing our "Init Studios" logo and slogan.
