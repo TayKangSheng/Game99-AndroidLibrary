@@ -144,17 +144,21 @@ The type of class files in this page is split into three categories:
     AndroidMusic implements Music Interface. As we want playback methods for music which is supported by android.media.MediaPlayer, AndroidMusic also implements OnCompletionListener, OnSeekCompleteListener, OnPreparedListener, OnVideoSizeChangedListener. Because AndroidMusic encapsulates MediaPlayer functions and provide extra parameters to easy access and control of the MediaPlayer, these Listeners help tracks the state of the MediaPlayer and the method calls for these listeners changes AndroidMusic object parameters such as Boolean isPrepared. This class also acts as a _**fail-safe**_ for calling MediaPlayer native methods such as MediaPlayer.pause(). If the MediaPlayer is not actually playing, calling the pause method throws an IllegalStateException and throwing an exception _**crashes**_ the entire application. Hence by encapsulating these native MediaPlayer methods, we can first check whether the MediaPlayer is actually playing or not and if it is playing and MediaPlayer.pause is called. Else do nothing. Hence we do not need to deal with unnecessary exception thrown. 
     3. **AndroidSound.java**  
     AndroidSound implements Sound Interface. Sounds are much simpler objects than music as it does not requires playback methods. All sounds when called to play, plays until the end. This class is mainly for extremely short sound effects during game play such as clicking sound for button presses. These sound effects are not meant for playback functions as if the clicking sound effect is not played till the end, it does not sound exactly like a click.
-    4. **SingleTouchHandler.java**
-    5. **MultiTouchHandler.java**
-    6. **TouchHandler.java**
+    6. **TouchHandler.java**  
+    TouchHandler is an helper interface that extends OnTouchListener. This interface contains method signatures to retrieve touch events logged by the OnTouchListener.
+    4. **SingleTouchHandler.java**  
+    SingleTouchHandler implements TouchHandler interface. This class is initialised for device with Android Version 4 and below. Since touchHandler extends OnTouchListener, the onTouch method is declared in this class. The onTouchListener is set to the screen to logged any touch events on the screen, and a Pool is created to log any touch events within the current game loop. SingleTouchHandler does not deal with multi touches, hence only one touch at the time. All basic touch functions such as down touch, up touch and touch drag. This class maintains a buffer for the current loop until the contents in the buffer is retrieved when getTouchEvents() is called, and the buffer is cleared for the next loop. 
+    5. **MultiTouchHandler.java**  
+    MultiTouchHandler also implements TouchHandler interface. This class is similar to SingleTouchHandler, just that it allows for secondary touch events. Unlike SingleTouchHandler, this class is initialised for device with Android Version 5 and above. Implementing TouchHandler which extends OnTouchListener as mentioned in the description for SingleTouchHandler, the onTouch method is also declared in this class. The only difference compared to SingleTouchHandler is that this class allows for secondary pointer defined by MotionEvent.ACTION_POINTER_UP and MotionEvent.ACTION_POINTER_DOWN. Additional index defined in this class to retrieve touchId to allow for tracking of each touchEvent. 
+    Refer to [here](http://developer.android.com/reference/android/view/MotionEvent.html) for documentation for different kind of touches available for Android devices. Essentially this is a more powerful version of touchHandler compared to SingleTouchHandler, but SingleTouchHandler acts as a fail-safe for developers as user's mobile devices are generally out of the control of the developer.
 
-- #####Game Engine
-
-    1. **AndroidFastRendererView.java**
-
-As with most game frameworks, one class file will form the backbone of the framework. Our framework AndroidGame which extends the activity and implements the game, ties the graphics, screen, audio, input and a game renderer together. 
-
-_**---Class Diagram---**_
+- #####Game Engine  
+    1. **AndroidFastRendererView.java**  
+    AndroidFastRenderView implements runnable and extends SurfaceView. This class literally is the reason for the continuous updating images on the screen the user see. This class is a separate thread running regardless of the main thread maintaining a while loop calling the update and paint method of the current state (States are defined using Screens as mentioned in the description of the Screen Interface). Like how a literal engine keeps turning pushing forward, this while loop running in the background keeps updating the current state of the game.  
+    In the while loop, the sequence of things happening per loop is as follows:  
+        1. Calculate the difference in time (delta) from the previous loop to the current loop.
+        2. Call the current state's update and paint method passing the delta value together to the screen.
+        3. Locks the current SurfaceHolder, takes the Canvas drawn in the paint method of the current loop and calls the unlockCanvasAndPost() method of SurfaceHolder. unlockCanvasAndPost() releases the image drawn onto the screen and releases the bitmap content drawn. Hence this method essentially clears the Canvas so that the next paint method called draws a on a new clear Canvas. 
 
 #### 3.1.3 com.init.Game99_AndroidLibrary
 
