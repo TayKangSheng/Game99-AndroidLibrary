@@ -95,9 +95,11 @@ The approach to making this game takes place in three basic steps. These steps a
 These Class and Interface files are created with reference to a framework provided on [www.kilobolt.com](www.kilobolt.com). 
 
 Hence, our Game framework is split into a total of 3 packages.  
-1. com.init.framework
-2. com.init.framework.implementation
-3. com.init.Game99_AndroidLibrary
+1. com.init.framework  
+2. com.init.framework.implementation  
+3. com.init.Game99_AndroidLibrary  
+
+![Class Diagram](Game99-AndroidLibrary/report/Class Diagram.png) 
 
 #### 3.1.1 com.init.framework
 This package makes up the basic building blocks for our Game Framework. This package is made up of interface files. All basic methods needed for the game are declared here. These interfaces cover all basic aspects of the game from managing sounds and user-inputs to game screens.
@@ -111,8 +113,8 @@ Java interface files can only contain method signatures and fields. Below is a d
 5. **Sound.java:** This interface is for creating sounds that does not require playback functions.
 6. **Audio.java:** Audio contain methods to create music or sound.
 7. **Input.java:** Reading the different kind of touches that a user can make on the screen of the mobile device.
-8. **Screen.java:** Different screens for different states of the game. A screen acts as a method to segregate different parts of the game.
-9. **FileIO.java:** Defines method for reading and writing files in general in IO form.
+8. **FileIO.java:** Defines method for reading and writing files in general in IO form.
+9. **Screen.java:** Different screens for different states of the game. A screen acts as a method to segregate different parts of the game.
 
 #### 3.1.2 com.init.framework.implementation
 In this package, we created our Game Framework by implementing the interfaces created in _com.init.framework_ and creating helper classes from the framework level to streamline implementation. On the framework level, the flow of the game is decided with specifications on how different aspects of the game such as sounds, user-input, graphics and Activity Life-cycle come together. 
@@ -123,7 +125,8 @@ The type of class files in this page is split into three categories:
 
     1. **AndroidGame.java**  
     AndroidGame extends Activity and Implements Game. Android runs on a Activity framework where on the start of the the application the onCreate() method is called. As it implements game. Methods for initialising the first state of the game is also called, which is the getInitScreen() method.  
-    The onCreate() method acts as the constructor method for the Activity class and hence, all specifications of the activity is defined. Specifications such as screen size, wakelock, activity layout and initialising graphics, audio, input etc. The game loop starts here (refer to section 3.3) too.  
+    The onCreate() method acts as the constructor method for the Activity class and hence, all specifications of the activity is defined. Specifications such as screen size, wakelock, activity layout and initialising graphics, audio, input etc. The game loop starts here (refer to section 3.3) too. 
+    Implementing Game also means that AndroidGame contains methods for changing game states. Methods such as setScreen() are called whenever a change of state is needed. Therefore providing abstraction from the Android Activity Life Cycle as no change of activity is needed at all. 
     2. **AndroidGraphics.java**  
     AndroidGraphics implements graphics interface. Since all images used are bitmaps in this framework, graphics are drawn using android.graphics.Paint and android.graphics.Canvas. (See [developer.android.com](developer.android.com) for documentation.)  
     On creating AndroidGraphics Object, a Canvas of the screen size is created and a Paint Object is created. For all draw methods in this class, a bitmap image is taken in and drawn onto the canvas using a Paint object. Therefore one canvas is used and reused throughout the game.  
@@ -158,23 +161,27 @@ The type of class files in this page is split into three categories:
     In the while loop, the sequence of things happening per loop is as follows:  
         1. Calculate the difference in time (delta) from the previous loop to the current loop.
         2. Call the current state's update and paint method passing the delta value together to the screen.
-        3. Locks the current SurfaceHolder, takes the Canvas drawn in the paint method of the current loop and calls the unlockCanvasAndPost() method of SurfaceHolder. unlockCanvasAndPost() releases the image drawn onto the screen and releases the bitmap content drawn. Hence this method essentially clears the Canvas so that the next paint method called draws a on a new clear Canvas. 
+        3. Locks the current SurfaceHolder, takes the Canvas drawn in the paint method of the current loop and calls the unlockCanvasAndPost() method of SurfaceHolder. unlockCanvasAndPost() releases the image drawn onto the screen and releases the bitmap content drawn. Hence this method essentially clears the Canvas so that the next paint method called draws a on a new clear Canvas.  
 
 #### 3.1.3 com.init.Game99_AndroidLibrary
 
-Class files that implements ‘Galactical Real Estate’ using the framework we built previously goes in this package. The class files in this package is again split into 4 different categories.
+This package contains the class files that makes up our game 'Galactical Real Estate' using the framework put together above. The class files are split into 4 main categories where each playing their part in contributing to the flow of the game.
 
-- #####Main Activity
-NNGame.java is the main and only activity of the game. By initialising NNGame.java which extends AndroidGame which is a subclass of Activity and implements game, it calls the onCreate() method of the Activity Lifecycle and initialises AndroidGraphics, AndroidAudio, AndroidFileIO, AndroidInput, Screen, runnable game renderer AndroidFastRenderView(Elaborated in 3.3) and ties all of them to NNGame game class.  
-**_Sequence Diagram or UML Diagram about the initialisation of a game_**
+1. #####Main Activity  
+Android Development runs on the concept of Activity Life Cycle, where "an [Activity](http://developer.android.com/reference/android/app/Activity.html) is a single, focused thing that a user can do". NNGame.java is the main and only activity of the game, and the single focused thing that a user can do is to play our game. Since the framework provides abstraction from the Android Activity Life Cycle, the entire game runs on a single activity. (refer to 3.2)  
+NNGame extending AndroidGame, means that it is both an Activity and Game, which also inherits methods from AndroidGame. By initialising NNGame.java as the main activity specified in the XML file, all system classes are initialised and NNGame calls the setInitScreen() method to initialise the first screen/state of the game.
 
-- #####Screens  
-Screen_xxx.java(s) are the main controllers of the game flow. With the help of the AndroidFastRenderView(Game Renderer) the screen classes paints and changes game assets accordingly using various methods and classes such as AndroidGraphics etc.
+![Initialising Game](Game99-AndroidLibrary/report/InitialisingGame.png) 
 
-- #####Objects  
-Objects_xxx.java(s) make use of OO-Programming to objectify and simplify game objects. Game Objects can either be objects such as buttons that contain its own data parameters; or handlers such as button-handler that adds an extra layer to coordinate all buttons on the screens; or helper such as timer to help keep track of parameters such as time.
+2. #####Screens  
+Screen_xxx.java(s) are the main controllers of the game flow. With the help of the AndroidFastRenderView(Game Renderer) the screen classes paints and changes game assets accordingly using various methods and classes such as AndroidGraphics etc. State change are called in the update method, controlled by the logic of the code. For example, if the game state should change after a button press, a simple if condition that touchEvent is within the coordinates of the button, game.setScreen() will then be called.
 
-- #####utilities  
+![Changing State](Game99-AndroidLibrary/report/ChangingState.png) 
+
+3. #####Objects  
+Objects_xxx.java(s) make use of OO-Programming to objectify and simplify game objects. Game Objects can either be objects such as buttons that contain its own data parameters; or handlers such as button-handler that adds an extra layer to coordinate all buttons on the screens; or helper such as timer to help keep track of parameters such as time. As shown above in the initialisation of the game, objects are always created in the constructor of the screen, which called when the previous state calls setScreen() in its update method.
+
+4. #####utilities  
 Utility classes are for example Assets.java, SocketIO.java and utils.java. These classes run in the background to help with the organisation of data, connections or algorithms which is needed to support the functioning of the game. For example, SocketIO.java takes care of the transmission of data between the client and the server while the game interacts with the user.
 
 ## 3.2 The power of one activity 
