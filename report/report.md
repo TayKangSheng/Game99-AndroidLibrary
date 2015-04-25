@@ -169,14 +169,14 @@ This package contains the class files that makes up our game 'Galactical Real Es
 
 1. #####Main Activity  
 Android Development runs on the concept of Activity Life Cycle, where "an [Activity](http://developer.android.com/reference/android/app/Activity.html) is a single, focused thing that a user can do". NNGame.java is the main and only activity of the game, and the single focused thing that a user can do is to play our game. Since the framework provides abstraction from the Android Activity Life Cycle, the entire game runs on a single activity. (refer to 3.2)  
-NNGame extending AndroidGame, means that it is both an Activity and Game, which also inherits methods from AndroidGame. By initialising NNGame.java as the main activity specified in the XML file, all system classes are initialised and NNGame calls the setInitScreen() method to initialise the first screen/state of the game.
+NNGame extending AndroidGame, means that it is both an Activity and Game, which also inherits methods from AndroidGame. By initialising NNGame.java as the main activity specified in the XML file, all system classes are initialised and NNGame calls the setInitScreen() method to initialise the first screen/state of the game.  
 
-![Initialising Game](Game99-AndroidLibrary/report/InitialisingGame.png) 
+![Initialising Game](InitialisingGame.png)  
 
 2. #####Screens  
-Screen_xxx.java(s) are the main controllers of the game flow. With the help of the AndroidFastRenderView(Game Renderer) the screen classes paints and changes game assets accordingly using various methods and classes such as AndroidGraphics etc. State change are called in the update method, controlled by the logic of the code. For example, if the game state should change after a button press, a simple if condition that touchEvent is within the coordinates of the button, game.setScreen() will then be called.
+Screen_xxx.java(s) are the main controllers of the game flow. With the help of the AndroidFastRenderView(Game Renderer) the screen classes paints and changes game assets accordingly using various methods and classes such as AndroidGraphics etc. State change are called in the update method, controlled by the logic of the code. For example, if the game state should change after a button press, a simple if condition that touchEvent is within the coordinates of the button, game.setScreen() will then be called.  
 
-![Changing State](Game99-AndroidLibrary/report/ChangingState.png) 
+![Changing State](ChangingState.png)   
 
 3. #####Objects  
 Objects_xxx.java(s) make use of OO-Programming to objectify and simplify game objects. Game Objects can either be objects such as buttons that contain its own data parameters; or handlers such as button-handler that adds an extra layer to coordinate all buttons on the screens; or helper such as timer to help keep track of parameters such as time. As shown above in the initialisation of the game, objects are always created in the constructor of the screen, which called when the previous state calls setScreen() in its update method.
@@ -211,7 +211,7 @@ However it is important to note that hardware consideration is increasingly less
 
 The Screen classes act as states for our game. Different screens serves different functionality and compartmentalize the user experience for the user. 
 
-![State Diagram](Game99-AndroidLibrary/report/State Diagram.png)  
+![State Diagram](State Diagram.png)  
 
 ####3.4.1 Welcome Page (Screen_WelcomePage.java)  
 This screen is our game's initial splash screen, showing our "Init Studios" logo and slogan.
