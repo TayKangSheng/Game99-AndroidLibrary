@@ -102,9 +102,59 @@ Hence, our Game framework is split into a total of 3 packages.
 #### 3.1.1 com.init.framework
 This package makes up the basic building blocks for our Game Framework. This package is made up of interface files. All basic methods needed for the game are declared here. These interfaces cover all basic aspects of the game from managing sounds and user-inputs to game screens.
 
+Java interface files can only contain method signatures and fields. Below is a description of the kind of method signatures that are in each interface.  
+
+1. **Game.java:** A central game interface that acts as middle point between different modules of the framework. Declares method for switching states and controlling game life cycle.
+2. **Image.java:** This interface exist to add parameters to all bitmap images created for this game. All bitmaps created encapsulated with this interface will contain methods specified in this interface.
+3. **Graphics.java:** This interface contains methods that are used to paint images onto the game screen. This interface also serves as a factory for creating bitmap images which is interfaced by Image interface so that we can add more parameters to the bitmap file type.
+4. **Music.java:** This interface is for creating music that requires playback functions.
+5. **Sound.java:** This interface is for creating sounds that does not require playback functions.
+6. **Audio.java:** Audio contain methods to create music or sound.
+7. **Input.java:** Reading the different kind of touches that a user can make on the screen of the mobile device.
+8. **Screen.java:** Different screens for different states of the game. A screen acts as a method to segregate different parts of the game.
+9. **FileIO.java:** Defines method for reading and writing files in general in IO form.
+
 #### 3.1.2 com.init.framework.implementation
-In this package, we created our Game Framework by implementing the interfaces created in _com.init.framework_ and creating helper classes from the framework level to streamline implementation. 
-On the framework level, the flow of the game is decided with specifications on how different aspects of the game such as sounds, user-input, graphics and Activity Lifecycle come together. As with most game frameworks, one class file will form the backbone of the framework. Our framework AndroidGame which extends the activity and implements the game, ties the graphics, screen, audio, input and a game renderer together. 
+In this package, we created our Game Framework by implementing the interfaces created in _com.init.framework_ and creating helper classes from the framework level to streamline implementation. On the framework level, the flow of the game is decided with specifications on how different aspects of the game such as sounds, user-input, graphics and Activity Life-cycle come together. 
+
+The type of class files in this page is split into three categories:  
+
+- #####System function class
+
+    1. **AndroidGame.java**  
+    AndroidGame extends Activity and Implements Game. Android runs on a Activity framework where on the start of the the application the onCreate() method is called. As it implements game. Methods for initialising the first state of the game is also called, which is the getInitScreen() method.  
+    The onCreate() method acts as the constructor method for the Activity class and hence, all specifications of the activity is defined. Specifications such as screen size, wakelock, activity layout and initialising graphics, audio, input etc. The game loop starts here (refer to section 3.3) too.  
+    2. **AndroidGraphics.java**  
+    AndroidGraphics implements graphics interface. Since all images used are bitmaps in this framework, graphics are drawn using android.graphics.Paint and android.graphics.Canvas. (See [developer.android.com](developer.android.com) for documentation.)  
+    On creating AndroidGraphics Object, a Canvas of the screen size is created and a Paint Object is created. For all draw methods in this class, a bitmap image is taken in and drawn onto the canvas using a Paint object. Therefore one canvas is used and reused throughout the game.  
+    This class as mentioned in the description for Graphics Interface also acts as a factory to create bitmaps that implements the Image interface. Therefore image files created have a standardised parameters such as ImageFormat.
+    3. **AndroidFileIO.java**  
+    AndroidFileIO implements FileIO interface. This methods used in this class merely uses the basic input and output stream to create files or read files. An experience java programmer should understand this is the java way of creating objects or reading objects from system directories. Implementation of methods is straightforward in this class, if help is needed to understand how methods are implemented here, [www.stackoverflow.com](www.stackoverflow.com) should be the best place to clear your doubts.
+    4. **AndroidAudio.java**  
+    AndroidAudio implements Audio interface. As mentioned in the previous interface section. This class merely handles the creation of sounds and music. As the nature of Music is handled by Android MediaPlayer (refer to AndroidMusic in the Helper class section), there is no need for AndroidAudio to handle the ANdroidMusic objects created. However sounds in android does not need a MediaPlayer and hence is handled by using android.media.SoundPool. Therefore this class creates and standardise a soundPool for all sounds created in this game. It serves as a central place in the system to access created sound files and thus optimise memory usage and access time.
+    5. **AndroidInput.java**  
+    AndroidInput implements Input interface initialising a touchHandler helper object (refer to TouchHandler in helper class). AndroidInput contains methods that reads the touch events recorded by the touchHandler. This class serves as a middleman between the activity and the touchHandler, making sure that there is only one touchHandler and abstraction from the android touch listener. One important aspect of this middleman class between the main Activity and touchHandler is to check the Android Version of the device such that it can determine whether the device supports multi-touch or merely single touch. For difference between single and multi touch, see SingleTouchHandler and MultiTouchHandler in helper class. 
+
+
+- #####Helper class
+
+    1. **AndroidImage.java**  
+    AndroidImage implements Image Interface. As mentioned in the description for Image Interface above, AndroidImage serves as an encapsulation of bitmap image files with added parameters and methods tag to the image files used in this game. By having this helper class, it provides abstraction to bitmap function calls and allows user to have a more streamlined developer experience in dealing with images in using this framework. 
+    2. **AndroidMusic.java**  
+    AndroidMusic implements Music Interface. As we want playback methods for music which is supported by android.media.MediaPlayer, AndroidMusic also implements OnCompletionListener, OnSeekCompleteListener, OnPreparedListener, OnVideoSizeChangedListener. Because AndroidMusic encapsulates MediaPlayer functions and provide extra parameters to easy access and control of the MediaPlayer, these Listeners help tracks the state of the MediaPlayer and the method calls for these listeners changes AndroidMusic object parameters such as Boolean isPrepared. This class also acts as a _**fail-safe**_ for calling MediaPlayer native methods such as MediaPlayer.pause(). If the MediaPlayer is not actually playing, calling the pause method throws an IllegalStateException and throwing an exception _**crashes**_ the entire application. Hence by encapsulating these native MediaPlayer methods, we can first check whether the MediaPlayer is actually playing or not and if it is playing and MediaPlayer.pause is called. Else do nothing. Hence we do not need to deal with unnecessary exception thrown. 
+    3. **AndroidSound.java**  
+    AndroidSound implements Sound Interface. Sounds are much simpler objects than music as it does not requires playback methods. All sounds when called to play, plays until the end. This class is mainly for extremely short sound effects during game play such as clicking sound for button presses. These sound effects are not meant for playback functions as if the clicking sound effect is not played till the end, it does not sound exactly like a click.
+    4. **SingleTouchHandler.java**
+    5. **MultiTouchHandler.java**
+    6. **TouchHandler.java**
+
+- #####Game Engine
+
+    1. **AndroidFastRendererView.java**
+
+As with most game frameworks, one class file will form the backbone of the framework. Our framework AndroidGame which extends the activity and implements the game, ties the graphics, screen, audio, input and a game renderer together. 
+
+_**---Class Diagram---**_
 
 #### 3.1.3 com.init.Game99_AndroidLibrary
 
@@ -150,31 +200,31 @@ However it is important to note that hardware consideration is increasingly less
 
 The Screen classes act as states for our game. Different screens serves different functionality and compartmentalize the user experience for the user. 
 
-![State Diagram](./State Diagram.png)  
+![State Diagram](Game99-AndroidLibrary/report/State Diagram.png)  
 
-#####3.4.1 Welcome Page (Screen_WelcomePage.java)  
+####3.4.1 Welcome Page (Screen_WelcomePage.java)  
 This screen is our game's initial splash screen, showing our "Init Studios" logo and slogan.
 
 The animation displaying the logo on this page is done by incrementing alpha (transparency) of the image file slowly by 5 units every time update() is called and the animation displaying the slogan images are based on time. Animation is manually coordinated to the music background as the animations on this page is minimal hence the use of complicated design patterns is unnecessary.
 
-#####3.4.2 Game Initialization (Screen_Initialize.java) 
+####3.4.2 Game Initialization (Screen_Initialize.java) 
 This page initializes all essential game data declared in Assets.java into memory such as images and audio. The update method() and paint() method in this screen is not used at all as the next screen is called immediately at the end of the constructor method. Therefore user will not be aware of the existence of this screen at all. 
 
-#####3.4.3 Main Menu (Screen_First.java) 
+####3.4.3 Main Menu (Screen_First.java) 
 This is our main menu screen, like every game, the main menu screen is the first page that interacts with the user. This page provides information such as the name of our game to our user. This page consist of a single start button starting the game experience. 
 
 There is no animation for this page but only a button and 
 
-#####3.4.4 Avatar Page (Screen_AvatarChooser.java) 
+####3.4.4 Avatar Page (Screen_AvatarChooser.java) 
 User picks avatar...
 
-#####3.4.5 Instruction Page (Screen_Instruction.java)
+####3.4.5 Instruction Page (Screen_Instruction.java)
 How to play the game...
 
-#####3.4.6 Game Screen (Screen_Game.java) 
+####3.4.6 Game Screen (Screen_Game.java) 
 Main competition...
 
-#####3.4.7 Results (Screen_Result.java)
+####3.4.7 Results (Screen_Result.java)
 Display results of the game...
 
 
@@ -245,12 +295,11 @@ WebSocket is a full-duplex,
 
 #6. Areas of Improvement
 
-#7. Conclusion `Anusha`
+#7. Conclusion ‘Anusha’
 This project has been a challenging and fruitful journey. It has presented us with a lot of difficulties and allowed us to utilize the concepts we learnt in 50.003 to overcome these issues. 
 We learnt that it is imperative to begin with a design model that suits our team and stick to it in order to optimize efficiency. In our case, we adopted the agile development design model and it worked well for our team as well as this project. 
 The UML we worked on at the beginning helped put the entire project into perspective and gave us a better understanding of the direction our project was heading in. 
 Overall, this project has helped us apply the theory and concepts we learnt in 50.003 to a fully functioning mobile application. This not only showed us the value of what we learnt, but also helped solidify our understanding of what we learnt in class. 
 After 13 weeks of (agile) development, INIT studios is proud to present: Galactical Real Estate!
-
 
 
