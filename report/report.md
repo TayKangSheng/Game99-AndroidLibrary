@@ -99,7 +99,7 @@ Hence, our Game framework is split into a total of 3 packages.
 2. com.init.framework.implementation  
 3. com.init.Game99_AndroidLibrary  
 
-![Class Diagram](Game99-AndroidLibrary/report/Class Diagram.png) 
+![Class Diagram](Class Diagram.png) 
 
 #### 3.1.1 com.init.framework
 This package makes up the basic building blocks for our Game Framework. This package is made up of interface files. All basic methods needed for the game are declared here. These interfaces cover all basic aspects of the game from managing sounds and user-inputs to game screens.
