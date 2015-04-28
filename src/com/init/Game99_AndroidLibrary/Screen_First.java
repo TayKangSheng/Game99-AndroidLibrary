@@ -119,4 +119,10 @@ public class Screen_First extends Screen {
 		;
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "First";
+	}
+
 }

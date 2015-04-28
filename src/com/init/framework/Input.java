@@ -2,6 +2,8 @@ package com.init.framework;
 
 import java.util.List;
 
+import com.init.framework.implementation.TouchHandler;
+
 public interface Input {
     
     public static class TouchEvent {
@@ -26,4 +28,8 @@ public interface Input {
     public void clearTouchEvents();
 
     public List<TouchEvent> getTouchEvents();
+    
+    public TouchHandler getTouchHandler();
+    
+    public void setTouchEvents(TouchEvent event);
 }

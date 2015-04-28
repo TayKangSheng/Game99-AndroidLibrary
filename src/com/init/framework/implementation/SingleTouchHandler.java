@@ -109,4 +109,10 @@ public class SingleTouchHandler implements TouchHandler {
     		touchEventsBuffer.clear();
     	}
 	}
+
+	@Override
+	public void setTouchEvents(TouchEvent touchEvent) {
+		// TODO Auto-generated method stub
+		
+	}
 }

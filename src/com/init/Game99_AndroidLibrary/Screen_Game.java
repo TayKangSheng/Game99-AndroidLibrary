@@ -34,7 +34,7 @@ public class Screen_Game extends Screen{
 	private Objects_ButtonHandler buttonHandler;
 	private Objects_GridButton buttontemp1, buttontemp0;
 
-	private ArrayList<Objects_GridButton> gameGrid;
+	public ArrayList<Objects_GridButton> gameGrid;
 	private List<TouchEvent> touchEvents;
 
 	private long lastSavedTime;
@@ -391,4 +391,10 @@ public class Screen_Game extends Screen{
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Game";
+	}
+	
 }

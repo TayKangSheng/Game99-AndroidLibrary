@@ -128,4 +128,10 @@ public class Screen_Instruction extends Screen {
 
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Instruction";
+	}
+
 }

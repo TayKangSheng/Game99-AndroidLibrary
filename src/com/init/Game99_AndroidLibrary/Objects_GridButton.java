@@ -16,7 +16,7 @@ public class Objects_GridButton{
 	Image ImageDisplay;
 	String contentDisplay;
 
-	Objects_GridButton(int x, int y, boolean bool){
+	public Objects_GridButton(int x, int y, boolean bool){
 		this.xCoor = x;
 		this.yCoor = y;
 		this.xCoorFinal = x;

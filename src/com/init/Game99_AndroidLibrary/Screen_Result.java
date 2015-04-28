@@ -152,4 +152,10 @@ public class Screen_Result extends Screen{
 		else
 			return false;
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Result";
+	}
 }

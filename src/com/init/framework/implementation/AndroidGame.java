@@ -101,6 +101,10 @@ public abstract class AndroidGame extends Activity implements Game {
 	public Audio getAudio() {
 		return audio;
 	}
+	
+	public AndroidFastRenderView getRenderView(){
+		return renderView;
+	}
 
 	@Override
 	public void setScreen(Screen screen) {

@@ -16,4 +16,6 @@ public interface TouchHandler extends OnTouchListener {
     public void clearTouchEvents();
     
     public List<TouchEvent> getTouchEvents();
+    
+	public void setTouchEvents(TouchEvent touchEvent);
 }

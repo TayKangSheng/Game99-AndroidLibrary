@@ -43,4 +43,17 @@ public class AndroidInput implements Input {
         return touchHandler.getTouchEvents();
     }
     
+    public TouchHandler getTouchHandler(){
+    	return touchHandler;
+    }
+
+
+	@Override
+	public void setTouchEvents(TouchEvent event) {
+		touchHandler.getTouchEvents().add(event);
+		
+	}
+    
+    
+    
 }
