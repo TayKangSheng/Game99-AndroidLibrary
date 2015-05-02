@@ -76,14 +76,15 @@ public class SocketIO {
 				// socket.disconnect(); // why is there a disconnect here?
 			}        
 		});
+		
 		socket.on("button", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
 				Log.i("button", args[0]+"");
 				Assets.otherPlayerPress = (Integer) args[0];
-				// socket.disconnect(); // why is there a disconnect here?
 			}        
 		});
+		
 		socket.on("gameover", new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {

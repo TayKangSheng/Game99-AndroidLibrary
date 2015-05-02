@@ -241,20 +241,20 @@ Display results of the game...
 
 
 #4. Server and Client Design
-### 4.1 Server design
-#### cloud hosting
+### 4.1. Server design
+#### 4.1.1. cloud hosting
 For this project, we used a remote cloud server hosted on DigitalOcean.com running node.js code. We chose a cloud server for two reasons:
  
 1. Easy to test using wireless network;
 2. external server is always running without having to start server program running on our PC.
 
 And we didn't use Google game service or other cloud server services because we want to get exposed to the real problems in server design; in addition, with our own server we implemented a comprehensive log of server-client activities which greatly facilitated debugging of both server and client programs.
-####Server written in nodejs
+#### 4.1.2. Server written in nodejs
 ![node](./nodejs.png =300x)
 >Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an **event-driven**, **non-blocking I/O model** that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices. (nodejs.org)
 
 That was the official definition for node.js, so how does it actually work?
-#####Non-blocking I/O:
+#####4.1.2.1. Non-blocking I/O:
 For an application as network-intensive as the server, the latency of I/O is a major problem.
 Common strategies for concurrency include starting a new thread or forkig a new process for every request serviced.
 Nodejs used a different strategy: it implemented an event loop which proved to be superior in performance than multi-threaded concurrency.
@@ -273,40 +273,58 @@ Evidenced by this graph, NGINX server is much faster and more scalable as the nu
 Let's move on to memory consumption. Apache's memory usage grows much faster than NGINX. 
 This illustrated one of the major problems of multi-threaded server-design:
 It is highly memory-intensive (context, stack, stack pointer, program counter, general-purpose registers and condition code), and context-switching is by no means cheap. 
-#####One example of a callback function:
-#####Asynchronous listeners
+#####4.1.2.2. Asynchronous listeners
+
+####4.1.3. Server
+The server recognizes the grid as just `an array of booleans (true: player0; false:player1) of length 35` (size of the grid) for the sake of simplicity. It is considered the which most crucial component of game data and is vital to a successful game play; All grid buttons will be referenced by their index in the array during the communication;
+
+The server is mainly in charge of three functions: 
+
+**Regular game play**<br>
+
+1. accept connections and pair them up in two-player groups, or `rooms` and assign them with a unique `Global Identification Code (gid)` for future reference. Clients are serviced on a first-come-first-served basis, if there are odd number of connections, server waits for another connection before assigning a room;
+2. start the game for any two players who have both sent out `ready` event;
+3. send initial grid layout (randomly generated array of booleans) to both client, it is NOT in charge of the numbers appearing on the grid, it is only in charge of the *layout* (which grid button belongs to which client);
+4. for any correct click, client sends an `button` event to server with the data of its coordinate, the server then relays this coordinate to the other player as a `button` event; 
+
+**Generating power-ups**<br>
+
+1. every 3 seconds, server will send out a random powerup to both client of the same room so that users can compete for them.<br>
+2. Once a power-up has been clicked, one client(or both=>conflict!) will send a power-up event to server, with array of indices of grids included.
+
+```
+	probability distribution of powerups:
+	3/8: bomb(instant effect)
+	3/8: smallest number(instant effect)
+	2/8: hint(Cool-down-time: 5 seconds)
+```
+
+**Coordinating game play**<br>
+
+1. In order to prevent one player from winning too fast, The server keeps a count of the number of steps ahead. If one side gets ahead of the other by 5 steps in a row(without losing a button), server will send a powerup to the losing side;
+2. In order to maintain integrity of the board, the server does a integrity check every 5 seconds by comparing the two arrays of booleans sent by the two clients; if there has been a conflict, the conflict area will be marked "invalid" and 
+	a. invalid area will not be taken into account when result was finally tallied;
+	b. server will eventually place a bomb in conflict area to correct everything; However this functionality is rarely used as integrity of the grid was safe almost 99% of the time.
 
 
-
+####4.1.4. Concurrency issues 
+##### click conflict
+##### 
 ###4.2 Protocol: WebSockets
-![websocket](websocket.png =200x)
-
 WebSocket is a full-duplex, 
 #####socketio
+Socket.io is a event-based javascript library which enables real-time bidirectional communication, we used it on the server to enable communication through webSockets interface.
 ##### Android client
-![client](./client1.png =700x)
-
-
-
-
-###4.3 callback functions
-
-
-
-###4.4 Concurrency issues 
-##### click conflict
-
+![client](./client1.png =550x)
 
 
 #5. Challenges faced:
 ###5.1 Resolving OutOfMemoryError
-###5.2 User Authentication
-###5.3 maintaining integrity of the grid
-###5.5 contingency for grid conflicts (highly unlikely)
 
-#6. Areas of Improvement
 
-#7. Conclusion ‘Anusha’
+#6. Areas of Improvement `Janice`
+
+#7. Conclusion `Anusha`
 This project has been a challenging and fruitful journey. It has presented us with a lot of difficulties and allowed us to utilize the concepts we learnt in 50.003 to overcome these issues. 
 We learnt that it is imperative to begin with a design model that suits our team and stick to it in order to optimize efficiency. In our case, we adopted the agile development design model and it worked well for our team as well as this project. 
 The UML we worked on at the beginning helped put the entire project into perspective and gave us a better understanding of the direction our project was heading in. 
