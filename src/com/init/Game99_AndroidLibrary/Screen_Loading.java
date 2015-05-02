@@ -69,4 +69,10 @@ public class Screen_Loading extends Screen {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Loading";
+	}
+
 }

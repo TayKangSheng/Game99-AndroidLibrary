@@ -231,5 +231,11 @@ public class Screen_AvatarChooser extends Screen {
 	public void backButton() {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "AvatarChooser";
+	}
 	
 }

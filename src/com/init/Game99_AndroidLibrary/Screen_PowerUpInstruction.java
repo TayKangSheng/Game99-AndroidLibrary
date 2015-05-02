@@ -69,4 +69,10 @@ public class Screen_PowerUpInstruction extends Screen {
 		
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "PowerUpInstruction";
+	}
+
 }

@@ -79,5 +79,9 @@ public class Screen_WelcomePage extends Screen {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public String getName(){
+		return "WelcomePage";
+	}
 
 }

@@ -143,6 +143,13 @@ public class MultiTouchHandler implements TouchHandler {
 			return touchEvents;
 		}
 	}
+	
+	public void setTouchEvents(TouchEvent touchEvent) {
+		synchronized (this) {
+			touchEventsBuffer.add(touchEvent);
+			
+		}
+	}
 
 	// returns the index for a given pointerId or -1 if no index.
 	private int getIndex(int pointerId) {

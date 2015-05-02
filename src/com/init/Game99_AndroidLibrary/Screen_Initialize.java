@@ -107,4 +107,10 @@ public class Screen_Initialize extends Screen {
 
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Initialise";
+	}
+
 }
